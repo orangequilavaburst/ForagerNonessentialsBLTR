@@ -375,7 +375,7 @@ return {
 					"if {C:attention}poker hand{}",
                     "is a {C:attention}#2#{},",
                     "poker hand changes",
-                    "every round",
+                    "after scoring",
                 },
             },
 			j_j8mod_hating_simulator = {

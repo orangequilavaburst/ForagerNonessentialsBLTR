@@ -1827,6 +1827,14 @@ SMODS.Joker {
 			end
 		end
 	end,
+	set_ability = function(self, card, initial, delay_sprites)
+        card.ability.extra.enhancement_type = pseudorandom_element(G.P_CENTER_POOLS.Enhanced, 'j8mod_geode').key
+		local it = 0
+		while (card.ability.extra.enhancement_type == "m_stone" or card.ability.extra.enhancement_type == "m_wild") do
+			card.ability.extra.enhancement_type = pseudorandom_element(G.P_CENTER_POOLS.Enhanced, 'j8mod_geode_resample'..it).key
+			it = it + 1
+		end
+    end,
 	in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
         for _, playing_card in ipairs(G.playing_cards or {}) do
             if SMODS.has_enhancement(playing_card, 'm_stone') then
