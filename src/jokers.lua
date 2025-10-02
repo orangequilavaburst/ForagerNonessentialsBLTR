@@ -658,10 +658,10 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             -- See note about SMODS Scaling Manipulation on the wiki
-			local count = 0
+			local food = {}
 			for i, joker in ipairs(G.jokers.cards) do
 				if (joker.config.center.pools or {}).j8bit_meal_voucher and joker ~= card then
-					count = count + 1
+					table.insert(food, joker)
 					G.E_MANAGER:add_event(Event({
 						trigger = "after",
 						delay = 0.5,
@@ -685,11 +685,15 @@ SMODS.Joker {
 				end
 			end
 			delay(0.5)
-			if count > 0 then
+			if #food > 0 then
 				return {
 					message = localize('k_upgrade_ex'),
 					colour = G.C.MONEY,
-					message_card = card
+					message_card = card,
+					func = function()
+						SMODS.destroy_cards(food)
+						return true
+					end
 				}
 			end
         end

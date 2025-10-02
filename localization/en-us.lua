@@ -195,7 +195,7 @@ return {
 					"Earn {C:money}$#1#{} at end of round",
                     "Payout increases by {C:money}$#2#{}",
                     "for each {C:green}food-themed{C:attention} Joker{} held",
-					"at the end of round",
+					"at the end of round, {C:attention}eats them",
                 },
             },
 			j_j8mod_needlepoint_joker = {
