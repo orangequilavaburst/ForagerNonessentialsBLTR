@@ -22,7 +22,7 @@ return {
                 text = {
                     "Start run with", 
 					"two copies of each",
-					"{C:attention}even{} playing card",
+					"{C:attention}even rank{} card",
 					"and two {C:attention}Queens{} per suit"
                 }
             },
@@ -578,8 +578,8 @@ return {
 					"{C:inactive}(Next Blind: {C:attention}+#4#{C:inactive})",
                 },
             },
-			j_j8mod_aria = {
-                name = "Aria",
+			j_j8mod_cackler = {
+                name = "Cackler",
                 text = {
                     "Scored {C:attention}#1#s{} also",
 					"score all {C:attention}#1#s{} still in hand"
@@ -623,6 +623,12 @@ return {
 				name = "Artist",
 				text = {
 					"gimmick"
+				}
+			},
+			credits_thatartisan = {
+				name = "Artist",
+				text = {
+					"ThatArtisan"
 				}
 			},
 			credits_placeholder = {

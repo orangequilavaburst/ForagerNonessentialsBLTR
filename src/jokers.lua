@@ -3286,9 +3286,10 @@ SMODS.Joker {
 -- Aria
 SMODS.Joker {
 
-	key = "aria",
+	key = "cackler",
 	atlas = "j8jokers",
-    pos = { x = 0, y = 6 },
+    pos = { x = 4, y = 6 },
+    soul_pos = { x = 4, y = 7 },
     unlocked = true,
     discovered = true,
     blueprint_compat = true,
@@ -3298,7 +3299,7 @@ SMODS.Joker {
     cost = 20,
 	config = { extra = { rank = "Ace" } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_thatartisan", set = "Other" }
 		return { vars = { localize((card.ability.extra.rank or "Ace"), 'ranks') } }
 	end,
 	calculate = function(self, card, context)
