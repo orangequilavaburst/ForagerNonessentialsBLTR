@@ -1,0 +1,13 @@
+{
+
+	"id": "ForagerNonessentials",
+	"name": "Forager Nonessentials",
+	"author": ["J8-Bit"],
+	"badge_colour": "FDB157",
+	"description": "Mostly shameless reference Jokers.",
+	"prefix": "j8mod",
+	"display_name": "Forager",
+	"main_file": "forager_nonessentials.lua",
+	"version": "0.1.0"
+
+}

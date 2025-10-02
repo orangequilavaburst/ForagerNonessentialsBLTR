@@ -1,0 +1,25 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if add and not G.GAME.banned_keys[v.key] then "
+position = "after"
+match_indent = true
+payload = '''
+    -- If the selected deck or sleeve is the Promotional Deck one and this key is a Forager Nonessentials Joker
+    -- add copies of it to the pool, so that it is more common to get
+	-- this is very blatantly taken from the Paperback mod, major props to them
+    local is_j8_promo = 
+      (G.GAME.selected_back_key or {}).key == 'b_j8mod_promotional'
+
+    if is_j8_promo and v.key:find('j_j8mod_') then
+	  for i = 1, 2 do
+	    _pool[#_pool + 1] = v.key
+	    _pool_size = _pool_size + 1
+	  end
+    end
+'''
