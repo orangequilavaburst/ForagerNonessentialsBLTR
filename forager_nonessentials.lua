@@ -62,6 +62,27 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas { 
+	key = "j8jokers-werewire",
+	path = "jokers-werewire.png",
+	px = 71,py = 95
+}
+SMODS.Atlas { 
+	key = "j8jokers-hypno",
+	path = "jokers-hypno.png",
+	px = 71,py = 95
+}
+SMODS.Atlas { 
+	key = "j8jokers-yuri",
+	path = "jokers-yuri.png",
+	px = 71,py = 95
+}
+SMODS.Atlas { 
+	key = "j8jokers-clay",
+	path = "jokers-clay.png",
+	px = 71,py = 95
+}
+
+SMODS.Atlas { 
 
 	key = "j8decks",
 	path = "decks-temp.png",
@@ -203,6 +224,7 @@ SMODS.Gradient({
 SMODS.Shader({ key = 'ww', path = 'ww.fs' })
 SMODS.Shader({ key = 'spiral', path = 'spiral.fs' })
 SMODS.Shader({ key = 'yuri', path = 'yuri.fs' })
+SMODS.Shader({ key = 'normal_mapped', path = 'normal_mapped.fs' })
 
 -- ## FUNCTIONS ##
 

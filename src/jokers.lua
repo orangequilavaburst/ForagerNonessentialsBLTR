@@ -1699,10 +1699,10 @@ SMODS.Joker {
     blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = false,
-    rarity = 3,
+    rarity = 2,
     cost = 9,
-	atlas = "j8jokers",
-    pos = { x = 4, y = 5 },
+	atlas = "j8jokers-clay",
+    pos = { x = 0, y = 0 },
     discovered = true,
 	unlocked = true,
     config = { extra = { copying_joker = "j_joker" } },
@@ -1721,12 +1721,17 @@ SMODS.Joker {
 		}
 		]]--
 		info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.copying_joker]
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_sharb", set = "Other" }
 		return {vars = {card.ability.extra.copying_joker and localize({type = 'name_text', set = "Joker", key = card.ability.extra.copying_joker}) or 'Nothing', colours = { card.ability.extra.copying_joker and G.C.RARITY[G.P_CENTERS[card.ability.extra.copying_joker].rarity] or G.C.FILTER }}}
 	end,
+	draw = function(self, card, layer)
+        if card.config.center.discovered or card.bypass_discovery_center then
+            card.children.center:draw_shader('j8mod_normal_mapped', nil, card.ARGS.send_to_shader)
+        end
+    end,
 	calculate = function(self, card, context)
 		-- thanks, somethingcom515 !
-		if context.setting_blind and not context.blueprint then
+		if (context.setting_blind or context.pre_discard) and not context.blueprint then
 			card.ability.extra.copying_joker = pseudorandom_element(G.P_CENTER_POOLS.Joker, 'j8mod_modeling_clay').key
 			return {
 				message = localize { type = 'name_text', set = "Joker", key = card.ability.extra.copying_joker } .. "!",
@@ -1760,7 +1765,7 @@ SMODS.Joker {
 			end
 			return G.j8mod_savedjokercards[card.sort_id][key]:calculate_joker(context)
 		end
-	end
+	end,
 }
 
 -- Geode
@@ -1853,13 +1858,15 @@ SMODS.Joker {
 	eternal_compat = true,
 	rarity = 2,
 	cost = 8,
-	atlas = "j8jokers",
-	pos = { x = 5, y = 5},
-    draw = function(self, card, layer)
-        if (card.config.center.discovered or card.bypass_discovery_center) then
-            card.children.center:draw_shader('j8mod_spiral', nil, card.ARGS.send_to_shader)
+	atlas = "j8jokers-hypno",
+	pos = { x = 0, y = 0},
+	soul_pos = {
+        x = 1, y = 0,
+        draw = function(card, scale_mod, rotate_mod)
+            card.children.floating_sprite:draw_shader('j8mod_spiral', nil, card.ARGS.send_to_shader, nil,
+                card.children.center)
         end
-    end,
+    },
 	discovered = true,
 	unlocked = true,
     config = { extra = { chips = 1, mult = 1, adding_chips = true } },
@@ -2111,13 +2118,22 @@ SMODS.Joker {
 	eternal_compat = true,
 	rarity = 2,
 	cost = 8,
-	atlas = "j8jokers",
-	pos = { x = 1, y = 5},
+	atlas = "j8jokers-werewire",
+	pos = { x = 0, y = 0},
+	soul_pos = {
+        x = 1, y = 0,
+        draw = function(card, scale_mod, rotate_mod)
+            card.children.floating_sprite:draw_shader('j8mod_ww', nil, card.ARGS.send_to_shader, nil,
+                card.children.center)
+        end
+    },
+	--[[
     draw = function(self, card, layer)
         if (card.config.center.discovered or card.bypass_discovery_center) then
             card.children.center:draw_shader('j8mod_ww', nil, card.ARGS.send_to_shader)
         end
     end,
+	]]
 	discovered = true,
 	unlocked = true,
 	config = { extra = { repetitions = 1 } },
@@ -2343,14 +2359,16 @@ SMODS.Joker {
 	eternal_compat = true,
     rarity = 3,
     cost = 11,
-	atlas = "j8jokers",
-    discovered = true,
-    pos = { x = 9, y = 2 },
-    draw = function(self, card, layer)
-        if (card.config.center.discovered or card.bypass_discovery_center) then
-            card.children.center:draw_shader('j8mod_yuri', nil, card.ARGS.send_to_shader)
+	discovered = true,
+	atlas = "j8jokers-yuri",
+	pos = { x = 0, y = 0},
+	soul_pos = {
+        x = 1, y = 0,
+        draw = function(card, scale_mod, rotate_mod)
+            card.children.floating_sprite:draw_shader('j8mod_yuri', nil, card.ARGS.send_to_shader, nil,
+                card.children.center)
         end
-    end,
+    },
     config = { extra = { Xmult_gain = 0.125, Xmult_extra = 0.5, Xmult = 1 } },
     loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }

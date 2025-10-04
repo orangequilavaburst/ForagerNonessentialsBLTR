@@ -10,7 +10,7 @@
 // Values of this variable:
 // self.ARGS.send_to_shader[1] = math.min(self.VT.r*3, 1) + (math.sin(G.TIMERS.REAL/28) + 1) + (self.juice and self.juice.r*20 or 0) + self.tilt_var.amt
 // self.ARGS.send_to_shader[2] = G.TIMERS.REAL
-extern PRECISION vec2 ww;
+extern PRECISION vec2 normal_mapped;
 
 extern PRECISION number dissolve;
 extern PRECISION number time;
@@ -29,65 +29,72 @@ extern PRECISION vec4 burn_colour_2;
 // Apply dissolve effect (when card is being "burnt", e.g. when consumable is used)
 vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv);
 
+mat3 mat_from_rotation(vec3 euler){
+
+	float cosY = cos(euler.y);
+	float sinY = sin(euler.y);
+	float cosP = cos(euler.x);
+	float sinP = sin(euler.x);
+	float cosR = cos(euler.z);
+	float sinR = sin(euler.z);
+	
+	mat3 matrix = mat3(0.0);
+	matrix[0] = vec3(cosY * cosR + sinY, cosR * sinY * sinP, cosP * sinY);
+	matrix[1] = vec3(cosP * sinR, cosR * cosP, -sinP);
+	matrix[2] = vec3(sinR * cosY * sinP - sinY * cosR, sinY * sinR + cosR * cosY * sinP, cosP * cosY);
+	
+	return matrix;
+
+}
+
+vec3 euler_from_mat(mat3 rotation){
+
+	vec3 euler = vec3(asin(-rotation[2][1]), 0.0, 0.0);
+	if (cos(euler.x) > 0.0001){
+		euler.y = atan(rotation[2][0], rotation[2][2]);
+		euler.z = atan(rotation[0][1], rotation[1][1]);
+	}
+	else{
+		euler.y = 0.0;
+		euler.z = atan(-rotation[1][0], rotation[0][0]);
+	}
+	return euler;
+
+}
+
 // This is what actually changes the look of card
 vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
 {
 
+	
+    // Take pixel color (rgba) from `texture` at `texture_coords`, equivalent of texture2D in GLSL
+    vec4 tex = Texel(texture, texture_coords);
     // Position of a pixel within the sprite
 	vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
-	
+
     // For all vectors (vec2, vec3, vec4), .rgb is equivalent of .xyz, so uv.y == uv.g
     // .a is last parameter for vec4 (usually the alpha channel - transparency)
-	vec2 centerPoint = vec2(0.5, 0.5);//iResolution.xy/2.0;
-	float t = ww.y;
-    float ct = length(abs(uv - centerPoint));
-    float ctcol = ct;
-    ct = pow(ct, 3.0);
-    ctcol = 1.0-pow(1.0-ct, 10.0);
-	
-	texture_coords.x += ct * sin(t * 10.0 + (uv.y - 0.5)*(ct * 100.0)) * 0.01;
-	
-	// Take pixel color (rgba) from `texture` at `texture_coords`, equivalent of texture2D in GLSL
-    vec4 tex = Texel(texture, texture_coords);
     
-	// dr background effect
-	float grid_size = 32.0;
-	if (tex.rgb == vec3(0.0)){
-	    vec2 grid_pos = screen_coords + vec2(1.0, 1.0)*ww.y*10.0;
-		if (floor(mod(grid_pos.x, grid_size)) == 0.0 || floor(mod(grid_pos.y, grid_size)) == 0.0){
-		    tex.rgb += vec3(1.0, 0.0, 1.0);
-		}
-		grid_pos = screen_coords - vec2(1.0, 1.0)*ww.y*10.0 + vec2(0.5)*grid_size;
-		if (floor(mod(grid_pos.x, grid_size)) == 0.0 || floor(mod(grid_pos.y, grid_size)) == 0.0){
-		    tex.rgb += vec3(1.0, 0.0, 1.0)*0.5;
-		}
-	}
+	vec4 normalTex = Texel(texture, texture_coords + vec2(0.5, 0.0));
+	vec3 normal = normalTex.rgb * 2.0 - 1.0;
 	
-	// werewire effect
-	const float tMax = 4.0;
-	t += tex.r + tex.g + tex.b + uv.x + uv.y + ww.x;
+	vec3 N = normalize(normal);
+	vec3 card_rot = normalize(vec3(cos(normal_mapped.x), sin(normal_mapped.x), 0.0)) * 1.0;
+	mat3 mat_rot = mat_from_rotation(card_rot);
+	vec3 L = mat_rot * vec3(0.0, 0.0, 1.0);
 	
-	const int colorSize = 4;
-	vec3 colors[colorSize];
-    colors[0] = vec3(250.0/255.0, 62.0/255.0, 87.0/255.0);
-    colors[1] = vec3(252.0/255.0, 210.0/255.0, 83.0/255.0);
-    colors[2] = vec3(90.0/255.0, 252.0/255.0, 58.0/255.0);
-    colors[3] = vec3(71.0/255.0, 197.0/255.0, 255.0/255.0);
+	vec3 diffuse = vec3(1.0) * max(dot(N, L), 0.0);
+	vec3 ambient = vec3(0.95, 0.9, 0.9) * 0.99;//vec3(79.0/255.0, 99.0/255.0, 103.0/255.0) * 0.75;
 	
-	int c0 = int(floor(mod(t, float(colorSize))));
-    int c1 = int(mod(float(c0 + 1), float(colorSize)));
-    float m = mod(t, tMax / float(colorSize));
-    
-    vec3 werewire = mix(colors[c0], colors[c1], m);
-	
-	if (tex.rgb == vec3(0.0)){
-		tex.a = 0.0;
-	}
-	
-	tex.rgb = mix(tex.rgb, werewire, min(1.0, ctcol + 0.1));
+	float constant_att = 0.0;
+	float linear_att = 2.0;
+	float quad_att = 1.0;
+	float dist = 1.0;
+	float attenuation = 1.0 / (constant_att + (linear_att * dist) + (quad_att * dist * dist));
+	vec3 intensity = ambient + diffuse * attenuation;
 
     // required
-    return dissolve_mask(tex*colour, texture_coords, uv);
+    return dissolve_mask(tex*vec4(intensity, 1.0)*colour, texture_coords, uv);
 }
 
 vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv)

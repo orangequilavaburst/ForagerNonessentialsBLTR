@@ -336,9 +336,10 @@ return {
 			j_j8mod_modeling_clay = {
                 name = "Modeling Clay",
                 text = {
-                    "Changes ability to that of",
-                    "a random {C:attention}Joker{}",
+                    "Changes ability to that",
+                    "of a random {C:attention}Joker{}",
                     "at start of round",
+					"or after {C:red}discard{}",
 					"{C:inactive}(Currently {V:1}#1#{C:inactive})",
                 }
             },
@@ -629,6 +630,12 @@ return {
 				name = "Artist",
 				text = {
 					"ThatArtisan"
+				}
+			},
+			credits_sharb = {
+				name = "Artist",
+				text = {
+					"Sharb"
 				}
 			},
 			credits_placeholder = {
