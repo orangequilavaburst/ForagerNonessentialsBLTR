@@ -1803,7 +1803,7 @@ SMODS.Joker {
 			}
 		end
 		if context.check_enhancement then
-			if (context.other_card.config.center.key == "m_stone") then
+			if (context.other_card.config.center.key == "m_stone") and (context.other_card.area and context.other_card.area == G.play or context.other_card.area == G.hand) then
 				if card.ability.extra.enhancement_type == "m_bonus" then
 					return {
 						m_bonus = true,
