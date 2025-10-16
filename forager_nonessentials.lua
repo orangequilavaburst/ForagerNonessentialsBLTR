@@ -1,7 +1,8 @@
 -- ## MOD SETUP ##
 
-local j8mod_id = SMODS.current_mod.id
-local j8mod_name = SMODS.current_mod.name
+J8MOD = SMODS.current_mod
+local j8mod_id = J8MOD.id
+local j8mod_name = J8MOD.name
 --print("I LOVE TASQUE MANAGER")
 --print("mod id: " .. j8mod_id)
 
@@ -9,7 +10,7 @@ assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/decks.lua"))()
 SMODS.load_file("config.lua")()
 
-SMODS.current_mod.optional_features = {
+J8MOD.optional_features = {
     retrigger_joker = true,
     post_trigger = true,
     quantum_enhancements = true
@@ -17,10 +18,10 @@ SMODS.current_mod.optional_features = {
 
 -- ## CONFIG UI ##
 
-local my_config = SMODS.current_mod.config
+local my_config = J8MOD.config
 
 -- Create config UI (Thanks, Paperback!)
-SMODS.current_mod.config_tab = function()
+J8MOD.config_tab = function()
   return {
     n = G.UIT.ROOT,
     config = { align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = G.C.BLACK },
@@ -79,6 +80,11 @@ SMODS.Atlas {
 SMODS.Atlas { 
 	key = "j8jokers-clay",
 	path = "jokers-clay.png",
+	px = 71,py = 95
+}
+SMODS.Atlas { 
+	key = "j8jokers-prophecy",
+	path = "jokers-prophecy.png",
 	px = 71,py = 95
 }
 
@@ -221,10 +227,20 @@ SMODS.Gradient({
 
 -- ## SHADERS ##
 
+J8MOD.load_custom_image = function(filename)
+  local full_path = (J8MOD.path .. "assets/extra_images/" .. filename)
+  local file_data = assert(NFS.newFileData(full_path),("Failed to create file_data"))
+  local tempimagedata = assert(love.image.newImageData(file_data),("Failed to create tempimagedata"))
+  return (assert(love.graphics.newImage(tempimagedata),("Failed to create return image")))
+end
+
+J8MOD.prophecy_texture = J8MOD.load_custom_image("depths.png")
+
 SMODS.Shader({ key = 'ww', path = 'ww.fs' })
 SMODS.Shader({ key = 'spiral', path = 'spiral.fs' })
 SMODS.Shader({ key = 'yuri', path = 'yuri.fs' })
 SMODS.Shader({ key = 'normal_mapped', path = 'normal_mapped.fs' })
+SMODS.Shader({ key = 'prophecy', path = 'prophecy.fs'})
 
 -- ## FUNCTIONS ##
 

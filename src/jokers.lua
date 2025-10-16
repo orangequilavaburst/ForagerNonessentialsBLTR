@@ -10,8 +10,17 @@ SMODS.Joker {
 	perishable_compat = false,
     rarity = 2,
     cost = 8,
-	atlas = "j8jokers",
+	atlas = "j8jokers-prophecy",
     pos = { x = 0, y = 0 },
+	soul_pos = {
+        x = 1, y = 0,
+        draw = function(card, scale_mod, rotate_mod)
+			G.SHADERS['j8mod_prophecy']:send("depths_texture", J8MOD.prophecy_texture)
+			--G.SHADERS['j8mod_prophecy']:send("depths_dimensions", {J8MOD.prophecy_texture:getWidth(), J8MOD.prophecy_texture:getHeight()})
+            card.children.floating_sprite:draw_shader('j8mod_prophecy', nil, card.ARGS.send_to_shader, nil,
+                card.children.center)
+        end
+    },
     config = { extra = { prophecy_rounds = 0, total_rounds = 3, spectral_count = 1 } },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = 'tag_ethereal', set = 'Tag' }
