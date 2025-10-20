@@ -79,7 +79,8 @@ SMODS.Back {
             func = function()
                 for k, v in pairs(G.playing_cards) do
 					if v:get_id() == 13 then
-						SMODS.destroy_cards(v, false)
+						--SMODS.destroy_cards(v, false)
+						v:remove()
                     elseif v:get_id() % 2 == 1 or v:get_id() > 12 then
                         SMODS.modify_rank(v, 1)
                     end

@@ -207,7 +207,7 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		if context.post_trigger and not context.blueprint and context.cardarea == G.jokers then
 			--print(context.other_context)
-			if not context.other_context.check_enhancement and not context.other_context.mod_probability and not context.evaluate_poker_hand and context.other_card ~= card then
+			if not context.other_context.check_enhancement and not context.other_context.mod_probability and not context.other_context.evaluate_poker_hand and context.other_card ~= card then
 				--print("It's not check enhancement!")
 				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
 
