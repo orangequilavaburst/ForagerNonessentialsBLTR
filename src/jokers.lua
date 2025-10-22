@@ -55,6 +55,7 @@ SMODS.Joker {
 					return true
 				end
 			}))
+			card:shatter()
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             card.ability.extra.prophecy_rounds = card.ability.extra.prophecy_rounds + 1
