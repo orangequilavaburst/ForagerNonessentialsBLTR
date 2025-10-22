@@ -1273,7 +1273,18 @@ SMODS.Joker {
 									it = it + 1
 									selected_tag = pseudorandom_element(tag_pool, 'j8mod_fursona_resample'..it)
 								end
-								add_tag(Tag(selected_tag))
+								local tag = Tag(selected_tag)
+								if tag.name == "Orbital Tag" then
+									local _poker_hands = {}
+									for k, v in pairs(G.GAME.hands) do
+										if v.visible then
+											_poker_hands[#_poker_hands + 1] = k
+										end
+									end
+									tag.ability.orbital_hand = pseudorandom_element(_poker_hands, "j8mod_fursona_orbital_tag")
+								end
+								tag:set_ability()
+								add_tag(tag)
 								return true
 							end
 						}))
@@ -1625,7 +1636,18 @@ SMODS.Joker {
 									it = it + 1
 									selected_tag = pseudorandom_element(tag_pool, 'j8mod_thrift_shop_resample'..it)
 								end
-								add_tag(Tag(selected_tag))
+								local tag = Tag(selected_tag)
+								if tag.name == "Orbital Tag" then
+									local _poker_hands = {}
+									for k, v in pairs(G.GAME.hands) do
+										if v.visible then
+											_poker_hands[#_poker_hands + 1] = k
+										end
+									end
+									tag.ability.orbital_hand = pseudorandom_element(_poker_hands, "j8mod_thrift_shop_orbital_tag")
+								end
+								tag:set_ability()
+								add_tag(tag)
 								return true
 							end
 						}))

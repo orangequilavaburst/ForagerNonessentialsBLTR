@@ -52,20 +52,20 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 		vec4 itex = Texel(texture, texture_coords + off);
 		vec4 depths_itex = Texel(depths_texture, tex_coords_depths + off);
 		if (itex.rgb == vec3(1.0)){
-			itex.rgb = depths_itex.rgb;
+			itex.rgb = depths_itex.rgb * vec3(0.2588,0.8157,1.0) + 0.2;
 		}
 		else{
 			itex.rgb = vec3(1.0);
 		}
 		if (itex.rgb != vec3(1.0)){
-			tex = vec4(itex.rgb * pow(float(i) / float(count), 2.0), min(1.0, tex.a + itex.a));
+			tex = vec4(itex.rgb * pow(float(i) / float(count), 1.01), min(1.0, tex.a + itex.a));
 		}
 	
 	}
 	
 	// text
 	if (orig_tex.rgb == vec3(1.0, 0.0, 0.0)){
-		tex = vec4(Texel(depths_texture, fract(texture_coords + vec2(0.0, -prophecy.y)*0.05)).rgb, 1.0);
+		tex = vec4(Texel(depths_texture, fract(texture_coords + vec2(0.0, -prophecy.y)*0.05)).rgb * vec3(0.2588,0.8157,1.0) + 0.15, 1.0);
 	}
 	
 	// background
@@ -74,7 +74,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 	
 		vec2 vuv = uv * (1.0 - uv.yx);
 		float ct = pow(vuv.x*vuv.y * 50.0, 1.5);
-		tex = vec4(Texel(depths_texture, fract(texture_coords*0.5 + vec2(prophecy.y)*0.02)).rgb * vec3(0.0, 0.325, 0.25), clamp(ct, 0.0, 1.0));
+		tex = vec4(Texel(depths_texture, fract(texture_coords*0.5 + vec2(prophecy.y)*0.02)).rgb * 0.5 * vec3(0.2588,0.8157,1.0) - 0.25, clamp(ct, 0.0, 1.0));
 	
 	}
 
