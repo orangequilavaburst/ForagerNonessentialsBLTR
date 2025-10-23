@@ -1565,6 +1565,7 @@ SMODS.Joker {
 	unlocked = true,
     config = { extra = { odds = 7 } },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_kitsune_mask')
         return { vars = { numerator, denominator } }
@@ -1572,7 +1573,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and
             #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            if (context.other_card:get_id() == 7) and SMODS.pseudorandom_probability(card, 'j8mod_kitsune_mask', 1, card.ability.extra.odds) then
+            if (context.other_card:get_id() == 7) and (SMODS.pseudorandom_probability(card, 'j8mod_kitsune_mask', SMODS.has_enhancement(context.other_card, 'm_lucky') and 2 or 1, card.ability.extra.odds)) then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 return {
                     extra = {

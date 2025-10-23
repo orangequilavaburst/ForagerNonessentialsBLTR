@@ -179,9 +179,9 @@ SMODS.Back {
     key = "yoshi",
     pos = { x = 5, y = 0 },
 	atlas = "j8decks",
-    config = { ante_scaling = 0.9, extra = { price = 3 } },
+    config = { extra = { price = 3 } },
 	loc_vars = function(self, info_queue, back)
-        return { vars = { self.config.ante_scaling, self.config.extra.price } }
+        return { vars = { self.config.extra.price } }
     end,
 	calculate = function(self, back, context)
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
@@ -216,11 +216,12 @@ SMODS.Back {
     key = "hypnotic",
     pos = { x = 6, y = 0 },
 	atlas = "j8decks",
-    config = { consumables = { 'c_death', 'c_trance' } },
+    config = { consumables = { 'c_death', 'c_trance' }, ante_scaling = 1.2 },
     loc_vars = function(self, info_queue, back)
         return { vars = { 
 		localize { type = 'name_text', key = self.config.consumables[1], set = 'Tarot' },
-		localize { type = 'name_text', key = self.config.consumables[2], set = 'Spectral' } 
+		localize { type = 'name_text', key = self.config.consumables[2], set = 'Spectral' },
+		self.config.ante_scaling
 		} }
     end,
 }

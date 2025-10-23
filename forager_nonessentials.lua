@@ -189,16 +189,7 @@ function Card.set_cost(self)
 	end
 end
 
-local ccfs = create_card_for_shop
-function create_card_for_shop(area)
-    local card = ccfs(area)
-	if G.GAME.selected_back == "b_j8mod_graph" then
-		if card.ability.set == "Tarot" or card.ability.set == "Planet" then
-			card:set_ability("c_fool")
-		end
-	end
-    return card
-end
+--[[
 
 local create_card_ref = create_card
 function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
@@ -211,9 +202,40 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
 			if new_key ~= nil then
 				card:set_ability(new_key)
 			end
+		elseif G.GAME.selected_back == "b_j8mod_graph" then
+			if (card.ability.set == "Tarot" or card.ability.set == "Planet") and (area == G.shop_jokers or area == G.consumeables) then
+				card:set_ability("c_fool")
+			end
 		end
 	end
     return card
+end
+
+]]
+
+local cardarea_emplace_hook = CardArea.emplace
+function CardArea:emplace(card, location, stay_flipped)
+
+    local ret = cardarea_emplace_hook(self, card, location, stay_flipped)
+
+	if (G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic") then
+		--print("on hypnotic deck")
+		if self ~= G.jokers then
+			local new_key = replace_with_player_consumable(card.ability.set)
+			if new_key ~= nil then
+				--print("replacing " .. card.ability.set .. " with " .. new_key)
+				card:set_ability(new_key)
+			end
+		end
+	elseif (G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_j8mod_graph") then
+		--print("on graph deck")
+		if (card.ability.set == "Tarot" or card.ability.set == "Planet") and (self == G.shop_jokers) then
+			--print("replacing " .. card.ability.set .. " with The Fool")
+			card:set_ability("c_fool")
+		end
+	end
+
+    return ret
 end
 
 -- ## GRADIENTS ##

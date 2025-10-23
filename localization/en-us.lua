@@ -4,7 +4,7 @@ return {
             b_j8mod_waterproof = {
                 name = "Waterproof Deck",
                 text = {
-                    "{C:attention}#1#{} card slot available in shop",
+                    "{C:attention}#1#{} card slot available in shop,",
 					"Non-finisher {C:attention}Boss Blinds{}",
 					"are disabled"
                 }
@@ -12,15 +12,15 @@ return {
 			b_j8mod_lakeside = {
                 name = "Lakeside Deck",
                 text = {
-                    "{C:blue}+#1#{} hands every round",
-					"{C:red}#2# discards every round",
+                    "{C:blue}+#1#{} hands every round,",
+					"{C:red}#2# discards every round,",
 					"Interest is {C:attention}doubled",
                 }
             },
 			b_j8mod_pinstripes = {
                 name = "Pinstripes Deck",
                 text = {
-                    "Start run with", 
+                    "Start run with",
 					"two copies of each",
 					"{C:attention}even rank{} card",
 					"and two {C:attention}Queens{} per suit"
@@ -31,7 +31,7 @@ return {
                 text = {
                     "All face cards start as {C:attention}Wild{} cards",
 					"{C:red}Discarding{} an unenhanced card",
-					"turns it into a {C:attention}Wild{} card",
+					"turns it into a {C:attention}Wild{} card,",
 					"{C:red}Discarding{} a {C:attention}Wild{} card destroys it",
                 }
             },
@@ -40,8 +40,7 @@ return {
                 text = {
                      "Start run with {C:tarot,T:c_fool}#1#",
 					 "All future {C:tarot}Tarot{} and {C:planet}Planet",
-					 "cards in shop",
-					 "become {C:tarot,T:c_fool}#1#"
+					 "cards in shop become {C:tarot,T:c_fool}#1#"
                 }
             },
 			b_j8mod_yoshi = {
@@ -49,25 +48,26 @@ return {
                 text = {
                     "Purchased Jokers' sell",
 					"values become {C:money}$1",
-					"and increase by {C:money}$#2#{}",
+					"and increase by {C:money}$#1#{}",
 					"at the end of round",
-                    "{C:red}X#1#{} base Blind size",
                 }
             },
 			b_j8mod_hypnotic = {
                 name = "Hypnotic Deck",
                 text = {
-                    "Start run with {C:tarot,T:c_death}#1#{} and {C:spectral,T:c_trance}#2#{}",
-					"{C:attention}Consumables{} you own ensure",
-					"future cards of that type",
-					"appear when applicable"
+                    "{C:spectral}Spectral{} cards may",
+                    "appear in the shop,",
+                    "Start with {C:tarot,T:c_death}#1#{} and {C:spectral,T:c_trance}#2#{},",
+					"Only {C:attention}consumables you own{}",
+					"appear when possible",
+                    "{C:red}X#3#{} base Blind size",
                 }
             },
 			b_j8mod_promotional = {
                 name = "Promotional Deck",
                 text = {
                     "{C:j8mod_fn}Forager Nonessentials{}",
-					"Jokers appear more often",
+					"Jokers appear more often,",
 					"Start run with {C:attention,T:v_overstock_norm}#1#",
 					"and {C:attention,T:v_overstock_plus}#2#{}"
                 }
@@ -312,6 +312,7 @@ return {
                     "{C:green}#1# in #2#{} chance for each",
                     "played {C:attention}7{} to create a",
                     "{C:spectral}Spectral{} card when scored",
+                    "Chance {C:green}doubled{} on a {C:attention}Lucky 7{}",
                     "{C:inactive}(Must have room)",
                 },
             },
