@@ -2075,6 +2075,7 @@ SMODS.Joker {
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and not context.blueprint then
+			--if context.post_trigger and context.cardarea == G.jokers and context.other_card ~= self and not context.blueprint then
 			--print(card.config.center.key)
 			--print(card.config.center)
 			--print(card.ability)
@@ -2089,7 +2090,7 @@ SMODS.Joker {
 				delay = 0.75,
 				ref_table = card.config.center.config.extra,
 				ref_value = "rot_extra",
-				ease_to = card.config.center.config.extra.rot_extra + math.pi,
+				ease_to = card.config.center.config.extra.rot_extra + math.pi
 			}))
 			return {
 				message = "Swapped!",
