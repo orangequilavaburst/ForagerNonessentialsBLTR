@@ -646,5 +646,38 @@ return {
                 }
             }
         }
-    }
+    },
+    misc = {
+        dictionary = {
+            j8mod_no_deltarune_spoilers = "No Deltarune Spoilers",
+            j8mod_no_deltarune_spoilers_desc = {
+                "Replaces references to",
+                "Deltarune Chapters 3-4",
+                "with other things."
+            },
+            j8mod_furry_mode = "Furry Mode",
+            j8mod_furry_mode_desc = {
+                "Some Jokers will have",
+                "alternate artwork",
+                "when enabled."
+            },
+            j8mod_monty_hall_open = "Open Door!",
+            j8mod_sandwiched_ex = "Sandwiched!",
+            j8mod_tagged_ex = "Tagged!",
+            j8mod_flushed_ex = "Flushed!",
+            j8mod_ranked_ex = "Ranked!",
+            j8mod_nice_ex = "Nice!",
+            j8mod_pennies_ex = "Pennies!",
+            j8mod_loot_ex = "Loot!",
+            j8mod_treasure_ex = "Treasure!",
+            j8mod_swapped_ex = "Swapped!",
+            j8mod_enhanced_ex = "Enhanced!",
+            j8mod_chaos_ex = "CHAOS!",
+            j8mod_muffet_laugh = "Ahuhuhu~",
+            j8mod_reduced_ex = "Reduced!",
+            j8mod_temmie_text = "ho1!",
+            j8mod_free_ex = "Free!",
+            j8mod_yeah_ex = "Yeah!"
+        }
+    },
 }

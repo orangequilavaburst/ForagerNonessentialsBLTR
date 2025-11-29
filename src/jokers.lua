@@ -99,7 +99,7 @@ SMODS.Joker {
 		if context.pseudorandom_result then
 			if not context.result then
 				return {
-					message = "Open door!",
+					message = localize("j8mod_monty_hall_open"),
 					colour = G.C.FILTER,
 					func = function()
 						card.ability.extra.extra_numerator = card.ability.extra.extra_numerator +
@@ -108,7 +108,7 @@ SMODS.Joker {
 				}
 			else
 				return {
-					message = "Reset!",
+					message = localize('k_reset'),
 					colour = G.C.FILTER,
 					func = function()
 						card.ability.extra.extra_numerator = 0
@@ -350,7 +350,7 @@ SMODS.Joker {
 			}))
 
 			return {
-				message = "Sandwiched!",
+				message = localize("j8mod_sandwiched_ex"),
 				colour = G.C.SECONDARY_SET.Enhanced
 			}
 		end
@@ -540,7 +540,7 @@ SMODS.Joker {
 				play_sound("tarot1")
 				add_tag(Tag(G.GAME.round_resets.blind_tags[G.GAME.blind:get_type()]))
 				return {
-					message = "Tagged!",
+					message = localize("j8mod_tagged_ex"),
 					colour = G.C.BLUE,
 					message_card = card,
 				}
@@ -778,7 +778,7 @@ SMODS.Joker {
 		if context.before then
 			if card.ability.extra.rerolls > 0 and next(context.poker_hands["Flush"]) and G.GAME.blind:get_type() ~= "Boss" then
 				return {
-					message = "Flushed!",
+					message = localize("j8mod_flushed_ex"),
 					colour = G.C.GREEN,
 					func = function()
 						card.ability.extra.rerolls = card.ability.extra.rerolls - 1
@@ -816,7 +816,7 @@ SMODS.Joker {
 			SMODS.calculate_effect({
 					trigger = "after",
 					delay = 1.0,
-					message = "Ranked!",
+					message = localize("j8mod_ranked_ex"),
 					colour = G.C.GREEN,
 					func = function()
 						G.E_MANAGER:add_event(Event({
@@ -834,7 +834,7 @@ SMODS.Joker {
 			SMODS.calculate_effect({
 					trigger = "after",
 					delay = 1.0,
-					message = "Ranked!",
+					message = localize("j8mod_ranked_ex"),
 					colour = G.C.GREEN,
 					func = function()
 						G.E_MANAGER:add_event(Event({
@@ -852,7 +852,7 @@ SMODS.Joker {
 			SMODS.calculate_effect({
 					trigger = "after",
 					delay = 1.0,
-					message = "Ranked!",
+					message = localize("j8mod_ranked_ex"),
 					colour = G.C.GREEN,
 					func = function()
 						G.E_MANAGER:add_event(Event({
@@ -1151,7 +1151,7 @@ SMODS.Joker {
 				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
 
 				return {
-					message = "Nice!",
+					message = localize("j8mod_nice_ex"),
 					colour = G.C.EDITION,
 					message_card = card
 				}
@@ -1257,7 +1257,7 @@ SMODS.Joker {
 			if ace_check and two_check and six_check then
 				-- See note about SMODS Scaling Manipulation on the wikilocal tag_pool = get_current_pool('Tag')
 				return {
-					message = "owo",
+					message = localize("j8mod_tagged_ex"),
 					colour = G.C.GREEN,
 					func = function()
 						G.E_MANAGER:add_event(Event({
@@ -1387,7 +1387,7 @@ SMODS.Joker {
 					card.ability.extra.money_max)
 				G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money_count
 				return {
-					message = "Pennies!",
+					message = localize("j8mod_pennies_ex"),
 					colour = G.C.MONEY,
 					dollars = money_count,
 					func = function()
@@ -1411,7 +1411,7 @@ SMODS.Joker {
 					}
 				else
 					return {
-						message = "Loot!",
+						message = localize("j8mod_loot_ex"),
 						colour = G.C.BLUE,
 						func = function()
 							G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + consumable_count
@@ -1449,7 +1449,7 @@ SMODS.Joker {
 					}
 				else
 					return {
-						message = "Treasure!",
+						message = localize("j8mod_treasure_ex"),
 						colour = G.C.YELLOW,
 						func = function()
 							G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
@@ -1621,7 +1621,7 @@ SMODS.Joker {
 		if context.reroll_shop and not context.blueprint then
 			if SMODS.pseudorandom_probability(card, 'j8mod_thrift_shop', 1, card.ability.extra.odds) then
 				return {
-					message = "Awesome!",
+					message = localize("j8mod_tagged_ex"),
 					colour = G.C.GREEN,
 					func = function()
 						G.E_MANAGER:add_event(Event({
@@ -2093,7 +2093,7 @@ SMODS.Joker {
 				ease_to = card.config.center.config.extra.rot_extra + math.pi
 			}))
 			return {
-				message = "Swapped!",
+				message = localize("j8mod_swapped_ex"),
 				message_card = card,
 				colour = G.C.PURPLE
 			}
@@ -2135,7 +2135,7 @@ SMODS.Joker {
 					end
 				}))
 				return {
-					message = "Enhanced!",
+					message = localize("j8mod_enhanced_ex"),
 					colour = G.C.EDITION,
 					message_card = card
 				}
@@ -2796,7 +2796,7 @@ SMODS.Joker {
 		if context.setting_blind and not context.blueprint then
 			if #G.consumeables.cards > 0 then
 				return {
-					message = "Swap!",
+					message = localize("j8mod_swapped_ex"),
 					message_card = card,
 					colour = G.C.BLUE,
 					func = function()
@@ -2856,7 +2856,7 @@ SMODS.Joker {
 			local do_chaos = G.GAME.chips + hand_chips * mult < G.GAME.blind.chips
 			if do_chaos then
 				return {
-					message = "CHAOS!",
+					message = localize("j8mod_chaos_ex"),
 					colour = G.C.PURPLE,
 					func = function()
 						G.FUNCS.draw_from_hand_to_deck()
@@ -2924,7 +2924,7 @@ SMODS.Joker {
 					SMODS.calculate_effect({
 							trigger = "after",
 							delay = 1.0,
-							message = "Ahuhuhu!",
+							message = localize("j8mod_muffet_laugh"),
 							colour = G.C.PURPLE,
 							func = function()
 								card_to_seal:set_seal(card.ability.extra.seal)
@@ -2963,7 +2963,7 @@ SMODS.Joker {
 			G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
 			SMODS.juice_up_blind()
 			return {
-				message = "Reduced!",
+				message = localize("j8mod_reduced_ex"),
 				message_card = card,
 				colour = G.C.UI.TEXT_DARK
 			}
@@ -3059,7 +3059,7 @@ SMODS.Joker {
 			-- return
 			return {
 				trigger = "immediate",
-				message = "hoI!",
+				message = localize("j8mod_temmie_text"),
 				colour = G.C.GREEN,
 				message_card = card,
 				func = function()
@@ -3070,7 +3070,7 @@ SMODS.Joker {
 							local new_cost = math.max(0, shop_card.cost - card.ability.extra.price_reduction)
 							local msg = "$" .. new_cost
 							if new_cost <= 0 then
-								msg = "Free!"
+								msg = localize("j8mod_free_ex")
 							end
 							SMODS.calculate_effect({
 									trigger = "after",
@@ -3091,7 +3091,7 @@ SMODS.Joker {
 							local new_cost = math.max(0, shop_card.cost - card.ability.extra.price_reduction)
 							local msg = "$" .. new_cost
 							if new_cost <= 0 then
-								msg = "Free!"
+								msg = localize("j8mod_free_ex")
 							end
 							SMODS.calculate_effect({
 									trigger = "after",
@@ -3111,7 +3111,7 @@ SMODS.Joker {
 							local new_cost = math.max(0, shop_card.cost - card.ability.extra.price_reduction)
 							local msg = "$" .. new_cost
 							if new_cost <= 0 then
-								msg = "Free!"
+								msg = localize("j8mod_free_ex")
 							end
 							SMODS.calculate_effect({
 									trigger = "after",
@@ -3229,7 +3229,7 @@ SMODS.Joker {
 				end
 			}))
 			return {
-				message = "Enhanced!",
+				message = localize("j8mod_enhanced_ex"),
 				color = G.C.EDITION,
 				message_card = card
 			}
@@ -3337,7 +3337,7 @@ SMODS.Joker {
 
 }
 
--- Aria
+-- Cackler
 SMODS.Joker {
 
 	key = "cackler",
@@ -3381,7 +3381,7 @@ SMODS.Joker {
 				end
 				if #cards_to_trigger > 0 then
 					return {
-						message = "Yeah!",
+						message = localize("j8mod_yeah_ex"),
 						message_card = card,
 						func = function()
 							for _, v in ipairs(cards_to_trigger) do
