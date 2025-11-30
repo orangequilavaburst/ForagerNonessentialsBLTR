@@ -21,11 +21,11 @@ SMODS.Joker {
 				card.children.center)
 		end
 	},
-	config = { extra = { prophecy_rounds = 0, total_rounds = 3, spectral_count = 1 } },
+	config = { extra = { prophecy_rounds = 0, total_rounds = 3, spectral_count = 2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = 'tag_ethereal', set = 'Tag' }
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = { card.ability.extra.total_rounds, card.ability.extra.prophecy_rounds, card.ability.extra.spectral_count, localize { type = 'name_text', set = 'Tag', key = 'tag_ethereal' } } }
+		return { vars = { card.ability.extra.total_rounds, card.ability.extra.prophecy_rounds, card.ability.extra.spectral_count, [[localize { type = 'name_text', set = 'Tag', key = 'tag_ethereal' }]] } }
 	end,
 	calculate = function(self, card, context)
 		if context.selling_self and (card.ability.extra.prophecy_rounds >= card.ability.extra.total_rounds) and not context.blueprint then
@@ -43,6 +43,7 @@ SMODS.Joker {
 					end
 				}))
 			end
+			--[[
 			G.E_MANAGER:add_event(Event({
 				trigger = 'after',
 				delay = 0.1,
@@ -55,6 +56,7 @@ SMODS.Joker {
 					return true
 				end
 			}))
+			]]
 			card:shatter()
 		end
 		if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
@@ -131,7 +133,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = true,
 	pos = { x = 2, y = 0 },
-	config = { extra = { odds = 4 } },
+	config = { extra = { odds = 2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
@@ -198,7 +200,7 @@ SMODS.Joker {
 	discovered = true,
 	unlocked = true,
 	pos = { x = 3, y = 0 },
-	config = { extra = { chips = 0, chip_mod = 3 } },
+	config = { extra = { chips = 0, chip_mod = 4 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
 		return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
@@ -250,7 +252,7 @@ SMODS.Joker {
 	unlocked = true,
 	pos = { x = 4, y = 0 },
 	pixel_size = { w = 49, h = 72 },
-	config = { extra = { chips = 0, chip_mod = 10 } },
+	config = { extra = { chips = 0, chip_mod = 4 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
@@ -498,7 +500,7 @@ SMODS.Joker {
 					for _ = 1, jokers_to_create do
 						SMODS.add_card {
 							area = G.jokers,
-							set = 'j8bit_meal_voucher' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
+							set = 'j8bit_meal_ticket' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
 						}
 						G.GAME.joker_buffer = 0
 					end
@@ -528,21 +530,34 @@ SMODS.Joker {
 	pos = { x = 0, y = 1 },
 	config = { extra = { odds = 3 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_graffiti')
-		return { vars = { numerator, denominator } }
+		local tag_text = ""
+		if G.GAME.blind and G.GAME.blind.in_blind and G.GAME.blind:get_type() ~= "Boss" then
+			--print(G.GAME.round_resets.blind_tags[G.GAME.blind:get_type()])
+			info_queue[#info_queue + 1] = { key = G.GAME.round_resets.blind_tags[G.GAME.blind:get_type()], set = 'Tag' }
+			tag_text = localize { type = 'name_text', set = 'Tag', key = G.GAME.round_resets.blind_tags[G.GAME.blind:get_type()] }
+		end
+		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
+		return { vars = { numerator, denominator, string.len(tag_text) > 0 and "[" or ("[" .. localize("j8mod_inactive")), tag_text, "]" } }
 	end,
 	calculate = function(self, card, context)
 		if context.end_of_round and context.game_over == false and context.main_eval
 			and SMODS.pseudorandom_probability(card, 'j8mod_graffiti', 1, card.ability.extra.odds) then
 			-- thanks cryptid
 			if G.GAME.blind:get_type() ~= "Boss" then
-				play_sound("tarot1")
-				add_tag(Tag(G.GAME.round_resets.blind_tags[G.GAME.blind:get_type()]))
 				return {
 					message = localize("j8mod_tagged_ex"),
 					colour = G.C.BLUE,
 					message_card = card,
+					func = function()
+						G.E_MANAGER:add_event(Event({
+							func = function()
+								play_sound("tarot1")
+								add_tag(Tag(G.GAME.round_resets.blind_tags[G.GAME.blind:get_type()]))
+								return true
+							end
+						}))
+					end
 				}
 			end
 		end
@@ -562,14 +577,15 @@ SMODS.Joker {
 	pos = { x = 1, y = 1 },
 	discovered = true,
 	unlocked = true,
+	config = { extra = { rank = "None" } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return {}
+		return { vars = { (card.ability.extra.rank ~= "None") and localize((card.ability.extra.rank), 'ranks') or "None" } }
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind and not context.blueprint then
 			for index, playing_card in ipairs(G.playing_cards) do
-				if playing_card.ability.played_this_ante then
+				if playing_card.base.value == G.GAME.current_round.j8mod_bookmark_rank and not SMODS.has_no_rank(playing_card) then
 					SMODS.debuff_card(playing_card, 'prevent_debuff', 'j8mod_bookmark')
 					SMODS.recalc_debuff(playing_card)
 				end
@@ -585,7 +601,7 @@ SMODS.Joker {
 	end,
 	add_to_deck = function(self, card, from_debuff)
 		for index, playing_card in ipairs(G.playing_cards) do
-			if playing_card.ability.played_this_ante then
+			if playing_card.base.value == G.GAME.current_round.j8mod_bookmark_rank and not SMODS.has_no_rank(playing_card) then
 				SMODS.debuff_card(playing_card, 'prevent_debuff', 'j8mod_bookmark')
 				SMODS.recalc_debuff(playing_card)
 			end
@@ -1017,7 +1033,7 @@ SMODS.Joker {
 	config = { extra = { rank_saved = 13, rank_name = 'Ace' } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		local extra_text = { "(inactive)", "", "" }
+		local extra_text = { localize("j8mod_inactive"), "", "" }
 		local colours = { G.C.UI.TEXT_INACTIVE }
 		local ret_vals = { nil, nil, "", "", "", colours = { G.C.UI.TEXT_INACTIVE, G.C.FILTER, G.C.UI.TEXT_INACTIVE } }
 		if G.hand and G.GAME.current_round.hands_played == 0 and G.GAME.blind.in_blind then
@@ -1602,7 +1618,7 @@ SMODS.Joker {
 -- Thrift Shop
 SMODS.Joker {
 	key = "thrift_shop",
-	blueprint_compat = false,
+	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 2,
@@ -1611,14 +1627,14 @@ SMODS.Joker {
 	pos = { x = 7, y = 4 },
 	discovered = true,
 	unlocked = true,
-	config = { extra = { odds = 8 } },
+	config = { extra = { odds = 10 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_thrift_shop')
 		return { vars = { numerator, denominator } }
 	end,
 	calculate = function(self, card, context)
-		if context.reroll_shop and not context.blueprint then
+		if context.reroll_shop then
 			if SMODS.pseudorandom_probability(card, 'j8mod_thrift_shop', 1, card.ability.extra.odds) then
 				return {
 					message = localize("j8mod_tagged_ex"),
@@ -1671,7 +1687,7 @@ SMODS.Joker {
 	pos = { x = 8, y = 4 },
 	discovered = true,
 	unlocked = true,
-	config = { extra = { odds = 6 } },
+	config = { extra = { odds = 8 } },
 	loc_vars = function(self, info_queue, card)
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
 			'j8mod_marzipan_decoration')
@@ -1703,10 +1719,11 @@ SMODS.Joker {
 	end,
 	calculate = function(self, card, context)
 		-- gros michel
-		if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+		if context.post_trigger and context.other_card == card and not context.blueprint then
 			if SMODS.pseudorandom_probability(card, 'j8mod_marzipan_decoration', 1, card.ability.extra.odds) then
 				return {
 					message = localize('k_eaten_ex'),
+					message_card = card,
 					func = function()
 						SMODS.destroy_cards(card)
 						return true
@@ -2606,15 +2623,17 @@ SMODS.Joker {
 		return { vars = { card.ability.extra.money_current, card.ability.extra.money_max } }
 	end,
 	calculate = function(self, card, context)
-		if (context.buying_card or context.open_booster) and card ~= self then
-			card.ability.extra.money_current = card.ability.extra.money_current + context.card.cost
-			SMODS.calculate_effect({
-					trigger = "after",
-					delay = 0.5,
-					message = localize('k_upgrade_ex'),
-					colour = G.C.MONEY
-				},
-				card)
+		if (context.buying_card or context.buying_voucher or context.open_booster) and not context.buying_self and context.card ~= card and not context.blueprint then
+			if context.card and context.card.cost > 0 then
+				card.ability.extra.money_current = card.ability.extra.money_current + context.card.cost
+				SMODS.calculate_effect({
+						trigger = "after",
+						delay = 0.5,
+						message = localize('k_upgrade_ex'),
+						colour = G.C.MONEY
+					},
+					card)
+			end
 
 			if card.ability.extra.money_current >= card.ability.extra.money_max then
 				SMODS.calculate_effect({
@@ -2877,7 +2896,7 @@ SMODS.Joker {
 -- Spider Bake Sale
 SMODS.Joker {
 	key = "spider_bake_sale",
-	blueprint_compat = true,
+	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = true,
 	rarity = 2,
@@ -2893,17 +2912,19 @@ SMODS.Joker {
 		return { vars = { card.ability.extra.seal, card.ability.extra.money_current, card.ability.extra.money_max } }
 	end,
 	calculate = function(self, card, context)
-		if context.buying_card and card ~= self then
-			--print (context.card or context.booster or context.voucher)
+		if (context.buying_card or context.buying_voucher or context.open_booster) and not context.buying_self and context.card ~= card and not context.blueprint then
+			--print(context.card or context.booster or context.voucher)
 			--print(context.card.cost .. " vs " .. card.cost)
-			card.ability.extra.money_current = card.ability.extra.money_current + context.card.cost
-			SMODS.calculate_effect({
-					trigger = "after",
-					delay = 0.5,
-					message = localize('k_upgrade_ex'),
-					colour = G.C.MONEY
-				},
-				card)
+			if context.card and context.card.cost > 0 then
+				card.ability.extra.money_current = card.ability.extra.money_current + context.card.cost
+				SMODS.calculate_effect({
+						trigger = "after",
+						delay = 0.5,
+						message = localize('k_upgrade_ex'),
+						colour = G.C.MONEY
+					},
+					card)
+			end
 
 			while (card.ability.extra.money_current >= card.ability.extra.money_max) do
 				card.ability.extra.money_current = card.ability.extra.money_current - card.ability.extra.money_max
@@ -3448,3 +3469,10 @@ SMODS.Joker {
 	end
 
 }
+
+-- This changes variables globally each round
+function SMODS.current_mod.reset_game_globals(run_start)
+	if run_start then
+		G.GAME.current_round.j8mod_bookmark_rank = "None"
+	end
+end

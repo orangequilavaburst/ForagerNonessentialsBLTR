@@ -78,9 +78,8 @@ return {
                 name = "Prophecy",
                 text = {
                     "After {C:attention}#1#{} rounds,",
-                    "sell this card to create a",
-                    "random {C:spectral}Spectral{} card",
-                    "and an {C:spectral,T:tag_ethereal}#4#{}",
+                    "sell this card to create",
+                    "{C:attention}#3#{} random {C:spectral}Spectral{} cards",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive}/#1#)",
                 },
             },
@@ -140,7 +139,7 @@ return {
             j_j8mod_loco_moco = {
                 name = "Loco Moco",
                 text = {
-                    "Every played {C:attention}card{}",
+                    "Every scored {C:attention}card{}",
                     "permanently gains",
                     "{C:mult}+#1#{} Mult when scored",
                     "{C:inactive}({C:attention}#2#{C:inactive} left)",
@@ -169,14 +168,16 @@ return {
                 text = {
                     "After defeating a {C:attention}Blind{},",
                     "{C:green}#1# in #2#{} chance to",
-                    "obtain {C:attention}that Blind's{} Tag"
+                    "obtain its {C:attention}Skip Tag{}",
+                    "{C:inactive}#3#{C:attention}#4#{C:inactive}#5#"
                 },
             },
             j_j8mod_bookmark = {
                 name = "Bookmark",
                 text = {
-                    "Prevents {C:attention}cards played this Ante{}",
-                    "from getting {C:red}debuffed{}",
+                    "Prevents most recently played",
+                    "{C:attention}rank{} from getting {C:red}debuffed{}",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive})"
                 },
             },
             j_j8mod_milkshake = {
@@ -327,11 +328,9 @@ return {
             j_j8mod_marzipan_decoration = {
                 name = "Marzipan Decoration",
                 text = {
-                    "Copies ability of",
-                    "{C:attention}Joker{} to the right",
-                    "{C:green}#1# in #2#{} chance this",
-                    "card is destroyed",
-                    "at end of round",
+                    "Copies ability of {C:attention}Joker{} to the right",
+                    "{C:green}#1# in #2#{} chance this card is",
+                    "destroyed after being triggered",
                 },
             },
             j_j8mod_modeling_clay = {
@@ -677,7 +676,8 @@ return {
             j8mod_reduced_ex = "Reduced!",
             j8mod_temmie_text = "ho1!",
             j8mod_free_ex = "Free!",
-            j8mod_yeah_ex = "Yeah!"
+            j8mod_yeah_ex = "Yeah!",
+            j8mod_inactive = "inactive"
         }
     },
 }
