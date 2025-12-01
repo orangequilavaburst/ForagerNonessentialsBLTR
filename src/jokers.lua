@@ -500,7 +500,7 @@ SMODS.Joker {
 					for _ = 1, jokers_to_create do
 						SMODS.add_card {
 							area = G.jokers,
-							set = 'j8bit_meal_ticket' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
+							set = 'j8mod_meal_ticket' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
 						}
 						G.GAME.joker_buffer = 0
 					end
@@ -577,19 +577,24 @@ SMODS.Joker {
 	pos = { x = 1, y = 1 },
 	discovered = true,
 	unlocked = true,
-	config = { extra = { rank = "None" } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = { (card.ability.extra.rank ~= "None") and localize((card.ability.extra.rank), 'ranks') or "None" } }
+		return { vars = { G.GAME.current_round.j8mod_bookmark_rank and localize((G.GAME.current_round.j8mod_bookmark_rank), 'ranks') or "None" } }
 	end,
 	calculate = function(self, card, context)
-		if context.setting_blind and not context.blueprint then
-			for index, playing_card in ipairs(G.playing_cards) do
-				if playing_card.base.value == G.GAME.current_round.j8mod_bookmark_rank and not SMODS.has_no_rank(playing_card) then
-					SMODS.debuff_card(playing_card, 'prevent_debuff', 'j8mod_bookmark')
-					SMODS.recalc_debuff(playing_card)
+		if (context.setting_blind or context.after) and not context.blueprint then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					for index, playing_card in ipairs(G.playing_cards) do
+						SMODS.debuff_card(playing_card, 'reset', 'j8mod_bookmark')
+						if playing_card.base.value == G.GAME.current_round.j8mod_bookmark_rank and not SMODS.has_no_rank(playing_card) then
+							SMODS.debuff_card(playing_card, 'prevent_debuff', 'j8mod_bookmark')
+						end
+						SMODS.recalc_debuff(playing_card)
+					end
+					return true
 				end
-			end
+			}))
 		end
 		-- reset debuff at end of round
 		if context.end_of_round and not context.blueprint then
@@ -682,7 +687,7 @@ SMODS.Joker {
 			-- See note about SMODS Scaling Manipulation on the wiki
 			local food = {}
 			for i, joker in ipairs(G.jokers.cards) do
-				if (joker.config.center.pools or {}).j8bit_meal_voucher and joker ~= card then
+				if (joker.config.center.pools or {}).j8mod_meal_ticket and joker ~= card then
 					table.insert(food, joker)
 					G.E_MANAGER:add_event(Event({
 						trigger = "after",
@@ -738,7 +743,7 @@ SMODS.Joker {
 	pos = { x = 4, y = 1 },
 	discovered = true,
 	unlocked = true,
-	config = { extra = { dollars = 4 } },
+	config = { extra = { dollars = 8 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { vars = { card.ability.extra.dollars } }
@@ -929,47 +934,22 @@ SMODS.Joker {
 	pos = { x = 5, y = 4 },
 	discovered = true,
 	unlocked = true,
-	config = { extra = { saved_tags = {} } },
+	config = { extra = { saved_packs = {} } },
 	loc_vars = function(self, info_queue, card)
+		--[[
 		info_queue[#info_queue + 1] = { key = "tag_charm", set = 'Tag' }
 		info_queue[#info_queue + 1] = { key = "tag_meteor", set = 'Tag' }
 		info_queue[#info_queue + 1] = { key = "tag_ethereal", set = 'Tag' }
 		info_queue[#info_queue + 1] = { key = "tag_buffoon", set = 'Tag' }
 		info_queue[#info_queue + 1] = { key = "tag_standard", set = 'Tag' }
+		]]
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return {}
 	end,
 	calculate = function(self, card, context)
-		if context.open_booster and context.card.from_tag == nil then
-			return {
-				message = context.card.config.center.kind .. "!",
-				message_card = card,
-				func = function()
-					G.E_MANAGER:add_event(Event({
-						trigger = "after",
-						func = function()
-							if context.card.config.center.kind == "Arcana" then
-								add_tag(Tag("tag_charm"))
-								--table.insert(card.ability.extra.saved_tags, "tag_charm")
-							elseif context.card.config.center.kind == "Celestial" then
-								add_tag(Tag("tag_meteor"))
-								--table.insert(card.ability.extra.saved_tags, "tag_meteor")
-							elseif context.card.config.center.kind == "Spectral" then
-								add_tag(Tag("tag_ethereal"))
-								--table.insert(card.ability.extra.saved_tags, "tag_ethereal")
-							elseif context.card.config.center.kind == "Buffoon" then
-								add_tag(Tag("tag_buffoon"))
-								--table.insert(card.ability.extra.saved_tags, "tag_buffoon")
-							elseif context.card.config.center.kind == "Standard" then
-								add_tag(Tag("tag_standard"))
-								--table.insert(card.ability.extra.saved_tags, "tag_standard")
-							end
-							return true
-						end
-					}))
-					return true
-				end
-			}
+		if context.open_booster and context.card.from_tag == nil and not context.card.ability.j8mod_bogo and not context.blueprint and G.shop then
+			table.insert(card.ability.extra.saved_packs, context.card.config.center.key)
+			--print(card.ability.extra.saved_packs)
 		end
 	end
 }
@@ -1018,7 +998,8 @@ function card_value_to_key(value)
 	return key
 end
 
--- Assimilation Joker
+-- Assimilation Joker (old)
+--[[
 SMODS.Joker {
 	key = "assimilation_joker",
 	blueprint_compat = false,
@@ -1129,6 +1110,62 @@ SMODS.Joker {
 				end,
 			}
 		end
+	end
+}
+]]
+
+-- Assimilation Joker
+SMODS.Joker {
+	key = "assimilation_joker",
+	blueprint_compat = false,
+	perishable_compat = false,
+	eternal_compat = false,
+	rarity = 3,
+	cost = 10,
+	atlas = "j8jokers",
+	pos = { x = 8, y = 1 },
+	discovered = true,
+	unlocked = true,
+	config = { extra = { enhancement = "m_wild" } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		return { vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Wild' } }
+	end,
+	calculate = function(self, card, context)
+		if context.after and not context.blueprint then
+			local cards_to_trigger = {}
+			return {
+				message = localize("k_upgrade_ex"),
+				colour = G.C.UI.TEXT_DARK,
+				func = function()
+					for _, v in ipairs(G.hand.cards) do
+						local percent = 0.85 + (_ - 0.999) / (#G.hand.cards - 0.998) * 0.3
+						if _ < #G.hand.cards and SMODS.has_enhancement(v, card.ability.extra.enhancement) then
+							G.E_MANAGER:add_event(Event({
+								trigger = 'after',
+								delay = 0.1,
+								func = function()
+									copy_card(G.hand.cards[_ + 1], v)
+									play_sound('tarot2', percent, 0.6)
+									v:juice_up(0.3, 0.5)
+									return true
+								end
+							}))
+						end
+					end
+					return true
+				end
+			}
+		end
+	end,
+	in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
+		for _, playing_card in ipairs(G.playing_cards or {}) do
+			if SMODS.has_enhancement(playing_card, "m_wild") then
+				return true
+			end
+		end
+		return false
 	end
 }
 
@@ -1754,20 +1791,14 @@ SMODS.Joker {
 	unlocked = true,
 	config = { extra = { copying_joker = "j_joker" } },
 	loc_vars = function(self, info_queue, card)
-		--[[
-        local main_end = {
-			{n = G.UIT.C, config = {align = "cm", padding = 0.0}, nodes = {
-				{n = G.UIT.R, config = {align = "cm", padding = 0.0}, nodes = {
-						{n = G.UIT.T, config = {text = "(Currently ", colour = G.C.UI.TEXT_INACTIVE, scale = 0.32}},
-						{n = G.UIT.T, config = {text = localize { type = 'name_text', set = "Joker", key = card.ability.extra.copying_joker }, colour = G.C.FILTER, scale = 0.32}},
-						{n = G.UIT.T, config = {text = ")", colour = G.C.UI.TEXT_INACTIVE, scale = 0.32}}
-					},
-				},
-				}
-			}
-		}
-		]] --
-		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.copying_joker]
+		-- super thanks somethingcom515 !
+		local center = G.P_CENTERS[card.ability.extra.copying_joker]
+		local other_center = SMODS.shallow_copy(center)
+		other_center.loc_vars = function(self, info_queue, uncard)
+			return center.loc_vars(self, info_queue,
+				G.j8mod_savedjokercards[card.sort_id][card.ability.extra.copying_joker])
+		end
+		table.insert(info_queue, other_center)
 		info_queue[#info_queue + 1] = { key = "credits_sharb", set = "Other" }
 		return { vars = { card.ability.extra.copying_joker and localize({ type = 'name_text', set = "Joker", key = card.ability.extra.copying_joker }) or 'Nothing', colours = { card.ability.extra.copying_joker and G.C.RARITY[G.P_CENTERS[card.ability.extra.copying_joker].rarity] or G.C.FILTER } } }
 	end,
@@ -1779,6 +1810,7 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		-- thanks, somethingcom515 !
 		if (context.setting_blind or context.pre_discard) and not context.blueprint then
+			G.j8mod_savedjokercards[card.sort_id][card.ability.extra.copying_joker]:remove_from_deck()
 			card.ability.extra.copying_joker = pseudorandom_element(G.P_CENTER_POOLS.Joker, 'j8mod_modeling_clay').key
 			return {
 				message = localize { type = 'name_text', set = "Joker", key = card.ability.extra.copying_joker } .. "!",
@@ -1814,6 +1846,12 @@ SMODS.Joker {
 				end
 			end
 			return G.j8mod_savedjokercards[card.sort_id][key]:calculate_joker(context)
+		end
+		if (context.setting_blind or context.pre_discard) then
+			G.j8mod_savedjokercards[card.sort_id][card.ability.extra.copying_joker]:calculate_joker({
+				setting_blind = true,
+				blind = G.GAME.round_resets.blind
+			})
 		end
 	end,
 }

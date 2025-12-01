@@ -10,7 +10,7 @@ SMODS.Back {
 	end,
 	apply = function(self, back)
 		change_shop_size(-1)
-		for _, key in pairs(G.P_CENTER_POOLS.j8bit_waterproof_banned_jokers) do
+		for _, key in pairs(G.P_CENTER_POOLS.j8mod_waterproof_banned_jokers) do
 			G.GAME.banned_keys[key.key] = true
 		end
 	end,
@@ -59,10 +59,10 @@ SMODS.Back {
 	apply = function(self, back)
 		G.GAME.interest_amount = G.GAME.interest_amount + 1
 		G.GAME.starting_params.discards = self.config.discards
-		for _, key in pairs(G.P_CENTER_POOLS.j8bit_lakeside_banned_jokers) do
+		for _, key in pairs(G.P_CENTER_POOLS.j8mod_lakeside_banned_jokers) do
 			G.GAME.banned_keys[key.key] = true
 		end
-		for _, key in pairs(G.P_CENTER_POOLS.j8bit_lakeside_banned_vouchers) do
+		for _, key in pairs(G.P_CENTER_POOLS.j8mod_lakeside_banned_vouchers) do
 			G.GAME.banned_keys[key.key] = true
 		end
 	end

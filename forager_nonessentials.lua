@@ -1316,7 +1316,7 @@ SMODS.Atlas {
 -- ## POOLS ##
 
 SMODS.ObjectType({
-	key = "j8bit_meal_voucher", -- The prefix is not added automatically so it's recommended to add it yourself
+	key = "j8mod_meal_ticket", -- The prefix is not added automatically so it's recommended to add it yourself
 	default = "j_ice_cream",
 	cards = {
 		j_gros_michel = true,
@@ -1336,7 +1336,7 @@ SMODS.ObjectType({
 })
 
 SMODS.ObjectType({
-	key = "j8bit_waterproof_banned_jokers", -- The prefix is not added automatically so it's recommended to add it yourself
+	key = "j8mod_waterproof_banned_jokers", -- The prefix is not added automatically so it's recommended to add it yourself
 	default = "j_splash",
 	cards = {
 		j_splash = true,
@@ -1346,7 +1346,7 @@ SMODS.ObjectType({
 })
 
 SMODS.ObjectType({
-	key = "j8bit_lakeside_banned_jokers", -- The prefix is not added automatically so it's recommended to add it yourself
+	key = "j8mod_lakeside_banned_jokers", -- The prefix is not added automatically so it's recommended to add it yourself
 	default = "j_drunkard",
 	cards = {
 		j_drunkard = true,
@@ -1358,7 +1358,7 @@ SMODS.ObjectType({
 })
 
 SMODS.ObjectType({
-	key = "j8bit_lakeside_banned_vouchers", -- The prefix is not added automatically so it's recommended to add it yourself
+	key = "j8mod_lakeside_banned_vouchers", -- The prefix is not added automatically so it's recommended to add it yourself
 	default = "v_wasteful",
 	cards = {
 		v_wasteful = true,
@@ -1403,6 +1403,56 @@ function Card.set_cost(self)
 	elseif self.ability.yoshi then
 		self.sell_cost = 1 + self.ability.extra_value
 	end
+end
+
+local card_score_hook = SMODS.score_card
+function SMODS.score_card(card, context)
+	local g = card_score_hook(card, context)
+	if not SMODS.has_no_rank(card) and context.cardarea == G.play then
+		--print(card.base.value)
+		G.GAME.current_round.j8mod_bookmark_rank = card.base.value
+	end
+	return g
+end
+
+local end_consumeable_hook = G.FUNCS.end_consumeable
+function G.FUNCS.end_consumeable(e, delayfac)
+	local g = end_consumeable_hook(e, delayfac)
+	if G.jokers and G.jokers.cards then
+		--print('test! :D ')
+		for _, bogo in ipairs(SMODS.find_card("j_j8mod_b1g1f")) do -- For each copy of Buy 1 Get 1 Free
+			--print("bogo #" .. tostring(_))
+			if (G.shop) then
+				--print(bogo.ability.extra.saved_packs)
+				while #bogo.ability.extra.saved_packs > 0 do
+					local new_booster = bogo.ability.extra.saved_packs[1]
+					--print(new_booster)
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						func = function()
+							local pack = SMODS.add_booster_to_shop(new_booster) --(context.card.config.center.key)
+							pack.states.visible = nil
+							pack.ability.j8mod_bogo = true
+							pack.cost = 0
+							G.E_MANAGER:add_event(Event({
+								delay = 1.0,
+								trigger = "after",
+								func = function()
+									pack:start_materialize()
+									bogo:juice_up()
+									save_run()
+									return true
+								end
+							}))
+							return true
+						end
+					}))
+					table.remove(bogo.ability.extra.saved_packs, 1)
+				end
+			end
+		end
+	end
+	return g
 end
 
 --[[

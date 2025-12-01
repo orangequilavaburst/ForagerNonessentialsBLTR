@@ -86,9 +86,9 @@ return {
             j_j8mod_monty_hall = {
                 name = "Monty Hall",
                 text = {
-                    "After a {C:attention,E:1}failed probability check{},",
-                    "increase the chance for",
-                    "a {C:green,E:1}probability{} to succeed",
+                    "Increases {C:attention}listed {C:green,E:1}probabilities{}",
+                    "by {C:green}+#2#{} when {C:attention,E:1}failing{} a chance,",
+                    "{C:attention}resets{} upon {C:attention,E:1}succeeding{} a chance",
                     "{C:inactive}(Currently {C:attention}+#1#{C:inactive})"
                 },
             },
@@ -184,9 +184,9 @@ return {
                 name = "Milkshake",
                 text = {
                     "This Joker gains {C:chips}+#2#{} Chips",
-                    "each time the shop is {C:green}rerolled{}",
-                    "with a {C:green}#3# in #4#{} chance",
-                    "this card is destroyed doing so",
+                    "per {C:attention}reroll{} in the shop",
+                    "{C:green}#3# in #4#{} chance this card",
+                    "is destroyed on {C:attention}reroll{}",
                     "{C:inactive}(Currently {C:chips}#1#{C:inactive} Chips)",
                 },
             },
@@ -194,9 +194,9 @@ return {
                 name = "Gourmand",
                 text = {
                     "Earn {C:money}$#1#{} at end of round",
-                    "Payout increases by {C:money}$#2#{}",
-                    "for each {C:green}food-themed{C:attention} Joker{} held",
-                    "at the end of round, {C:attention}eats them",
+                    "Each {C:green}food-themed{C:attention} Joker{} held at",
+                    "the end of round {C:attention}gets eaten{}",
+                    "and increases payout by {C:money}$#2#{}"
                 },
             },
             j_j8mod_needlepoint_joker = {
@@ -235,13 +235,14 @@ return {
             j_j8mod_b1g1f = {
                 name = "Buy 1 Get 1 Free!",
                 text = {
-                    "Opening a {C:attention}Booster Pack{} creates",
-                    "a related {C:attention}Tag{}",
+                    "Buying a {C:attention}Booster Pack{} creates a",
+                    "{C:attention}free copy{} of itself in the shop"
                 },
             },
             j_j8mod_assimilation_joker = {
                 name = "Assimilation Joker",
                 text = {
+                    --[[
                     "On the {C:attention}first hand{} of a round,",
                     "add the {C:attention}ranks{} of {C:attention}all cards in hand{}",
                     "to this Joker, {C:red}destroy them{}, and transform",
@@ -249,6 +250,10 @@ return {
                     "{C:inactive}(Aces are worth +{C:attention}1{C:inactive}, face cards are worth +{C:attention}10{C:inactive})",
                     "{C:inactive}(Current rank: {C:attention}#2#{C:inactive})",
                     "{V:1}#3#{V:2}#4#{V:3}#5#"
+                    ]]
+                    "{C:attention}#1#s{} held in hand",
+                    "after scoring convert to",
+                    "the card on their {C:attention}right"
                 },
             },
             j_j8mod_69_joke = {
@@ -477,7 +482,7 @@ return {
                 name = "Thunder Carnival",
                 text = {
                     "{C:attention}Debuffed{} cards become",
-                    "{C:attention}#1#{} cards when played"
+                    "{C:attention}#1#s{} when played"
                 },
             },
             j_j8mod_magic_card = {
