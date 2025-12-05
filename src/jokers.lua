@@ -23,7 +23,6 @@ SMODS.Joker {
 	},
 	config = { extra = { prophecy_rounds = 0, total_rounds = 3, spectral_count = 2 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = 'tag_ethereal', set = 'Tag' }
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { vars = { card.ability.extra.total_rounds, card.ability.extra.prophecy_rounds, card.ability.extra.spectral_count, [[localize { type = 'name_text', set = 'Tag', key = 'tag_ethereal' }]] } }
 	end,
