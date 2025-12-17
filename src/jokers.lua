@@ -470,51 +470,6 @@ SMODS.Joker {
 
 }
 
--- Meal Ticket
--- (Thanks riff-raff)
-SMODS.Joker {
-
-	key = "meal_ticket",
-	blueprint_compat = true,
-	eternal_compat = true,
-	perishable_compat = true,
-	rarity = 2,
-	cost = 8,
-	atlas = "j8jokers",
-	discovered = true,
-	unlocked = true,
-	pos = { x = 9, y = 0 },
-	config = { extra = { creates = 2 } },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-		return { vars = { card.ability.extra.creates } }
-	end,
-	calculate = function(self, card, context)
-		if context.setting_blind and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-			local jokers_to_create = math.min(card.ability.extra.creates,
-				G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-			G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					for _ = 1, jokers_to_create do
-						SMODS.add_card {
-							area = G.jokers,
-							set = 'j8mod_meal_ticket' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
-						}
-						G.GAME.joker_buffer = 0
-					end
-					return true
-				end
-			}))
-			return {
-				message = localize('k_plus_joker'),
-				colour = G.C.BLUE,
-			}
-		end
-	end,
-
-}
-
 -- Graffiti Artist
 SMODS.Joker {
 	key = "graffiti_artist",
@@ -661,72 +616,6 @@ SMODS.Joker {
 				chips = card.ability.extra.chips
 			}
 		end
-	end
-}
-
--- Gourmand
-SMODS.Joker {
-	key = "gourmand",
-	blueprint_compat = false,
-	perishable_compat = false,
-	eternal_compat = true,
-	rarity = 2,
-	cost = 6,
-	atlas = "j8jokers",
-	pos = { x = 3, y = 1 },
-	discovered = true,
-	unlocked = true,
-	config = { extra = { dollars = 0, increase = 4 } },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-		return { vars = { card.ability.extra.dollars, card.ability.extra.increase } }
-	end,
-	calculate = function(self, card, context)
-		if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-			-- See note about SMODS Scaling Manipulation on the wiki
-			local food = {}
-			for i, joker in ipairs(G.jokers.cards) do
-				if (joker.config.center.pools or {}).j8mod_meal_ticket and joker ~= card then
-					table.insert(food, joker)
-					G.E_MANAGER:add_event(Event({
-						trigger = "after",
-						delay = 0.5,
-						func = function()
-							SMODS.calculate_effect({
-									trigger = "immediate",
-									blockable = false,
-									message = "$" .. card.ability.extra.increase,
-									colour = G.C.MONEY,
-									message_card = card,
-									func = function()
-										joker:juice_up()
-										card.ability.extra.dollars = card.ability.extra.dollars +
-											card.ability.extra.increase
-										return true
-									end
-								},
-								card)
-							return true
-						end
-					}))
-				end
-			end
-			delay(0.5)
-			if #food > 0 then
-				return {
-					message = localize('k_upgrade_ex'),
-					colour = G.C.MONEY,
-					message_card = card,
-					func = function()
-						SMODS.destroy_cards(food)
-						return true
-					end
-				}
-			end
-		end
-	end,
-	calc_dollar_bonus = function(self, card)
-		return card.ability.extra.dollars
 	end
 }
 
@@ -1168,56 +1057,6 @@ SMODS.Joker {
 	end
 }
 
--- 69 Joke
-SMODS.Joker {
-	key = "69_joke",
-	blueprint_compat = true,
-	perishable_compat = false,
-	eternal_compat = true,
-	rarity = 2,
-	cost = 8,
-	atlas = "j8jokers",
-	discovered = true,
-	pos = { x = 0, y = 2 },
-	config = { extra = { chips = 0, mult = 0, chip_mod = 9, mult_mod = 6 } },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-		return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.chip_mod, card.ability.extra.mult_mod } }
-	end,
-	calculate = function(self, card, context)
-		if context.before and not context.blueprint then
-			-- See note about SMODS Scaling Manipulation on the wiki
-			local six_check = false
-			local nine_check = false
-			for i = 1, #context.scoring_hand do
-				if not context.scoring_hand[i].debuff then
-					if context.scoring_hand[i]:get_id() == 6 then
-						six_check = true
-					elseif context.scoring_hand[i]:get_id() == 9 then
-						nine_check = true
-					end
-				end
-			end
-			if six_check and nine_check then
-				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
-				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
-
-				return {
-					message = localize("j8mod_nice_ex"),
-					colour = G.C.EDITION,
-					message_card = card
-				}
-			end
-		end
-		if context.joker_main then
-			return {
-				chips = card.ability.extra.chips,
-				mult = card.ability.extra.mult
-			}
-		end
-	end
-}
-
 -- Search History
 SMODS.Joker {
 	key = "search_history",
@@ -1502,7 +1341,7 @@ SMODS.Joker {
 				else
 					return {
 						message = localize("j8mod_treasure_ex"),
-						colour = G.C.YELLOW,
+						colour = G.C.FILTER,
 						func = function()
 							G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
 							G.E_MANAGER:add_event(Event({
@@ -2079,7 +1918,8 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
-	pos = { x = 6, y = 2 },
+	pos = { x = 1, y = 6 },
+	pixel_size = { w = 69, h = 70 },
 	discovered = true,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
@@ -3094,6 +2934,735 @@ SMODS.Joker {
 	end
 }
 
+-- Program Advance
+SMODS.Joker {
+
+	key = "program_advance",
+	atlas = "j8jokers",
+	pos = { x = 6, y = 5 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = false,
+	perishable_compat = true,
+	eternal_compat = true,
+	rarity = 2,
+	cost = 6,
+	config = { extra = { poker_hand = "Straight Flush" } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return { vars = { localize(card.ability.extra.poker_hand, 'poker_hands') } }
+	end,
+	calculate = function(self, card, context)
+		if context.pre_joker and not context.blueprint then
+			local suits_in_played_cards = {}
+			for _, v in ipairs(G.play.cards) do
+				suits_in_played_cards[v.base.suit] = true
+				--print(v.base.suit)
+			end
+			local cards_to_trigger = {}
+			for _, v in ipairs(G.hand.cards) do
+				if v:can_calculate() and suits_in_played_cards[v.base.suit] then
+					--print(v:get_id())
+					table.insert(cards_to_trigger, v)
+				end
+			end
+			if #cards_to_trigger > 0 then
+				local ctx = {
+					cardarea = G.play,
+					full_hand = G.play.cards,
+					scoring_hand = context.scoring_hand,
+					scoring_name = context.scoring_name,
+					poker_hands = context.poker_hands
+				}
+				SMODS.calculate_effect({
+					trigger = "after",
+					delay = 0.5,
+					message = localize("j8mod_program_advance"),
+					message_card = card,
+					colour = G.C.BLUE,
+					func = function()
+						delay(0.5)
+						for _, v in ipairs(cards_to_trigger) do
+							SMODS.score_card(v, ctx)
+						end
+						return true
+					end
+				}, card)
+			end
+		end
+	end
+
+}
+
+-- Colony Tile
+SMODS.Joker {
+	key = "colony_tile",
+	atlas = "j8jokers",
+	pos = { x = 7, y = 5 },
+	pixel_size = { w = 69, h = 69 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = false,
+	perishable_compat = true,
+	eternal_compat = false,
+	rarity = 2,
+	cost = 7,
+	config = { extra = { poker_hand = "Full House", scale_amount = 1, hand_size = 0 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return { vars = { localize(card.ability.extra.poker_hand, 'poker_hands'), card.ability.extra.scale_amount, card.ability.extra.hand_size } }
+	end,
+	calculate = function(self, card, context)
+		local my_card = card
+		if context.setting_blind and not context.blueprint then
+			return {
+				message = localize("k_reset"),
+				colour = G.C.SECONDARY_SET.Planet,
+				func = function()
+					G.hand:change_size(-my_card.ability.extra.hand_size)
+					my_card.ability.extra.hand_size = 0
+					return true
+				end
+			}
+		end
+		if context.joker_main and next(context.poker_hands[card.ability.extra.poker_hand]) and not context.blueprint then
+			return {
+				message = localize("k_upgrade_ex"),
+				colour = G.C.YELLOW,
+				func = function()
+					my_card.ability.extra.hand_size = my_card.ability.extra.hand_size +
+						my_card.ability.extra.scale_amount
+					G.hand:change_size(my_card.ability.extra.scale_amount)
+					return true
+				end
+			}
+		end
+	end,
+	add_to_deck = function(self, card, from_debuff)
+		G.hand:change_size(card.ability.extra.hand_size)
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		G.hand:change_size(-card.ability.extra.hand_size)
+	end
+}
+
+-- Rule of Threes
+SMODS.Joker {
+	key = "rule_of_threes",
+	atlas = "j8jokers",
+	pos = { x = 8, y = 5 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	perishable_compat = true,
+	eternal_compat = true,
+	rarity = 1,
+	cost = 5,
+	config = { extra = { poker_hand = "Three of a Kind", scale_amount = 0.3 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return { vars = { localize(card.ability.extra.poker_hand, 'poker_hands'), card.ability.extra.scale_amount, 1.0 + card.ability.extra.scale_amount * G.GAME.hands[card.ability.extra.poker_hand].played } }
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main and G.GAME.hands[card.ability.extra.poker_hand].played > 0 then
+			return {
+				xmult = 1.0 + card.ability.extra.scale_amount * G.GAME.hands[card.ability.extra.poker_hand].played
+			}
+		end
+	end
+}
+
+-- Fortune Cookie
+SMODS.Joker {
+	key = "fortune_cookie",
+	atlas = "j8jokers",
+	pos = { x = 9, y = 5 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	perishable_compat = false,
+	eternal_compat = false,
+	rarity = 1,
+	cost = 4,
+	config = { extra = { booster_type = "p_spectral_jumbo" } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.booster_type .. "_1"]
+		return { vars = { localize({ type = 'name_text', key = card.ability.extra.booster_type, set = 'Other' }) } }
+	end,
+	calculate = function(self, card, context)
+		if context.starting_shop then
+			SMODS.calculate_effect({
+				trigger = "after",
+				delay = 1.0,
+				message = localize('k_eaten_ex'),
+				message_card = card,
+				colour = G.C.FILTER,
+				func = function()
+					local pack = SMODS.add_booster_to_shop(card.ability.extra.booster_type .. '_' .. math.random(1, 2))
+					pack.states.visible = nil
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							pack:start_materialize()
+							if context.blueprint_card then
+								context.blueprint_card:juice_up()
+							else
+								card:juice_up()
+							end
+							save_run()
+							return true
+						end
+					}))
+					if not context.blueprint then
+						G.E_MANAGER:add_event(Event({
+							delay = 0.25,
+							func = function()
+								SMODS.destroy_cards(card, nil, nil, true)
+								return true
+							end
+						}))
+					end
+					return true
+				end
+			}, card)
+		end
+	end
+}
+
+function lowest_level_poker_hand()
+	local lowest_hand, lowest_level, order = "High Card", -1, 100
+	for _, v in pairs(G.GAME.hands) do
+		print(_ .. tostring(v))
+		if G.GAME.hands[_].visible and (lowest_level < 0 or (v.level < lowest_level or v.level == lowest_level and order > v.order)) then
+			lowest_level = v.level
+			lowest_hand = _
+			print(lowest_hand .. "is now the lowest at level " .. tostring(lowest_level))
+		end
+	end
+	return lowest_hand
+end
+
+-- Community Resource
+SMODS.Joker {
+	key = "community_resource",
+	atlas = "j8jokers",
+	pos = { x = 0, y = 6 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	perishable_compat = true,
+	eternal_compat = true,
+	rarity = 3,
+	cost = 11,
+	config = { extra = { ranks = { 6, 7, 8, 9, 10 }, odds = 10 } },
+	loc_vars = function(self, info_queue, card)
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+			'j8mod_community_resource')
+		local rank_keys = {}
+		for i = 1, #card.ability.extra.ranks do
+			local key = ""
+			for k, v in pairs(SMODS.Ranks) do
+				if v.id == card.ability.extra.ranks[i] then
+					key = v.key
+					break
+				end
+			end
+			table.insert(rank_keys, key)
+		end
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return {
+			vars = {
+				localize((rank_keys[1] or "6"), 'ranks'),
+				localize((rank_keys[2] or "7"), 'ranks'),
+				localize((rank_keys[3] or "8"), 'ranks'),
+				localize((rank_keys[4] or "9"), 'ranks'),
+				localize((rank_keys[5] or "10"), 'ranks'),
+				numerator, denominator
+			}
+		}
+	end,
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play and not context.end_of_round then
+			local is_rank = false
+			for _, rank in ipairs(card.ability.extra.ranks) do
+				if context.other_card:get_id() == rank then
+					is_rank = true
+					break
+				end
+			end
+			if is_rank and SMODS.pseudorandom_probability(card, 'j8mod_community_resource', 1, card.ability.extra.odds) then
+				return {
+					level_up = true,
+					level_up_hand = lowest_level_poker_hand()
+				}
+			end
+		end
+	end
+}
+
+-- J8-Bit
+SMODS.Joker {
+
+	key = "j8bit",
+	atlas = "j8jokers",
+	pos = { x = 2, y = 4 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	perishable_compat = false,
+	eternal_compat = false,
+	rarity = 4,
+	cost = 20,
+	config = { extra = { repetitions = 1 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS["e_negative"]
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return { vars = { card.ability.extra.repetitions } }
+	end,
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play and (context.other_card:get_id() == 11 or context.other_card:get_id() == 8) and
+			not (context.other_card.edition and context.other_card.edition.key == "e_negative") and not context.blueprint then
+			local juice_card = context.other_card
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 1.0,
+				blocking = false,
+				func = function()
+					juice_card:juice_up(0.5, 0.5)
+					juice_card:set_edition("e_negative", true)
+					return true
+				end
+			}))
+			return {
+				message = localize("j8mod_enhanced_ex"),
+				color = G.C.EDITION,
+				message_card = card
+			}
+		end
+		-- playing cards
+		if context.repetition and (context.other_card.edition and context.other_card.edition.key == "e_negative") then
+			return {
+				repetitions = card.ability.extra.repetitions,
+				colour = G.C.EDITION,
+			}
+		end
+		-- jokers
+		if context.retrigger_joker_check and (context.other_card.edition and context.other_card.edition.key == "e_negative") then
+			return { repetitions = 1 }
+		end
+	end
+
+}
+
+-- Niri
+SMODS.Joker {
+	key = "niri",
+	atlas = "j8jokers",
+	pos = { x = 3, y = 4 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = false,
+	perishable_compat = false,
+	eternal_compat = false,
+	rarity = 4,
+	cost = 20,
+	config = { extra = { extra_boosters = 2, extra_vouchers = 1 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+
+		return { vars = { card.ability.extra.extra_boosters, card.ability.extra.extra_vouchers } }
+	end,
+	add_to_deck = function(self, card, from_debuff)
+		SMODS.change_booster_limit(card.ability.extra.extra_boosters)
+		SMODS.change_voucher_limit(card.ability.extra.extra_vouchers)
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		SMODS.change_booster_limit(-card.ability.extra.extra_boosters)
+		SMODS.change_voucher_limit(-card.ability.extra.extra_vouchers)
+	end
+	--[[
+	config = { extra = { inc = 1, total = 0, total_current = 0 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS["e_negative"]
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+
+		return { vars = { card.ability.extra.inc, card.ability.extra.total_current, card.ability.extra.total } }
+	end,
+	calculate = function(self, card, context)
+		if G.jokers and G.consumeables then
+			local count = #G.jokers.cards * card.ability.extra.inc
+			for index, consumable in ipairs(G.consumeables.cards) do
+				if not (card.edition and card.edition.key == "e_negative") then
+					count = count + card.ability.extra.inc
+				end
+			end
+			card.ability.extra.total = count
+		end
+
+		if context.setting_blind then
+			G.hand:change_size(-card.ability.extra.total_current)
+			card.ability.extra.total_current = card.ability.extra.total
+			G.hand:change_size(card.ability.extra.total_current)
+		end
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		G.hand:change_size(-card.ability.extra.total_current)
+	end
+	]]
+
+}
+
+-- Cyber Niri
+SMODS.Joker {
+
+	key = "cyber_niri",
+	atlas = "j8jokers",
+	pos = { x = 4, y = 4 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	perishable_compat = false,
+	eternal_compat = false,
+	rarity = 4,
+	cost = 20,
+	--config = { extra = { inc = 1, hand_req = 2, total = 0, total_current = 0, Xmult = 1.5 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return {}
+		--return { vars = { card.ability.extra.inc, card.ability.extra.hand_req, card.ability.extra.total_current, card.ability.extra.total, card.ability.extra.Xmult } }
+	end,
+	calculate = function(self, card, context)
+		if context.reroll_shop and not context.blueprint then
+			local num_boosters = 2 + (G.GAME.modifiers.extra_boosters or 0)
+			local num_vouchers = 1 + (G.GAME.modifiers.extra_vouchers or 0)
+			for index, shop_card in ipairs(G.shop_vouchers.cards) do
+				SMODS.destroy_cards(shop_card, nil, nil, true)
+			end
+			for index, shop_card in ipairs(G.shop_booster.cards) do
+				SMODS.destroy_cards(shop_card, nil, nil, true)
+			end
+			for i = 1, num_vouchers do
+				SMODS.add_voucher_to_shop()
+			end
+			for i = 1, num_boosters do
+				SMODS.add_booster_to_shop()
+			end
+			return {
+				message = localize("j8mod_reroll_ex"),
+				colour = G.C.GREEN
+			}
+		end
+	end
+	--[[
+	calculate = function(self, card, context)
+		if G.hand then
+			local count = math.floor(G.hand.config.card_limit / card.ability.extra.hand_req) * card.ability.extra.inc
+			card.ability.extra.total = count
+		end
+
+		if context.setting_blind and not context.blueprint then
+			G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.total_current
+			card.ability.extra.total_current = card.ability.extra.total
+			G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.total_current
+		end
+
+		if context.other_consumeable then
+			return {
+				x_mult = card.ability.extra.Xmult,
+				message_card = context.other_consumable
+			}
+		end
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.total_current
+	end
+	]]
+
+}
+
+-- Cackler
+SMODS.Joker {
+
+	key = "cackler",
+	atlas = "j8jokers",
+	pos = { x = 4, y = 6 },
+	soul_pos = { x = 4, y = 7 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	perishable_compat = false,
+	eternal_compat = false,
+	rarity = 4,
+	cost = 20,
+	config = { extra = { rank = "Ace" } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_thatartisan", set = "Other" }
+		return { vars = { localize((card.ability.extra.rank or "Ace"), 'ranks') } }
+	end,
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play then
+			local card_in_hand = false
+			for _, v in ipairs(G.play.cards) do
+				if v == context.other_card then
+					card_in_hand = true
+					break
+				end
+			end
+			if context.other_card.base.value == card.ability.extra.rank and card_in_hand then
+				local ctx = {
+					cardarea = G.play,
+					full_hand = G.play.cards,
+					scoring_hand = context.scoring_hand,
+					scoring_name = context.scoring_name,
+					poker_hands = context.poker_hands
+				}
+				local cards_to_trigger = {}
+				for _, v in ipairs(G.hand.cards) do
+					if v:can_calculate() and v.base.value == card.ability.extra.rank then
+						table.insert(cards_to_trigger, v)
+					end
+				end
+				if #cards_to_trigger > 0 then
+					return {
+						message = localize("j8mod_yeah_ex"),
+						message_card = card,
+						func = function()
+							for _, v in ipairs(cards_to_trigger) do
+								SMODS.score_card(v, ctx)
+							end
+							return true
+						end
+					}
+				end
+			end
+		end
+	end
+
+}
+
+-- Maestro
+SMODS.Joker {
+
+	key = "maestro",
+	atlas = "j8jokers",
+	pos = { x = 2, y = 6 },
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = true,
+	perishable_compat = false,
+	eternal_compat = false,
+	rarity = 4,
+	cost = 20,
+	config = { extra = { Xmult = 0.2 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return { vars = { card.ability.extra.Xmult } }
+	end,
+	calculate = function(self, card, context)
+		if context.after then
+			local do_mult = G.GAME.chips + hand_chips * mult >= G.GAME.blind.chips
+			if do_mult then
+				local cards_to_trigger = {}
+				for _, v in ipairs(G.play.cards) do
+					table.insert(cards_to_trigger, v)
+				end
+				return {
+					message = localize("k_upgrade_ex"),
+					colour = G.C.MULT,
+					func = function()
+						for i = 1, #cards_to_trigger do
+							SMODS.calculate_effect({
+								trigger = "after",
+								delay = 1.0,
+								message = localize("k_upgrade_ex"),
+								message_card = cards_to_trigger[i],
+								func = function()
+									cards_to_trigger[i].ability.perma_x_mult = (cards_to_trigger[i].ability.perma_x_mult or 0) +
+										card.ability.extra.Xmult
+									return true
+								end
+							}, card)
+						end
+						return true
+					end
+				}
+			end
+		end
+	end
+
+}
+
+-- This changes variables globally each round
+function SMODS.current_mod.reset_game_globals(run_start)
+	if run_start then
+		G.GAME.current_round.j8mod_bookmark_rank = "None"
+	end
+end
+
+-- ## REMOVED JOKERS ##
+
+--[[
+
+-- Meal Ticket
+-- (Thanks riff-raff)
+SMODS.Joker {
+
+	key = "meal_ticket",
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	rarity = 2,
+	cost = 8,
+	atlas = "j8jokers",
+	discovered = true,
+	unlocked = true,
+	pos = { x = 9, y = 0 },
+	config = { extra = { creates = 2 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return { vars = { card.ability.extra.creates } }
+	end,
+	calculate = function(self, card, context)
+		if context.setting_blind and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+			local jokers_to_create = math.min(card.ability.extra.creates,
+				G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+			G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					for _ = 1, jokers_to_create do
+						SMODS.add_card {
+							area = G.jokers,
+							set = 'j8mod_meal_ticket' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
+						}
+						G.GAME.joker_buffer = 0
+					end
+					return true
+				end
+			}))
+			return {
+				message = localize('k_plus_joker'),
+				colour = G.C.BLUE,
+			}
+		end
+	end,
+
+}
+
+-- Gourmand
+SMODS.Joker {
+	key = "gourmand",
+	blueprint_compat = false,
+	perishable_compat = false,
+	eternal_compat = true,
+	rarity = 2,
+	cost = 6,
+	atlas = "j8jokers",
+	pos = { x = 3, y = 1 },
+	discovered = true,
+	unlocked = true,
+	config = { extra = { dollars = 0, increase = 4 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return { vars = { card.ability.extra.dollars, card.ability.extra.increase } }
+	end,
+	calculate = function(self, card, context)
+		if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+			-- See note about SMODS Scaling Manipulation on the wiki
+			local food = {}
+			for i, joker in ipairs(G.jokers.cards) do
+				if (joker.config.center.pools or {}).j8mod_meal_ticket and joker ~= card then
+					table.insert(food, joker)
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						delay = 0.5,
+						func = function()
+							SMODS.calculate_effect({
+									trigger = "immediate",
+									blockable = false,
+									message = "$" .. card.ability.extra.increase,
+									colour = G.C.MONEY,
+									message_card = card,
+									func = function()
+										joker:juice_up()
+										card.ability.extra.dollars = card.ability.extra.dollars +
+											card.ability.extra.increase
+										return true
+									end
+								},
+								card)
+							return true
+						end
+					}))
+				end
+			end
+			delay(0.5)
+			if #food > 0 then
+				return {
+					message = localize('k_upgrade_ex'),
+					colour = G.C.MONEY,
+					message_card = card,
+					func = function()
+						SMODS.destroy_cards(food)
+						return true
+					end
+				}
+			end
+		end
+	end,
+	calc_dollar_bonus = function(self, card)
+		return card.ability.extra.dollars
+	end
+}
+
+-- 69 Joke
+SMODS.Joker {
+	key = "69_joke",
+	blueprint_compat = true,
+	perishable_compat = false,
+	eternal_compat = true,
+	rarity = 2,
+	cost = 8,
+	atlas = "j8jokers",
+	discovered = true,
+	pos = { x = 0, y = 2 },
+	config = { extra = { chips = 0, mult = 0, chip_mod = 9, mult_mod = 6 } },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.chip_mod, card.ability.extra.mult_mod } }
+	end,
+	calculate = function(self, card, context)
+		if context.before and not context.blueprint then
+			-- See note about SMODS Scaling Manipulation on the wiki
+			local six_check = false
+			local nine_check = false
+			for i = 1, #context.scoring_hand do
+				if not context.scoring_hand[i].debuff then
+					if context.scoring_hand[i]:get_id() == 6 then
+						six_check = true
+					elseif context.scoring_hand[i]:get_id() == 9 then
+						nine_check = true
+					end
+				end
+			end
+			if six_check and nine_check then
+				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
+				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
+
+				return {
+					message = localize("j8mod_nice_ex"),
+					colour = G.C.EDITION,
+					message_card = card
+				}
+			end
+		end
+		if context.joker_main then
+			return {
+				chips = card.ability.extra.chips,
+				mult = card.ability.extra.mult
+			}
+		end
+	end
+}
+
 -- #sepTemmber
 
 SMODS.Joker {
@@ -3253,263 +3822,4 @@ SMODS.Joker {
 	end,
 }
 
--- J8-Bit
-SMODS.Joker {
-
-	key = "j8bit",
-	atlas = "j8jokers",
-	pos = { x = 2, y = 4 },
-	unlocked = true,
-	discovered = true,
-	blueprint_compat = true,
-	perishable_compat = false,
-	eternal_compat = false,
-	rarity = 4,
-	cost = 20,
-	config = { extra = { repetitions = 1 } },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = G.P_CENTERS["e_negative"]
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-		return { vars = { card.ability.extra.repetitions } }
-	end,
-	calculate = function(self, card, context)
-		if context.individual and context.cardarea == G.play and (context.other_card:get_id() == 11 or context.other_card:get_id() == 8) and
-			not (context.other_card.edition and context.other_card.edition.key == "e_negative") and not context.blueprint then
-			local juice_card = context.other_card
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = 1.0,
-				blocking = false,
-				func = function()
-					juice_card:juice_up(0.5, 0.5)
-					juice_card:set_edition("e_negative", true)
-					return true
-				end
-			}))
-			return {
-				message = localize("j8mod_enhanced_ex"),
-				color = G.C.EDITION,
-				message_card = card
-			}
-		end
-		-- playing cards
-		if context.repetition and (context.other_card.edition and context.other_card.edition.key == "e_negative") then
-			return {
-				repetitions = card.ability.extra.repetitions,
-				colour = G.C.EDITION,
-			}
-		end
-		-- jokers
-		if context.retrigger_joker_check and (context.other_card.edition and context.other_card.edition.key == "e_negative") then
-			return { repetitions = 1 }
-		end
-	end
-
-}
-
--- Niri
-SMODS.Joker {
-
-	key = "niri",
-	atlas = "j8jokers",
-	pos = { x = 3, y = 4 },
-	unlocked = true,
-	discovered = true,
-	blueprint_compat = false,
-	perishable_compat = false,
-	eternal_compat = false,
-	rarity = 4,
-	cost = 20,
-	config = { extra = { inc = 1, total = 0, total_current = 0 } },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = G.P_CENTERS["e_negative"]
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-
-		return { vars = { card.ability.extra.inc, card.ability.extra.total_current, card.ability.extra.total } }
-	end,
-	calculate = function(self, card, context)
-		if G.jokers and G.consumeables then
-			local count = #G.jokers.cards * card.ability.extra.inc
-			for index, consumable in ipairs(G.consumeables.cards) do
-				if not (card.edition and card.edition.key == "e_negative") then
-					count = count + card.ability.extra.inc
-				end
-			end
-			card.ability.extra.total = count
-		end
-
-		if context.setting_blind then
-			G.hand:change_size(-card.ability.extra.total_current)
-			card.ability.extra.total_current = card.ability.extra.total
-			G.hand:change_size(card.ability.extra.total_current)
-		end
-	end,
-	remove_from_deck = function(self, card, from_debuff)
-		G.hand:change_size(-card.ability.extra.total_current)
-	end
-
-}
-
--- Cyber Niri
-SMODS.Joker {
-
-	key = "cyber_niri",
-	atlas = "j8jokers",
-	pos = { x = 4, y = 4 },
-	unlocked = true,
-	discovered = true,
-	blueprint_compat = true,
-	perishable_compat = false,
-	eternal_compat = false,
-	rarity = 4,
-	cost = 20,
-	config = { extra = { inc = 1, hand_req = 2, total = 0, total_current = 0, Xmult = 1.5 } },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = G.P_CENTERS["e_negative"]
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-
-		return { vars = { card.ability.extra.inc, card.ability.extra.hand_req, card.ability.extra.total_current, card.ability.extra.total, card.ability.extra.Xmult } }
-	end,
-	calculate = function(self, card, context)
-		if G.hand then
-			local count = math.floor(G.hand.config.card_limit / card.ability.extra.hand_req) * card.ability.extra.inc
-			card.ability.extra.total = count
-		end
-
-		if context.setting_blind and not context.blueprint then
-			G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.total_current
-			card.ability.extra.total_current = card.ability.extra.total
-			G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.total_current
-		end
-
-		if context.other_consumeable then
-			return {
-				x_mult = card.ability.extra.Xmult,
-				message_card = context.other_consumable
-			}
-		end
-	end,
-	remove_from_deck = function(self, card, from_debuff)
-		G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.total_current
-	end
-
-}
-
--- Cackler
-SMODS.Joker {
-
-	key = "cackler",
-	atlas = "j8jokers",
-	pos = { x = 4, y = 6 },
-	soul_pos = { x = 4, y = 7 },
-	unlocked = true,
-	discovered = true,
-	blueprint_compat = true,
-	perishable_compat = false,
-	eternal_compat = false,
-	rarity = 4,
-	cost = 20,
-	config = { extra = { rank = "Ace" } },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_thatartisan", set = "Other" }
-		return { vars = { localize((card.ability.extra.rank or "Ace"), 'ranks') } }
-	end,
-	calculate = function(self, card, context)
-		if context.individual and context.cardarea == G.play then
-			local card_in_hand = false
-			for _, v in ipairs(G.play.cards) do
-				if v == context.other_card then
-					card_in_hand = true
-					break
-				end
-			end
-			if context.other_card.base.value == card.ability.extra.rank and card_in_hand then
-				local ctx = {
-					cardarea = G.play,
-					full_hand = G.play.cards,
-					scoring_hand = context.scoring_hand,
-					scoring_name = context.scoring_name,
-					poker_hands = context.poker_hands
-				}
-				local cards_to_trigger = {}
-				for _, v in ipairs(G.hand.cards) do
-					if v:can_calculate() and v.base.value == card.ability.extra.rank then
-						table.insert(cards_to_trigger, v)
-					end
-				end
-				if #cards_to_trigger > 0 then
-					return {
-						message = localize("j8mod_yeah_ex"),
-						message_card = card,
-						func = function()
-							for _, v in ipairs(cards_to_trigger) do
-								SMODS.score_card(v, ctx)
-							end
-							return true
-						end
-					}
-				end
-			end
-		end
-	end
-
-}
-
--- Maestro
-SMODS.Joker {
-
-	key = "maestro",
-	atlas = "j8jokers",
-	pos = { x = 0, y = 6 },
-	unlocked = true,
-	discovered = true,
-	blueprint_compat = true,
-	perishable_compat = false,
-	eternal_compat = false,
-	rarity = 4,
-	cost = 20,
-	config = { extra = { Xmult = 0.2 } },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-		return { vars = { card.ability.extra.Xmult } }
-	end,
-	calculate = function(self, card, context)
-		if context.after then
-			local do_mult = G.GAME.chips + hand_chips * mult >= G.GAME.blind.chips
-			if do_mult then
-				local cards_to_trigger = {}
-				for _, v in ipairs(G.play.cards) do
-					table.insert(cards_to_trigger, v)
-				end
-				return {
-					message = localize("k_upgrade_ex"),
-					colour = G.C.MULT,
-					func = function()
-						for i = 1, #cards_to_trigger do
-							SMODS.calculate_effect({
-								trigger = "after",
-								delay = 1.0,
-								message = localize("k_upgrade_ex"),
-								message_card = cards_to_trigger[i],
-								func = function()
-									cards_to_trigger[i].ability.perma_x_mult = (cards_to_trigger[i].ability.perma_x_mult or 0) +
-										card.ability.extra.Xmult
-									return true
-								end
-							}, card)
-						end
-						return true
-					end
-				}
-			end
-		end
-	end
-
-}
-
--- This changes variables globally each round
-function SMODS.current_mod.reset_game_globals(run_start)
-	if run_start then
-		G.GAME.current_round.j8mod_bookmark_rank = "None"
-	end
-end
+]]

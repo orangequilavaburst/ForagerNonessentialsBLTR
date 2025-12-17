@@ -388,7 +388,8 @@ return {
                 name = "Hating Simulator",
                 text = {
                     "On the {C:attention}first hand{} of a round,",
-                    "if the played hand is your {C:attention}most played hand,",
+                    "if the played hand is",
+                    "your {C:attention}most played hand,",
                     "{C:red}destroy all played cards{}"
                 },
             },
@@ -535,8 +536,8 @@ return {
             j_j8mod_marx_soul = {
                 name = "Marx SOUL",
                 text = {
-                    "Increases rank of scored",
-                    "{C:attention}Wild{} cards by {C:attention}#1#{}"
+                    "Increases rank of",
+                    "scored {C:attention}Wild{} cards by {C:attention}#1#{}"
                 },
             },
             j_j8mod_temmie_joker = {
@@ -555,6 +556,49 @@ return {
                     "that {C:attention}perish{} after {C:attention}#3#{} rounds"
                 },
             },
+            j_j8mod_program_advance = {
+                name = "Program Advance",
+                text = {
+                    "Playing a {C:attention}#1#{} also scores",
+                    "cards still in hand that match",
+                    "the {C:attention}rank{} of played cards"
+                },
+            },
+            j_j8mod_colony_tile = {
+                name = "Colony Tile",
+                text = {
+                    "{C:attention}+#2#{} hand size if played",
+                    "hand contains a {C:attention}#1#{},",
+                    "reset when {C:attention}Blind{} is selected",
+                    "{C:inactive}(Currently {C:attention}+#3#{C:inactive} hand size)",
+                },
+            },
+            j_j8mod_rule_of_threes = {
+                name = "Rule of Threes",
+                text = {
+                    "{X:mult,C:white} X#2# {} Mult for each",
+                    "{C:attention}#1#{} played this run",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
+                },
+            },
+            j_j8mod_fortune_cookie = {
+                name = "Fortune Cookie",
+                text = {
+                    "When entering shop,",
+                    "destroy this and add",
+                    "a {C:spectral}#1#",
+                    "to the shop"
+                },
+            },
+            j_j8mod_community_resource = {
+                name = "Community Resource",
+                text = {
+                    "Each scored {C:attention}#1#{}, {C:attention}#2#{}, {C:attention}#3#{}, {C:attention}#4#{}, and {C:attention}#5#{}",
+                    "has a {C:green}#6# in #7#{} chance to",
+                    "upgrade level of the",
+                    "{C:red}lowest level {C:attention}poker hand"
+                },
+            },
             j_j8mod_j8bit = {
                 name = "J8-Bit",
                 text = {
@@ -566,29 +610,37 @@ return {
             j_j8mod_niri = {
                 name = "Niri",
                 text = {
-                    "{C:attention}+#1#{} hand size for each {C:attention}Joker",
+                    --[["{C:attention}+#1#{} hand size for each {C:attention}Joker",
                     "and non-{C:dark_edition}Negative {C:attention}consumable{} you own",
                     "at the start of a Blind",
                     "{C:inactive}(Currently {C:attention}+#2#{C:inactive})",
-                    "{C:inactive}(Next Blind: {C:attention}+#3#{C:inactive})"
+                    "{C:inactive}(Next Blind: {C:attention}+#3#{C:inactive})"]]
+                    "{C:attention}+#1#{} initial Booster Packs",
+                    "and {C:attention}+#2#{} initial Vouchers",
+                    "appear in shop"
                 },
             },
             j_j8mod_cyber_niri = {
                 name = "Cyber Niri",
                 text = {
+                    --[[
                     "{X:mult,C:white} X#5# {} Mult per held {C:attention}consumable",
                     "{C:attention}+#1# consumable slot for",
                     "every {C:attention}#2#{} hand size",
                     "at the start of a Blind",
                     "{C:inactive}(Currently {C:attention}+#3#{C:inactive})",
                     "{C:inactive}(Next Blind: {C:attention}+#4#{C:inactive})",
+                    ]]
+                    "Rerolling the shop {C:attention}rerolls",
+                    "Booster Packs and Vouchers for sale"
                 },
             },
             j_j8mod_cackler = {
                 name = "Cackler",
                 text = {
                     "Scored {C:attention}#1#s{} also",
-                    "score all {C:attention}#1#s{} still in hand"
+                    "score all {C:attention}#1#s{}",
+                    "still in hand"
                 },
             },
             j_j8mod_maestro = {
@@ -682,7 +734,9 @@ return {
             j8mod_temmie_text = "ho1!",
             j8mod_free_ex = "Free!",
             j8mod_yeah_ex = "Yeah!",
-            j8mod_inactive = "inactive"
+            j8mod_inactive = "inactive",
+            j8mod_program_advance = "Program Advance!",
+            j8mod_reroll_ex = "Reroll!"
         }
     },
 }

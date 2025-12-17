@@ -797,6 +797,25 @@ SMODS.current_mod.extra_tabs = function()
 														},
 													}
 												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "Steven Bills",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
 											}
 										},
 										{
@@ -1315,6 +1334,8 @@ SMODS.Atlas {
 
 -- ## POOLS ##
 
+-- no longer doing this
+--[[
 SMODS.ObjectType({
 	key = "j8mod_meal_ticket", -- The prefix is not added automatically so it's recommended to add it yourself
 	default = "j_ice_cream",
@@ -1334,6 +1355,7 @@ SMODS.ObjectType({
 		j_j8mod_marzipan_decoration = true
 	},
 })
+]]
 
 SMODS.ObjectType({
 	key = "j8mod_waterproof_banned_jokers", -- The prefix is not added automatically so it's recommended to add it yourself
@@ -1398,9 +1420,9 @@ end
 local set_cost_hook = Card.set_cost
 function Card.set_cost(self)
 	set_cost_hook(self)
-	if self.ability.brown_magic then
-		self.sell_cost = 0
-	elseif self.ability.yoshi then
+	--if self.ability.brown_magic then
+	--#self.sell_cost = 0
+	if self.ability.yoshi then
 		self.sell_cost = 1 + self.ability.extra_value
 	end
 end
