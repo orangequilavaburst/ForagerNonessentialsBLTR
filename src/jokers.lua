@@ -2354,7 +2354,7 @@ SMODS.Joker {
 	unlocked = true,
 	config = { extra = { mult = 0, mult_inc = 5 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_vjb", set = "Other" }
 		return { vars = { card.ability.extra.mult, card.ability.extra.mult_inc } }
 	end,
 	calculate = function(self, card, context)
@@ -2400,7 +2400,7 @@ SMODS.Joker {
 	unlocked = true,
 	config = { extra = { dollars = 0 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_vjb", set = "Other" }
 		return { vars = { card.ability.extra.dollars } }
 	end,
 	calculate = function(self, card, context)
