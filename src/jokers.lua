@@ -424,6 +424,7 @@ SMODS.Joker {
 	config = { extra = { ante_count = 0, ante_max = 3 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { type = 'name_text', key = "c_soul", set = 'Spectral' }				info_queue[#info_queue + 1] = { type = 'name_text', key = "c_black_hole", set = 'Spectral' }
 		return { vars = { card.ability.extra.ante_count, card.ability.extra.ante_max } }
 	end,
 	calculate = function(self, card, context)
@@ -476,8 +477,8 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
-	rarity = 2,
-	cost = 7,
+	rarity = 1,
+	cost = 6,
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
@@ -524,8 +525,8 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
-	rarity = 2,
-	cost = 6,
+	rarity = 1,
+	cost = 5,
 	atlas = "j8jokers",
 	pixel_size = { w = 23, h = 95 },
 	pos = { x = 1, y = 1 },
@@ -707,8 +708,8 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
-	rarity = 2,
-	cost = 7,
+	rarity = 3,
+	cost = 10,
 	atlas = "j8jokers",
 	pos = { x = 6, y = 1 },
 	discovered = true,
@@ -812,7 +813,7 @@ SMODS.Joker {
 -- Buy 1 Get 1 Free
 SMODS.Joker {
 	key = "b1g1f",
-	blueprint_compat = true,
+	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
@@ -1259,8 +1260,8 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
-	rarity = 2,
-	cost = 8,
+	rarity = 1,
+	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 3, y = 2 },
 	discovered = true,
@@ -2036,14 +2037,6 @@ SMODS.Joker {
 			end
 		end
 	end,
-	in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
-		for _, playing_card in ipairs(G.playing_cards or {}) do
-			if playing_card.edition then
-				return true
-			end
-		end
-		return false
-	end
 }
 
 -- Werewire
@@ -2303,7 +2296,7 @@ SMODS.Joker {
 				card.children.center)
 		end
 	},
-	config = { extra = { Xmult_gain = 0.125, Xmult_extra = 0.5, Xmult = 1 } },
+	config = { extra = { Xmult_gain = 0.125, Xmult_extra = 0.25, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
 		return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult_extra, card.ability.extra.Xmult } }
@@ -2487,8 +2480,8 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = false,
-	rarity = 3,
-	cost = 10,
+	rarity = 2,
+	cost = 9,
 	atlas = "j8jokers",
 	pos = { x = 3, y = 3 },
 	discovered = true,
@@ -2651,7 +2644,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = true,
 	pos = { x = 6, y = 3 },
-	config = { extra = { Xmult_gain = 1, Xmult = 1 } },
+	config = { extra = { Xmult_gain = 0.5, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
 		return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
@@ -2990,6 +2983,9 @@ SMODS.Joker {
 				}, card)
 			end
 		end
+	end,
+	in_pool = function(self, args)
+		return G.GAME.hands["Straight Flush"].played > 0
 	end
 
 }
@@ -3056,8 +3052,8 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
-	rarity = 1,
-	cost = 5,
+	rarity = 3,
+	cost = 10,
 	config = { extra = { poker_hand = "Three of a Kind", scale_amount = 0.3 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
@@ -3069,6 +3065,9 @@ SMODS.Joker {
 				xmult = 1.0 + card.ability.extra.scale_amount * G.GAME.hands[card.ability.extra.poker_hand].played
 			}
 		end
+	end,
+	in_pool = function(self, args)
+		return G.GAME.hands["Three of a Kind"].played > 0
 	end
 }
 
@@ -3098,7 +3097,7 @@ SMODS.Joker {
 				message_card = card,
 				colour = G.C.FILTER,
 				func = function()
-					local pack = SMODS.add_booster_to_shop(card.ability.extra.booster_type .. '_' .. math.random(1, 2))
+					local pack = SMODS.add_booster_to_shop(card.ability.extra.booster_type .. "_1")
 					pack.states.visible = nil
 					G.E_MANAGER:add_event(Event({
 						func = function()
@@ -3151,8 +3150,8 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
-	rarity = 3,
-	cost = 11,
+	rarity = 2,
+	cost = 8,
 	config = { extra = { ranks = { 6, 7, 8, 9, 10 }, odds = 10 } },
 	loc_vars = function(self, info_queue, card)
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,

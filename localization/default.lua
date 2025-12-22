@@ -123,7 +123,7 @@ return {
             j_j8mod_promo_card = {
                 name = "Promo Card",
                 text = {
-                    "{C:attention}+#1#{} Booster Pack choice"
+                    "{C:attention}+#1#{} choice from Booster Packs"
                 },
             },
             j_j8mod_sandwich_pick = {
@@ -489,7 +489,7 @@ return {
             j_j8mod_magic_card = {
                 name = "Magic Card",
                 text = {
-                    "{C:attention}+#1#{} Booster Pack size"
+                    "{C:attention}+#1#{} extra cards in Booster Packs"
                 },
             },
             j_j8mod_super_fighting_robot = {
@@ -561,7 +561,7 @@ return {
                 text = {
                     "Playing a {C:attention}#1#{} also scores",
                     "cards still in hand that match",
-                    "the {C:attention}rank{} of played cards"
+                    "the {C:attention}suit{} of played cards"
                 },
             },
             j_j8mod_colony_tile = {
@@ -603,8 +603,7 @@ return {
                 name = "J8-Bit",
                 text = {
                     "Scored {C:attention}Jacks{} and {C:attention}8s{} become {C:dark_edition}Negative",
-                    "Retrigger all {C:attention}Negative{}",
-                    "cards and Jokers"
+                    "Retrigger all {C:attention}Negative{} cards and Jokers"
                 },
             },
             j_j8mod_niri = {
@@ -693,6 +692,12 @@ return {
                 name = "Artist",
                 text = {
                     "Sharb"
+                }
+            },
+	    credits_vjb = {
+                name = "Artist",
+                text = {
+                    "Veejaybees"
                 }
             },
             credits_placeholder = {
