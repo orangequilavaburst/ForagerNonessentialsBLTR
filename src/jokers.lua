@@ -424,7 +424,8 @@ SMODS.Joker {
 	config = { extra = { ante_count = 0, ante_max = 3 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-		info_queue[#info_queue + 1] = { type = 'name_text', key = "c_soul", set = 'Spectral' }				info_queue[#info_queue + 1] = { type = 'name_text', key = "c_black_hole", set = 'Spectral' }
+		info_queue[#info_queue + 1] = { type = 'name_text', key = "c_soul", set = 'Spectral' }
+		info_queue[#info_queue + 1] = { type = 'name_text', key = "c_black_hole", set = 'Spectral' }
 		return { vars = { card.ability.extra.ante_count, card.ability.extra.ante_max } }
 	end,
 	calculate = function(self, card, context)
@@ -3071,9 +3072,9 @@ SMODS.Joker {
 	end
 }
 
--- Fortune Cookie
+-- Cereal Box
 SMODS.Joker {
-	key = "fortune_cookie",
+	key = "cereal_box",
 	atlas = "j8jokers",
 	pos = { x = 9, y = 5 },
 	unlocked = true,

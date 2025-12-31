@@ -581,8 +581,8 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 },
             },
-            j_j8mod_fortune_cookie = {
-                name = "Fortune Cookie",
+            j_j8mod_cereal_box = {
+                name = "Cereal Box",
                 text = {
                     "When entering shop,",
                     "destroy this and add",
@@ -694,7 +694,7 @@ return {
                     "Sharb"
                 }
             },
-	    credits_vjb = {
+            credits_vjb = {
                 name = "Artist",
                 text = {
                     "Veejaybees"
