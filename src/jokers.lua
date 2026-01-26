@@ -2949,7 +2949,7 @@ SMODS.Joker {
 		return { vars = { localize(card.ability.extra.poker_hand, 'poker_hands') } }
 	end,
 	calculate = function(self, card, context)
-		if context.pre_joker and not context.blueprint then
+		if context.pre_joker and not context.blueprint and next(context.poker_hands[card.ability.extra.poker_hand]) then
 			local suits_in_played_cards = {}
 			for _, v in ipairs(G.play.cards) do
 				suits_in_played_cards[v.base.suit] = true
