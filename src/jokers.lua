@@ -15,16 +15,17 @@ SMODS.Joker {
 	soul_pos = {
 		x = 1, y = 0,
 		draw = function(card, scale_mod, rotate_mod)
-			G.SHADERS['j8mod_prophecy']:send("depths_texture", J8MOD.prophecy_texture)
-			--G.SHADERS['j8mod_prophecy']:send("depths_dimensions", {J8MOD.prophecy_texture:getWidth(), J8MOD.prophecy_texture:getHeight()})
-			card.children.floating_sprite:draw_shader('j8mod_prophecy', nil, card.ARGS.send_to_shader, nil,
-				card.children.center)
+			if not J8MOD.config.no_deltarune_spoilers then
+				G.SHADERS['j8mod_prophecy']:send("depths_texture", J8MOD.prophecy_texture)
+				--G.SHADERS['j8mod_prophecy']:send("depths_dimensions", {J8MOD.prophecy_texture:getWidth(), J8MOD.prophecy_texture:getHeight()})
+				card.children.floating_sprite:draw_shader('j8mod_prophecy', nil, card.ARGS.send_to_shader, nil, card.children.center)
+			end
 		end
 	},
 	config = { extra = { prophecy_rounds = 0, total_rounds = 3, spectral_count = 2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = { card.ability.extra.total_rounds, card.ability.extra.prophecy_rounds, card.ability.extra.spectral_count, [[localize { type = 'name_text', set = 'Tag', key = 'tag_ethereal' }]] } }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_spell_tag" or "j_j8mod_prophecy", vars = { card.ability.extra.total_rounds, card.ability.extra.prophecy_rounds, card.ability.extra.spectral_count, [[localize { type = 'name_text', set = 'Tag', key = 'tag_ethereal' }]] } }
 	end,
 	calculate = function(self, card, context)
 		if context.selling_self and (card.ability.extra.prophecy_rounds >= card.ability.extra.total_rounds) and not context.blueprint then
@@ -70,6 +71,17 @@ SMODS.Joker {
 					localize('k_active_ex'),
 				colour = G.C.FILTER
 			}
+		end
+	end,
+	update = function(self, card, dt)
+		if J8MOD.config.no_deltarune_spoilers then
+			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+			card.children.floating_sprite.states.visible = false
+		else
+			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-prophecy']
+			card.children.floating_sprite.states.visible = true
 		end
 	end
 }
@@ -1020,7 +1032,7 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Wild' } }
+		return { key = J8MOD.config.furry_mode and "j_j8mod_assimilation_joker" or "j_j8mod_copied_homework", vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Wild' } }
 	end,
 	calculate = function(self, card, context)
 		if context.after and not context.blueprint then
@@ -1056,6 +1068,13 @@ SMODS.Joker {
 			end
 		end
 		return false
+	end,
+	update = function(self, card, dt)
+		if J8MOD.config.furry_mode then
+			card.children.center:set_sprite_pos({x=8, y=1})
+		else
+			card.children.center:set_sprite_pos({x=7, y=1})
+		end
 	end
 }
 
@@ -1185,6 +1204,13 @@ SMODS.Joker {
 			end
 		end
 	end,
+	update = function(self, card, dt)
+		if J8MOD.config.furry_mode then
+			card.children.center:set_sprite_pos({x=1, y=2})
+		else
+			card.children.center:set_sprite_pos({x=0, y=2})
+		end
+	end
 }
 
 -- Breaker Box
@@ -1820,6 +1846,15 @@ SMODS.Joker {
 				colour = (not card.ability.extra.adding_chips) and G.C.CHIPS or G.C.MULT
 			}
 		end
+	end,
+	update = function(self, card, dt)
+		if J8MOD.config.furry_mode then
+			card.children.center:set_sprite_pos({x=0, y=1})
+			card.children.floating_sprite:set_sprite_pos({x=1, y=1})
+		else
+			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.floating_sprite:set_sprite_pos({x=1, y=0})
+		end
 	end
 }
 
@@ -1968,6 +2003,7 @@ SMODS.Joker {
 	config = { extra = { rot_extra = 0.0 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_reverse_polarity" or "j_j8mod_weather_together" }
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and not context.blueprint then
@@ -1994,6 +2030,13 @@ SMODS.Joker {
 				colour = G.C.PURPLE
 			}
 		end
+	end,
+	update = function(self, card, dt)
+		if J8MOD.config.no_deltarune_spoilers then
+			card.children.center:set_sprite_pos({x=2, y=3})
+		else
+			card.children.center:set_sprite_pos({x=3, y=3})
+		end
 	end
 }
 
@@ -2014,7 +2057,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = G.P_CENTERS["e_polychrome"]
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_color_cafe')
-		return { vars = { numerator, denominator } }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_makeup_palette" or "j_j8mod_color_cafe", vars = { numerator, denominator } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not (context.other_card.edition and context.other_card.edition.key == "e_polychrome") then
@@ -2038,6 +2081,17 @@ SMODS.Joker {
 			end
 		end
 	end,
+	update = function(self, card, dt)
+		if J8MOD.config.no_deltarune_spoilers then
+			card.children.center:set_sprite_pos({x=4, y=3})
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+			--card.children.floating_sprite.states.visible = false
+		else
+			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-swatch']
+			--card.children.floating_sprite.states.visible = true
+		end
+	end
 }
 
 -- Werewire
@@ -2053,8 +2107,9 @@ SMODS.Joker {
 	soul_pos = {
 		x = 1, y = 0,
 		draw = function(card, scale_mod, rotate_mod)
-			card.children.floating_sprite:draw_shader('j8mod_ww', nil, card.ARGS.send_to_shader, nil,
-				card.children.center)
+			if not J8MOD.config.no_deltarune_spoilers then
+				card.children.floating_sprite:draw_shader('j8mod_ww', nil, card.ARGS.send_to_shader, nil, card.children.center)
+			end
 		end
 	},
 	--[[
@@ -2070,7 +2125,7 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS["e_polychrome"]
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-		return { vars = { card.ability.extra.repetitions } }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_pinwheel" or "j_j8mod_werewire", vars = { card.ability.extra.repetitions } }
 	end,
 	calculate = function(self, card, context)
 		-- playing cards
@@ -2105,6 +2160,17 @@ SMODS.Joker {
 			end
 		end
 		return false
+	end,
+	update = function(self, card, dt)
+		if J8MOD.config.no_deltarune_spoilers then
+			card.children.center:set_sprite_pos({x=5, y=3})
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+			--card.children.floating_sprite.states.visible = false
+		else
+			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-werewire']
+			--card.children.floating_sprite.states.visible = true
+		end
 	end
 }
 
@@ -2293,14 +2359,15 @@ SMODS.Joker {
 	soul_pos = {
 		x = 1, y = 1,
 		draw = function(card, scale_mod, rotate_mod)
-			card.children.floating_sprite:draw_shader('j8mod_yuri', nil, card.ARGS.send_to_shader, nil,
-				card.children.center)
+			if not J8MOD.config.no_deltarune_spoilers then
+				card.children.floating_sprite:draw_shader('j8mod_yuri', nil, card.ARGS.send_to_shader, nil, card.children.center)
+			end
 		end
 	},
 	config = { extra = { Xmult_gain = 0.125, Xmult_extra = 0.25, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-		return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult_extra, card.ability.extra.Xmult } }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_iron_maiden" or "j_j8mod_mizzmanaged", vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult_extra, card.ability.extra.Xmult } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not context.blueprint then
@@ -2331,6 +2398,23 @@ SMODS.Joker {
 			end
 		end
 		return false
+	end,
+	update = function(self, card, dt)
+		if J8MOD.config.no_deltarune_spoilers then
+			card.children.center:set_sprite_pos({x=8, y=3})
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+			card.children.floating_sprite.states.visible = false
+		else
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-yuri']
+			card.children.floating_sprite.states.visible = true
+			if J8MOD.config.furry_mode then
+				card.children.center:set_sprite_pos({x=0, y=1})
+				card.children.floating_sprite:set_sprite_pos({x=1, y=1})
+			else
+				card.children.center:set_sprite_pos({x=0, y=0})
+				card.children.floating_sprite:set_sprite_pos({x=1, y=0})
+			end
+		end
 	end
 }
 
@@ -2349,6 +2433,9 @@ SMODS.Joker {
 	config = { extra = { mult = 0, mult_inc = 5 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_vjb", set = "Other" }
+		if not J8MOD.config.furry_mode then
+			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		end
 		return { vars = { card.ability.extra.mult, card.ability.extra.mult_inc } }
 	end,
 	calculate = function(self, card, context)
@@ -2377,6 +2464,13 @@ SMODS.Joker {
 			end
 		end
 		return false
+	end,
+	update = function(self, card, dt)
+		if J8MOD.config.furry_mode then
+			card.children.center:set_sprite_pos({x=0, y=4})
+		else
+			card.children.center:set_sprite_pos({x=9, y=3})
+		end
 	end
 }
 
@@ -2395,6 +2489,9 @@ SMODS.Joker {
 	config = { extra = { dollars = 0 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_vjb", set = "Other" }
+		if not J8MOD.config.furry_mode then
+			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		end
 		return { vars = { card.ability.extra.dollars } }
 	end,
 	calculate = function(self, card, context)
@@ -2425,6 +2522,13 @@ SMODS.Joker {
 			end
 		end
 		return false
+	end,
+	update = function(self, card, dt)
+		if J8MOD.config.furry_mode then
+			card.children.center:set_sprite_pos({x=2, y=4})
+		else
+			card.children.center:set_sprite_pos({x=1, y=4})
+		end
 	end
 }
 
@@ -2538,6 +2642,13 @@ SMODS.Joker {
 	end,
 	in_pool = function(self, args)
 		return G.GAME.dollars >= 25
+	end,
+	update = function(self, card, dt)
+		if J8MOD.config.furry_mode then
+			card.children.center:set_sprite_pos({x=5, y=4})
+		else
+			card.children.center:set_sprite_pos({x=4, y=4})
+		end
 	end
 }
 
@@ -2739,7 +2850,7 @@ SMODS.Joker {
 	config = { extra = { Xmult = 3 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-		return { vars = { card.ability.extra.Xmult } }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_sleight_of_hand" or "j_j8mod_the_world_revolving", vars = { card.ability.extra.Xmult } }
 	end,
 	calculate = function(self, card, context)
 		if context.after and not context.blueprint then
@@ -2762,6 +2873,17 @@ SMODS.Joker {
 			}
 		end
 	end,
+	update = function(self, card, dt)
+		if J8MOD.config.no_deltarune_spoilers then
+			card.children.center:set_sprite_pos({x=0, y=5})
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+			--card.children.floating_sprite.states.visible = false
+		else
+			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-jevil']
+			--card.children.floating_sprite.states.visible = true
+		end
+	end
 }
 
 -- Spider Bake Sale

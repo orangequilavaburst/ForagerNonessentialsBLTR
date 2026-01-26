@@ -83,6 +83,15 @@ return {
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive}/#1#)",
                 },
             },
+            j_j8mod_spell_tag = { -- alt for prophecy
+                name = "Spell Tag",
+                text = {
+                    "After {C:attention}#1#{} rounds,",
+                    "sell this card to create",
+                    "{C:attention}#3#{} random {C:spectral}Spectral{} cards",
+                    "{C:inactive}(Currently {C:attention}#2#{C:inactive}/#1#)",
+                },
+            },
             j_j8mod_monty_hall = {
                 name = "Monty Hall",
                 text = {
@@ -256,6 +265,14 @@ return {
                     "the card on their {C:attention}right"
                 },
             },
+            j_j8mod_copied_homework = {
+                name = "Copied Homework",
+                text = {
+                    "{C:attention}#1#s{} held in hand",
+                    "after scoring convert to",
+                    "the card on their {C:attention}right"
+                }
+            },
             j_j8mod_69_joke = {
                 name = "69 Joke",
                 text = {
@@ -400,8 +417,23 @@ return {
                     "{C:inactive}(counted as a {C:blue}+{C:inactive}Chips/{C:red}+{C:inactive}Mult Joker)"
                 },
             },
+            j_j8mod_reverse_polarity = {
+                name = "Reverse Polarity",
+                text = {
+                    "{C:purple}Swaps{} Chips and Mult",
+                    "{C:inactive}(counted as a {C:blue}+{C:inactive}Chips/{C:red}+{C:inactive}Mult Joker)"
+                },
+            },
             j_j8mod_color_cafe = {
                 name = "Color Cafe",
+                text = {
+                    "Playing cards have a",
+                    "{C:green}#1# in #2#{} chance to",
+                    "become {C:attention}Polychrome{} when scored"
+                },
+            },
+            j_j8mod_makeup_palette = {
+                name = "Makeup Palette",
                 text = {
                     "Playing cards have a",
                     "{C:green}#1# in #2#{} chance to",
@@ -414,6 +446,13 @@ return {
                     "Retrigger all {C:attention}Polychrome{}",
                     "cards and Jokers"
                 },
+            },
+            j_j8mod_pinwheel = {
+                name = "Pinwheel",
+                text = {
+                    "Retrigger all {C:attention}Polychrome{}",
+                    "cards and Jokers"
+                }
             },
             j_j8mod_spindown_dice = {
                 name = "Spindown Dice",
@@ -443,6 +482,15 @@ return {
                     "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}Queen",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 },
+            },
+            j_j8mod_iron_maiden = {
+                name = "Iron Maiden",
+                text = {
+                    "This Joker gains {X:mult,C:white} X#1# {} Mult",
+                    "per scoring card with {C:attention}any Seal{} played,",
+                    "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}Queen",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
+                }
             },
             j_j8mod_planetary_domination = {
                 name = "Planetary Domination",
@@ -511,6 +559,14 @@ return {
                 name = "THE WORLD REVOLVING",
                 text = {
                     "{C:inactive,s:0.8,E:1}\"CHAOS, CHAOS!\"{s:1.0}",
+                    "{X:mult,C:white} X#1# {} Mult",
+                    "Reshuffles cards in hand back",
+                    "into deck after scoring"
+                },
+            },
+            j_j8mod_sleight_of_hand = {
+                name = "Sleight of Hand",
+                text = {
                     "{X:mult,C:white} X#1# {} Mult",
                     "Reshuffles cards in hand back",
                     "into deck after scoring"
@@ -725,8 +781,7 @@ return {
             j8mod_no_deltarune_spoilers = "No Deltarune Spoilers",
             j8mod_no_deltarune_spoilers_desc = {
                 "Replaces references to",
-                "Deltarune Chapters 3-4",
-                "with other things."
+                "Deltarune with other things."
             },
             j8mod_furry_mode = "Furry Mode",
             j8mod_furry_mode_desc = {
