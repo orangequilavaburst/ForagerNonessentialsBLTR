@@ -700,6 +700,18 @@ return {
                     "Veejaybees"
                 }
             },
+            credits_overgrownrobot = {
+                name = "Artist",
+                text = {
+                    "overgrown.robot"
+                }
+            },
+            credits_neognw = {
+                name = "Artist",
+                text = {
+                    "NeoGnW"
+                }
+            },
             credits_placeholder = {
                 name = "Artist",
                 text = {

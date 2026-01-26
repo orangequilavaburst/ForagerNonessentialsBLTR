@@ -1310,7 +1310,7 @@ end
 SMODS.Atlas {
 
 	key = "j8jokers",
-	path = "jokers-temp.png",
+	path = "jokers.png",
 	px = 71,
 	py = 95
 
@@ -1340,6 +1340,21 @@ SMODS.Atlas {
 	key = "j8jokers-prophecy",
 	path = "jokers-prophecy.png",
 	px = 71, py = 95
+}
+SMODS.Atlas {
+	key = "j8jokers-jevil",
+	path = "jokers-jevil.png",
+	px = 71, py = 95
+}
+SMODS.Atlas {
+	key = "j8jokers-swatch",
+	path = "jokers-swatch.png",
+	px = 71, py = 95
+}
+SMODS.Atlas {
+	key = "j8jokers-bn",
+	path = "jokers-bn.png",
+	px = 74, py = 98
 }
 
 SMODS.Atlas {

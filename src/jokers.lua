@@ -483,7 +483,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
-	pos = { x = 0, y = 1 },
+	pos = { x = 9, y = 0 },
 	config = { extra = { odds = 3 } },
 	loc_vars = function(self, info_queue, card)
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_graffiti')
@@ -530,7 +530,7 @@ SMODS.Joker {
 	cost = 5,
 	atlas = "j8jokers",
 	pixel_size = { w = 23, h = 95 },
-	pos = { x = 1, y = 1 },
+	pos = { x = 0, y = 1 },
 	discovered = true,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
@@ -585,7 +585,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 6,
 	atlas = "j8jokers",
-	pos = { x = 2, y = 1 },
+	pos = { x = 1, y = 1 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { chips = 0, chip_mod = 20, odds = 25 } },
@@ -630,7 +630,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 6,
 	atlas = "j8jokers",
-	pos = { x = 4, y = 1 },
+	pos = { x = 2, y = 1 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { dollars = 8 } },
@@ -668,7 +668,7 @@ SMODS.Joker {
 	cost = 10,
 	atlas = "j8jokers",
 	pixel_size = { w = 51, h = 81 },
-	pos = { x = 5, y = 1 },
+	pos = { x = 3, y = 1 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { rerolls = 2, rerolls_max = 2 } },
@@ -712,7 +712,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 10,
 	atlas = "j8jokers",
-	pos = { x = 6, y = 1 },
+	pos = { x = 4, y = 1 },
 	discovered = true,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
@@ -792,7 +792,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 4,
 	atlas = "j8jokers",
-	pos = { x = 7, y = 1 },
+	pos = { x = 5, y = 1 },
 	discovered = true,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
@@ -821,7 +821,7 @@ SMODS.Joker {
 	cost = 10,
 	atlas = "j8jokers",
 	pixel_size = { w = 55 },
-	pos = { x = 5, y = 4 },
+	pos = { x = 6, y = 1 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { saved_packs = {} } },
@@ -1453,7 +1453,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers",
-	pos = { x = 6, y = 4 },
+	pos = { x = 5, y = 2 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { odds = 7 } },
@@ -1501,7 +1501,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers",
-	pos = { x = 7, y = 4 },
+	pos = { x = 6, y = 2 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { odds = 10 } },
@@ -1561,7 +1561,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers",
-	pos = { x = 8, y = 4 },
+	pos = { x = 7, y = 2 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { odds = 8 } },
@@ -1705,7 +1705,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 4,
 	atlas = "j8jokers",
-	pos = { x = 0, y = 5 },
+	pos = { x = 8, y = 2 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { enhancement_type = "m_stone" } },
@@ -1714,7 +1714,7 @@ SMODS.Joker {
 		if card.ability.extra.enhancement_type and card.ability.extra.enhancement_type ~= "m_stone" then
 			info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement_type]
 		end
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
 		return { vars = { card.ability.extra.enhancement_type and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement_type }) or 'Nothing' } }
 	end,
 	calculate = function(self, card, context)
@@ -1790,9 +1790,9 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers-hypno",
-	pos = { x = 0, y = 0 },
+	pos = { x = 0, y = 1 },
 	soul_pos = {
-		x = 1, y = 0,
+		x = 1, y = 1,
 		draw = function(card, scale_mod, rotate_mod)
 			card.children.floating_sprite:draw_shader('j8mod_spiral', nil, card.ARGS.send_to_shader, nil,
 				card.children.center)
@@ -1832,7 +1832,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 4,
 	atlas = "j8jokers",
-	pos = { x = 5, y = 2 },
+	pos = { x = 9, y = 2 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { t_chips = 1 } },
@@ -1873,7 +1873,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 4,
 	atlas = "j8jokers",
-	pos = { x = 6, y = 2 },
+	pos = { x = 0, y = 3 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { retriggers = 1, poker_hand = 'High Card' } },
@@ -1920,7 +1920,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
-	pos = { x = 1, y = 6 },
+	pos = { x = 1, y = 3 },
 	pixel_size = { w = 69, h = 70 },
 	discovered = true,
 	unlocked = true,
@@ -1962,7 +1962,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
-	pos = { x = 3, y = 5 },
+	pos = { x = 3, y = 3 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { rot_extra = 0.0 } },
@@ -2005,8 +2005,8 @@ SMODS.Joker {
 	eternal_compat = true,
 	rarity = 3,
 	cost = 11,
-	atlas = "j8jokers",
-	pos = { x = 7, y = 2 },
+	atlas = "j8jokers-swatch",
+	pos = { x = 0, y = 0 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { odds = 10 } },
@@ -2108,91 +2108,6 @@ SMODS.Joker {
 	end
 }
 
--- D100
-
-SMODS.Joker {
-
-	key = "d100",
-	blueprint_compat = false,
-	eternal_compat = false,
-	perishable_compat = false,
-	rarity = 3,
-	cost = 11,
-	atlas = "j8jokers",
-	discovered = true,
-	pos = { x = 2, y = 5 },
-	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return {}
-	end,
-	calculate = function(self, card, context)
-		if context.selling_self then
-			local cards_to_spindown = {}
-			if G.STATE == G.STATES.SHOP then
-				-- get all shop cards
-				for index, shop_card in ipairs(G.shop_jokers.cards) do
-					table.insert(cards_to_spindown, shop_card)
-				end
-				-- get all shop vouchers
-				for index, shop_card in ipairs(G.shop_vouchers.cards) do
-					table.insert(cards_to_spindown, shop_card)
-				end
-				-- get all shop booster packs
-				for index, shop_card in ipairs(G.shop_booster.cards) do
-					table.insert(cards_to_spindown, shop_card)
-				end
-			elseif G.STATE == G.STATES.SELECTING_HAND then
-				-- get all cards in hand
-				for index, card in ipairs(G.hand.cards) do
-					table.insert(cards_to_spindown, card)
-				end
-			end
-
-			-- get all jokers
-			for index, joker in ipairs(G.jokers.cards) do
-				if joker ~= card then
-					table.insert(cards_to_spindown, joker)
-				end
-			end
-			-- get all consumables
-			for index, cn in ipairs(G.consumeables.cards) do
-				table.insert(cards_to_spindown, cn)
-			end
-
-			-- spin them down!
-			for index, sd in ipairs(cards_to_spindown) do
-				local percent = 0.85 + (index - 0.999) / (#cards_to_spindown - 0.998) * 0.3
-				G.E_MANAGER:add_event(Event({
-					trigger = 'after',
-					delay = 0.1,
-					func = function()
-						sd:flip()
-						play_sound('card1', percent)
-						sd:juice_up(0.3, 0.3)
-						return true
-					end
-				}))
-				delay(0.1)
-				G.E_MANAGER:add_event(Event({
-					trigger = 'after',
-					delay = 0.1,
-					func = function()
-						spindown(sd, pseudorandom("j8mod_d100", 1, 1000))
-						sd:flip()
-						play_sound('tarot2', percent, 0.6)
-						sd:juice_up(0.3, 0.3)
-						save_run()
-						return true
-					end
-				}))
-			end
-
-			return nil, true -- This is for Joker retrigger purposes
-		end
-	end
-
-}
-
 -- Spindown Dice
 
 SMODS.Joker {
@@ -2205,7 +2120,7 @@ SMODS.Joker {
 	cost = 11,
 	atlas = "j8jokers",
 	discovered = true,
-	pos = { x = 8, y = 2 },
+	pos = { x = 6, y = 3 },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return {}
@@ -2279,6 +2194,91 @@ SMODS.Joker {
 
 }
 
+-- D100
+
+SMODS.Joker {
+
+	key = "d100",
+	blueprint_compat = false,
+	eternal_compat = false,
+	perishable_compat = false,
+	rarity = 3,
+	cost = 11,
+	atlas = "j8jokers",
+	discovered = true,
+	pos = { x = 7, y = 3 },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		return {}
+	end,
+	calculate = function(self, card, context)
+		if context.selling_self then
+			local cards_to_spindown = {}
+			if G.STATE == G.STATES.SHOP then
+				-- get all shop cards
+				for index, shop_card in ipairs(G.shop_jokers.cards) do
+					table.insert(cards_to_spindown, shop_card)
+				end
+				-- get all shop vouchers
+				for index, shop_card in ipairs(G.shop_vouchers.cards) do
+					table.insert(cards_to_spindown, shop_card)
+				end
+				-- get all shop booster packs
+				for index, shop_card in ipairs(G.shop_booster.cards) do
+					table.insert(cards_to_spindown, shop_card)
+				end
+			elseif G.STATE == G.STATES.SELECTING_HAND then
+				-- get all cards in hand
+				for index, card in ipairs(G.hand.cards) do
+					table.insert(cards_to_spindown, card)
+				end
+			end
+
+			-- get all jokers
+			for index, joker in ipairs(G.jokers.cards) do
+				if joker ~= card then
+					table.insert(cards_to_spindown, joker)
+				end
+			end
+			-- get all consumables
+			for index, cn in ipairs(G.consumeables.cards) do
+				table.insert(cards_to_spindown, cn)
+			end
+
+			-- spin them down!
+			for index, sd in ipairs(cards_to_spindown) do
+				local percent = 0.85 + (index - 0.999) / (#cards_to_spindown - 0.998) * 0.3
+				G.E_MANAGER:add_event(Event({
+					trigger = 'after',
+					delay = 0.1,
+					func = function()
+						sd:flip()
+						play_sound('card1', percent)
+						sd:juice_up(0.3, 0.3)
+						return true
+					end
+				}))
+				delay(0.1)
+				G.E_MANAGER:add_event(Event({
+					trigger = 'after',
+					delay = 0.1,
+					func = function()
+						spindown(sd, pseudorandom("j8mod_d100", 1, 1000))
+						sd:flip()
+						play_sound('tarot2', percent, 0.6)
+						sd:juice_up(0.3, 0.3)
+						save_run()
+						return true
+					end
+				}))
+			end
+
+			return nil, true -- This is for Joker retrigger purposes
+		end
+	end
+
+}
+
 -- Mizzmanaged
 SMODS.Joker {
 	key = "mizzmanaged",
@@ -2289,9 +2289,9 @@ SMODS.Joker {
 	cost = 11,
 	discovered = true,
 	atlas = "j8jokers-yuri",
-	pos = { x = 0, y = 0 },
+	pos = { x = 0, y = 1 },
 	soul_pos = {
-		x = 1, y = 0,
+		x = 1, y = 1,
 		draw = function(card, scale_mod, rotate_mod)
 			card.children.floating_sprite:draw_shader('j8mod_yuri', nil, card.ARGS.send_to_shader, nil,
 				card.children.center)
@@ -2343,7 +2343,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 5,
 	atlas = "j8jokers",
-	pos = { x = 0, y = 3 },
+	pos = { x = 0, y = 4 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { mult = 0, mult_inc = 5 } },
@@ -2389,7 +2389,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers",
-	pos = { x = 1, y = 3 },
+	pos = { x = 2, y = 4 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { dollars = 0 } },
@@ -2437,7 +2437,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 5,
 	atlas = "j8jokers",
-	pos = { x = 2, y = 3 },
+	pos = { x = 3, y = 4 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { odds = 2, dollars = 5 } },
@@ -2484,7 +2484,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 9,
 	atlas = "j8jokers",
-	pos = { x = 3, y = 3 },
+	pos = { x = 5, y = 4 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { money_current = 0, money_max = 150 } },
@@ -2553,11 +2553,11 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
-	pos = { x = 4, y = 3 },
+	pos = { x = 6, y = 4 },
 	config = { extra = { enhancement = "m_wild" } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement_type]
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_neognw", set = "Other" }
 		return { vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Wild' } }
 	end,
 	calculate = function(self, card, context)
@@ -2620,10 +2620,10 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
-	pos = { x = 5, y = 3 },
+	pos = { x = 7, y = 4 },
 	config = { extra = { booster_mod = 1 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_neognw", set = "Other" }
 		return { vars = { card.ability.extra.booster_mod } }
 	end,
 	add_to_deck = function(self, card, from_debuff)
@@ -2644,7 +2644,7 @@ SMODS.Joker {
 	cost = 8,
 	atlas = "j8jokers",
 	discovered = true,
-	pos = { x = 6, y = 3 },
+	pos = { x = 8, y = 4 },
 	config = { extra = { Xmult_gain = 0.5, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
@@ -2676,7 +2676,7 @@ SMODS.Joker {
 	discovered = true,
 	perishable_compat = true,
 	eternal_compat = true,
-	pos = { x = 7, y = 3 },
+	pos = { x = 9, y = 4 },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_czarkhasm", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
@@ -2731,11 +2731,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	rarity = 3,
 	cost = 11,
-	atlas = "j8jokers",
+	atlas = "j8jokers-jevil",
 	discovered = true,
 	perishable_compat = true,
 	eternal_compat = true,
-	pos = { x = 8, y = 3 },
+	pos = { x = 0, y = 0 },
 	config = { extra = { Xmult = 3 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
@@ -2773,7 +2773,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 9,
 	atlas = "j8jokers",
-	pos = { x = 9, y = 3 },
+	pos = { x = 1, y = 5 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { seal = 'Purple', money_current = 0, money_max = 12 } },
@@ -2841,7 +2841,7 @@ SMODS.Joker {
 	cost = 11,
 	atlas = "j8jokers",
 	discovered = true,
-	pos = { x = 0, y = 4 },
+	pos = { x = 2, y = 5 },
 	config = { extra = { blind_multiplier = 0.25 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
@@ -2876,7 +2876,7 @@ SMODS.Joker {
 	cost = 8,
 	atlas = "j8jokers",
 	discovered = true,
-	pos = { x = 1, y = 4 },
+	pos = { x = 3, y = 5 },
 	config = { extra = { rank_inc = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
@@ -2932,8 +2932,10 @@ SMODS.Joker {
 SMODS.Joker {
 
 	key = "program_advance",
-	atlas = "j8jokers",
-	pos = { x = 6, y = 5 },
+	atlas = "j8jokers-bn",
+	pos = { x = 0, y = 0 },
+	pixel_size = { w = 74, h = 98 },
+	display_size = { w = 74, h = 98 },
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = false,
@@ -2943,7 +2945,7 @@ SMODS.Joker {
 	cost = 6,
 	config = { extra = { poker_hand = "Straight Flush" } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_neognw", set = "Other" }
 		return { vars = { localize(card.ability.extra.poker_hand, 'poker_hands') } }
 	end,
 	calculate = function(self, card, context)
@@ -2995,7 +2997,7 @@ SMODS.Joker {
 SMODS.Joker {
 	key = "colony_tile",
 	atlas = "j8jokers",
-	pos = { x = 7, y = 5 },
+	pos = { x = 4, y = 5 },
 	pixel_size = { w = 69, h = 69 },
 	unlocked = true,
 	discovered = true,
@@ -3047,7 +3049,7 @@ SMODS.Joker {
 SMODS.Joker {
 	key = "rule_of_threes",
 	atlas = "j8jokers",
-	pos = { x = 8, y = 5 },
+	pos = { x = 5, y = 5 },
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = true,
@@ -3076,7 +3078,7 @@ SMODS.Joker {
 SMODS.Joker {
 	key = "cereal_box",
 	atlas = "j8jokers",
-	pos = { x = 9, y = 5 },
+	pos = { x = 6, y = 5 },
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = true,
@@ -3087,6 +3089,7 @@ SMODS.Joker {
 	config = { extra = { booster_type = "p_spectral_jumbo" } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.booster_type .. "_1"]
+		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
 		return { vars = { localize({ type = 'name_text', key = card.ability.extra.booster_type, set = 'Other' }) } }
 	end,
 	calculate = function(self, card, context)
@@ -3145,7 +3148,7 @@ end
 SMODS.Joker {
 	key = "community_resource",
 	atlas = "j8jokers",
-	pos = { x = 0, y = 6 },
+	pos = { x = 7, y = 5 },
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = true,
@@ -3204,7 +3207,8 @@ SMODS.Joker {
 
 	key = "j8bit",
 	atlas = "j8jokers",
-	pos = { x = 2, y = 4 },
+	pos = { x = 0, y = 6 },
+	soul_pos = { x = 1, y = 6 },
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = true,
@@ -3257,7 +3261,8 @@ SMODS.Joker {
 SMODS.Joker {
 	key = "niri",
 	atlas = "j8jokers",
-	pos = { x = 3, y = 4 },
+	pos = { x = 2, y = 6 },
+	soul_pos = { x = 3, y = 6 },
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = false,
@@ -3316,7 +3321,8 @@ SMODS.Joker {
 
 	key = "cyber_niri",
 	atlas = "j8jokers",
-	pos = { x = 4, y = 4 },
+	pos = { x = 4, y = 6 },
+	soul_pos = { x = 5, y = 6 },
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = true,
@@ -3384,8 +3390,8 @@ SMODS.Joker {
 
 	key = "cackler",
 	atlas = "j8jokers",
-	pos = { x = 4, y = 6 },
-	soul_pos = { x = 4, y = 7 },
+	pos = { x = 6, y = 6 },
+	soul_pos = { x = 7, y = 6 },
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = true,
@@ -3444,7 +3450,8 @@ SMODS.Joker {
 
 	key = "maestro",
 	atlas = "j8jokers",
-	pos = { x = 2, y = 6 },
+	pos = { x = 8, y = 6 },
+	soul_pos = { x = 9, y = 6 },
 	unlocked = true,
 	discovered = true,
 	blueprint_compat = true,
