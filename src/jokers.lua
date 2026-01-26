@@ -18,7 +18,8 @@ SMODS.Joker {
 			if not J8MOD.config.no_deltarune_spoilers then
 				G.SHADERS['j8mod_prophecy']:send("depths_texture", J8MOD.prophecy_texture)
 				--G.SHADERS['j8mod_prophecy']:send("depths_dimensions", {J8MOD.prophecy_texture:getWidth(), J8MOD.prophecy_texture:getHeight()})
-				card.children.floating_sprite:draw_shader('j8mod_prophecy', nil, card.ARGS.send_to_shader, nil, card.children.center)
+				card.children.floating_sprite:draw_shader('j8mod_prophecy', nil, card.ARGS.send_to_shader, nil,
+					card.children.center)
 			end
 		end
 	},
@@ -75,11 +76,11 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center:set_sprite_pos({ x = 0, y = 0 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
 			card.children.floating_sprite.states.visible = false
 		else
-			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center:set_sprite_pos({ x = 0, y = 0 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-prophecy']
 			card.children.floating_sprite.states.visible = true
 		end
@@ -433,11 +434,12 @@ SMODS.Joker {
 	discovered = true,
 	unlocked = true,
 	pos = { x = 8, y = 0 },
+	pixel_size = { w = 69, h = 78 },
 	config = { extra = { ante_count = 0, ante_max = 3 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
 		info_queue[#info_queue + 1] = { type = 'name_text', key = "c_soul", set = 'Spectral' }
 		info_queue[#info_queue + 1] = { type = 'name_text', key = "c_black_hole", set = 'Spectral' }
+		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
 		return { vars = { card.ability.extra.ante_count, card.ability.extra.ante_max } }
 	end,
 	calculate = function(self, card, context)
@@ -1071,9 +1073,9 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({x=8, y=1})
+			card.children.center:set_sprite_pos({ x = 8, y = 1 })
 		else
-			card.children.center:set_sprite_pos({x=7, y=1})
+			card.children.center:set_sprite_pos({ x = 7, y = 1 })
 		end
 	end
 }
@@ -1206,9 +1208,9 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({x=1, y=2})
+			card.children.center:set_sprite_pos({ x = 1, y = 2 })
 		else
-			card.children.center:set_sprite_pos({x=0, y=2})
+			card.children.center:set_sprite_pos({ x = 0, y = 2 })
 		end
 	end
 }
@@ -1849,11 +1851,11 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({x=0, y=1})
-			card.children.floating_sprite:set_sprite_pos({x=1, y=1})
+			card.children.center:set_sprite_pos({ x = 0, y = 1 })
+			card.children.floating_sprite:set_sprite_pos({ x = 1, y = 1 })
 		else
-			card.children.center:set_sprite_pos({x=0, y=0})
-			card.children.floating_sprite:set_sprite_pos({x=1, y=0})
+			card.children.center:set_sprite_pos({ x = 0, y = 0 })
+			card.children.floating_sprite:set_sprite_pos({ x = 1, y = 0 })
 		end
 	end
 }
@@ -2033,9 +2035,9 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({x=2, y=3})
+			card.children.center:set_sprite_pos({ x = 2, y = 3 })
 		else
-			card.children.center:set_sprite_pos({x=3, y=3})
+			card.children.center:set_sprite_pos({ x = 3, y = 3 })
 		end
 	end
 }
@@ -2083,11 +2085,11 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({x=4, y=3})
+			card.children.center:set_sprite_pos({ x = 4, y = 3 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
 			--card.children.floating_sprite.states.visible = false
 		else
-			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center:set_sprite_pos({ x = 0, y = 0 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-swatch']
 			--card.children.floating_sprite.states.visible = true
 		end
@@ -2108,7 +2110,8 @@ SMODS.Joker {
 		x = 1, y = 0,
 		draw = function(card, scale_mod, rotate_mod)
 			if not J8MOD.config.no_deltarune_spoilers then
-				card.children.floating_sprite:draw_shader('j8mod_ww', nil, card.ARGS.send_to_shader, nil, card.children.center)
+				card.children.floating_sprite:draw_shader('j8mod_ww', nil, card.ARGS.send_to_shader, nil,
+					card.children.center)
 			end
 		end
 	},
@@ -2163,11 +2166,11 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({x=5, y=3})
+			card.children.center:set_sprite_pos({ x = 5, y = 3 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
 			--card.children.floating_sprite.states.visible = false
 		else
-			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center:set_sprite_pos({ x = 0, y = 0 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-werewire']
 			--card.children.floating_sprite.states.visible = true
 		end
@@ -2360,7 +2363,8 @@ SMODS.Joker {
 		x = 1, y = 1,
 		draw = function(card, scale_mod, rotate_mod)
 			if not J8MOD.config.no_deltarune_spoilers then
-				card.children.floating_sprite:draw_shader('j8mod_yuri', nil, card.ARGS.send_to_shader, nil, card.children.center)
+				card.children.floating_sprite:draw_shader('j8mod_yuri', nil, card.ARGS.send_to_shader, nil,
+					card.children.center)
 			end
 		end
 	},
@@ -2401,18 +2405,18 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({x=8, y=3})
+			card.children.center:set_sprite_pos({ x = 8, y = 3 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
 			card.children.floating_sprite.states.visible = false
 		else
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-yuri']
 			card.children.floating_sprite.states.visible = true
 			if J8MOD.config.furry_mode then
-				card.children.center:set_sprite_pos({x=0, y=1})
-				card.children.floating_sprite:set_sprite_pos({x=1, y=1})
+				card.children.center:set_sprite_pos({ x = 0, y = 1 })
+				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 1 })
 			else
-				card.children.center:set_sprite_pos({x=0, y=0})
-				card.children.floating_sprite:set_sprite_pos({x=1, y=0})
+				card.children.center:set_sprite_pos({ x = 0, y = 0 })
+				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 0 })
 			end
 		end
 	end
@@ -2467,9 +2471,9 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({x=0, y=4})
+			card.children.center:set_sprite_pos({ x = 0, y = 4 })
 		else
-			card.children.center:set_sprite_pos({x=9, y=3})
+			card.children.center:set_sprite_pos({ x = 9, y = 3 })
 		end
 	end
 }
@@ -2525,9 +2529,9 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({x=2, y=4})
+			card.children.center:set_sprite_pos({ x = 2, y = 4 })
 		else
-			card.children.center:set_sprite_pos({x=1, y=4})
+			card.children.center:set_sprite_pos({ x = 1, y = 4 })
 		end
 	end
 }
@@ -2645,9 +2649,9 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({x=5, y=4})
+			card.children.center:set_sprite_pos({ x = 5, y = 4 })
 		else
-			card.children.center:set_sprite_pos({x=4, y=4})
+			card.children.center:set_sprite_pos({ x = 4, y = 4 })
 		end
 	end
 }
@@ -2875,11 +2879,11 @@ SMODS.Joker {
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({x=0, y=5})
+			card.children.center:set_sprite_pos({ x = 0, y = 5 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
 			--card.children.floating_sprite.states.visible = false
 		else
-			card.children.center:set_sprite_pos({x=0, y=0})
+			card.children.center:set_sprite_pos({ x = 0, y = 0 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-jevil']
 			--card.children.floating_sprite.states.visible = true
 		end
