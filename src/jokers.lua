@@ -556,7 +556,7 @@ SMODS.Joker {
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					for index, playing_card in ipairs(G.playing_cards) do
-						SMODS.debuff_card(playing_card, 'reset', 'j8mod_bookmark')
+						SMODS.debuff_card(playing_card, false, 'j8mod_bookmark')
 						if playing_card.base.value == G.GAME.current_round.j8mod_bookmark_rank and not SMODS.has_no_rank(playing_card) then
 							SMODS.debuff_card(playing_card, 'prevent_debuff', 'j8mod_bookmark')
 						end
@@ -569,7 +569,7 @@ SMODS.Joker {
 		-- reset debuff at end of round
 		if context.end_of_round and not context.blueprint then
 			for _, playing_card in ipairs(G.playing_cards) do
-				SMODS.debuff_card(playing_card, 'reset', 'j8mod_bookmark')
+				SMODS.debuff_card(playing_card, false, 'j8mod_bookmark')
 				SMODS.recalc_debuff(playing_card)
 			end
 		end
@@ -584,7 +584,7 @@ SMODS.Joker {
 	end,
 	remove_from_deck = function(self, card, from_debuff)
 		for _, playing_card in ipairs(G.playing_cards) do
-			SMODS.debuff_card(playing_card, 'reset', 'j8mod_bookmark')
+			SMODS.debuff_card(playing_card, false, 'j8mod_bookmark')
 			SMODS.recalc_debuff(playing_card)
 		end
 	end
@@ -1277,7 +1277,7 @@ SMODS.Joker {
 		-- reset debuff at end of round
 		if context.end_of_round and not context.blueprint then
 			for _, playing_card in ipairs(G.playing_cards) do
-				SMODS.debuff_card(playing_card, 'reset', 'j8mod_breakerbox')
+				SMODS.debuff_card(playing_card, false, 'j8mod_breakerbox')
 			end
 		end
 	end
