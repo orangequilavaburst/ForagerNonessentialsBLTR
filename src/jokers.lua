@@ -101,7 +101,7 @@ SMODS.Joker {
 	pos = { x = 1, y = 0 },
 	config = { extra = { extra_numerator = 0, extra_mod = 1 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { vars = { card.ability.extra.extra_numerator, card.ability.extra.extra_mod } }
 	end,
 	calculate = function(self, card, context)
@@ -3006,7 +3006,7 @@ SMODS.Joker {
 	config = { extra = { rank_inc = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
 		return { vars = { card.ability.extra.rank_inc } }
 	end,
 	calculate = function(self, card, context)
