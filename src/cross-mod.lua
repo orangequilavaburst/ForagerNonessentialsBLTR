@@ -1,9 +1,107 @@
--- ## CROSS-MOD COMPATIBILITYlocal utdr_mod_exists = next(SMODS.find_mod("UTDR"))
-if utdr_mod_exists then
-    print("I LOVE TASQUE MANAGER")
+-- ## CROSS-MOD COMPATIBILITY
+local utdr_mod_exists = next(SMODS.find_mod("UTDR"))
+local elle_mod_exists = next(SMODS.find_mod("elle"))
+local ortalab_mod_exists = next(SMODS.find_mod("ortalab"))
+
+-- ## JOKERS
+
+if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
+    -- PlayerFRIEND
+    SMODS.Joker {
+        key = "xUTDR_playerfriend",
+        blueprint_compat = true,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 3,
+        cost = 11,
+        atlas = "j8jokers-dlc",
+        pos = { x = 0, y = 0 },
+        discovered = true,
+        unlocked = true,
+        config = { extra = { chips = -2, xmult = 0.05 } },
+        dependencies = { "UTDR" },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+            return { vars = { math.abs(card.ability.extra.chips), card.ability.extra.xmult } }
+        end,
+        calculate = function(self, card, context)
+            if context.individual and context.cardarea == G.play then
+                if context.other_card.base.nominal + (context.other_card.ability.perma_bonus or 0) > 0 then
+                    context.other_card.ability.perma_bonus = math.max((context.other_card.ability.perma_bonus or 0) +
+                        card.ability.extra.chips, -context.other_card.base.nominal)
+                    context.other_card.ability.perma_x_mult = (context.other_card.ability.perma_x_mult or 0) +
+                        card.ability.extra.xmult
+                end
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.MULT
+                }
+            end
+        end,
+        in_pool = function(self, args) -- just never fucking show up
+            return false
+        end
+    }
+
+    -- Gold Widow
+    SMODS.Joker {
+        key = "xUTDR_gold_widow",
+        blueprint_compat = false,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 1,
+        cost = 6,
+        atlas = "j8jokers-dlc",
+        pos = { x = 1, y = 0 },
+        discovered = true,
+        unlocked = true,
+        config = { extra = { enhancement = 'm_gold', seal = 'Gold' } },
+        dependencies = { "UTDR" },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
+            info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }), card.ability.extra.seal } }
+        end,
+        calculate = function(self, card, context)
+            if context.after and not context.blueprint then
+                local gold_cards = 0
+                for _, scored_card in ipairs(context.scoring_hand) do
+                    if SMODS.has_enhancement(scored_card, card.ability.extra.enhancement) then
+                        gold_cards = gold_cards + 1
+                        scored_card.vampired = true
+                        scored_card:set_ability('c_base', nil, true)
+                        scored_card:set_seal(card.ability.extra.seal)
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                scored_card:juice_up()
+                                scored_card.vampired = nil
+                                return true
+                            end
+                        }))
+                    end
+                end
+                if gold_cards > 0 then
+                    return {
+                        message = localize('k_gold'),
+                        colour = G.C.MONEY
+                    }
+                end
+            end
+        end,
+        in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_glass'`
+            for _, playing_card in ipairs(G.playing_cards or {}) do
+                if SMODS.has_enhancement(playing_card, "m_gold") then
+                    return true
+                end
+            end
+            return false
+        end,
+    }
 end
 
--- ## enable yuri
+-- ## JOKER BUTTONS
+
 local function yuri_button_ui(card)
     return UIBox {
         definition = {
@@ -33,6 +131,61 @@ local function yuri_button_ui(card)
                                     n = G.UIT.T,
                                     config = {
                                         text = localize('j8mod_activate_yuri'),
+                                        colour = G.C.UI.TEXT_LIGHT, -- color of the button text
+                                        scale = 0.4,
+                                    }
+                                },
+                                {
+                                    n = G.UIT.B,
+                                    config = {
+                                        w = 0.1,
+                                        h = 0.4
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        config = {
+            align = 'cl', -- position relative to the card, meaning "center left". Follow the SMODS UI guide for more alignment options
+            major = card,
+            parent = card,
+            offset = { x = 0.2, y = 0 } -- depends on the alignment you want, without an offset the button will look as if floating next to the card, instead of behind it
+        }
+    }
+end
+
+local function friend_button_ui(card)
+    return UIBox {
+        definition = {
+            n = G.UIT.ROOT,
+            config = {
+                colour = G.C.CLEAR
+            },
+            nodes = {
+                {
+                    n = G.UIT.C,
+                    config = {
+                        align = 'cm',
+                        padding = 0.15,
+                        r = 0.08,
+                        hover = true,
+                        shadow = true,
+                        colour = SMODS.Gradients["j8mod_friend"], -- color of the button background
+                        button = 'j8mod_friend_button_click',     -- function in G.FUNCS that will run when this button is clicked
+                        func = 'j8mod_friend_button_func',        -- function in G.FUNCS that will run every frame this button exists (optional)
+                        ref_table = card,
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.R,
+                            nodes = {
+                                {
+                                    n = G.UIT.T,
+                                    config = {
+                                        text = localize('j8mod_activate_friend'),
                                         colour = G.C.UI.TEXT_LIGHT, -- color of the button text
                                         scale = 0.4,
                                     }
@@ -104,22 +257,6 @@ G.FUNCS.j8mod_yuri_button_click = function(e)
             return true
         end
     }))
-    --[[
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        func = function()
-            tm.T.x = yuri_x
-            tm.T.y = yuri_y
-            mm.T.x = yuri_x
-            mm.T.y = yuri_y
-            tm.VT.x = yuri_x
-            tm.VT.y = yuri_y
-            mm.VT.x = yuri_x
-            mm.VT.y = yuri_y
-            return true
-        end
-    }))
-    ]]
     G.E_MANAGER:add_event(Event({
         trigger = 'ease',
         delay = 0.5,
@@ -201,6 +338,131 @@ G.FUNCS.j8mod_yuri_button_click = function(e)
     }))
 end
 
+G.FUNCS.j8mod_friend_button_click = function(e)
+    local card = e.config.ref_table -- access the card this button was on
+
+
+    local tm = SMODS.find_card("j_UTDR_FRIEND")[1]
+    local mm = SMODS.find_card("j_UTDR_vessel")[1]
+    local edition = nil
+    if card.config.center.key == "j_UTDR_FRIEND" then
+        tm = card
+        edition = card.edition
+    elseif card.config.center.key == "j_UTDR_vessel" then
+        mm = card
+        edition = card.edition
+    end
+
+    local friend_x = (tm.T.x + mm.T.x) / 2.0
+    local friend_y = (tm.T.y + mm.T.y) / 2.0 -- G.ROOM.T.h / 2.0 - G.ROOM.T.y / 2.0
+    local friend_card = nil
+    local friend_sparkles = nil
+
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+            --print(tostring(friend_x) .. " " .. tostring(friend_y))
+            tm.area:remove_card(tm)
+            mm.area:remove_card(mm)
+            tm.states.collide.can = false
+            mm.states.collide.can = false
+            friend_sparkles = Particles(1, 1, 0, 0, {
+                timer = 0.015,
+                scale = 0.25,
+                initialize = true,
+                lifespan = 1.0,
+                speed = 0.5,
+                padding = -1,
+                attach = G.ROOM_ATTACH,
+                colours = { SMODS.Gradients["j8mod_friend"], lighten(SMODS.Gradients["j8mod_friend"], 0.2) },
+                fill = true
+            })
+            friend_sparkles.fade_alpha = 1
+            friend_sparkles:fade(1, 0)
+            return true
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'ease',
+        delay = 0.5,
+        ease = 'quad',
+        ref_table = tm.T,
+        ref_value = "x",
+        ease_to = friend_x,
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'ease',
+        delay = 0.5,
+        ease = 'quad',
+        blockable = false,
+        ref_table = tm.T,
+        ref_value = "y",
+        ease_to = friend_y,
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'ease',
+        delay = 0.5,
+        ease = 'quad',
+        blockable = false,
+        ref_table = mm.T,
+        ref_value = "x",
+        ease_to = friend_x,
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'ease',
+        delay = 0.5,
+        ease = 'quad',
+        blockable = false,
+        ref_table = mm.T,
+        ref_value = "y",
+        ease_to = friend_y,
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.5,
+        func = function()
+            tm:remove()
+            mm:remove()
+            return true
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+            play_sound('timpani')
+            friend_card = SMODS.create_card { key = "j_j8mod_xUTDR_playerfriend", edition = edition }
+            friend_card.T.x = friend_x
+            friend_card.T.y = friend_y
+            friend_card.VT.x = friend_x
+            friend_card.VT.y = friend_y
+            friend_card.states.collide.can = false
+            friend_card:juice_up(0.5, 0.5)
+
+            attention_text({
+                text = localize('j8mod_friend'),
+                scale = 1.0,
+                hold = 1.5,
+                major = friend_card,
+                backdrop_colour = SMODS.Gradients["j8mod_friend"],
+                align = 'cm',
+                offset = { x = 0, y = 0.0 },
+                silent = false
+            })
+            return true
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 2.0,
+        func = function()
+            G.jokers:emplace(friend_card)
+            friend_card.states.collide.can = true
+            friend_sparkles:remove()
+            return true
+        end
+    }))
+end
+
 -- Will run every frame while the button exists
 G.FUNCS.j8mod_yuri_button_func = function(e)
     local card = e.config.ref_table -- access the card this button was on (unused here, but you can access it)
@@ -214,6 +476,18 @@ G.FUNCS.j8mod_yuri_button_func = function(e)
     e.config.colour = can_use and SMODS.Gradients["j8mod_lesbian"] or G.C.UI.BACKGROUND_INACTIVE
 end
 
+G.FUNCS.j8mod_friend_button_func = function(e)
+    local card = e.config.ref_table -- access the card this button was on (unused here, but you can access it)
+
+    -- In vanilla, this is generally used to define when the button can be used, for example:
+    local can_use = true -- can be any condition you want
+
+    -- Removes the button when the card can't be used, otherwise makes it use the previously defined button click
+    e.config.button = can_use and 'j8mod_friend_button_click' or nil
+    -- Changes the color of the button depending on whether it can be used or not
+    e.config.colour = can_use and SMODS.Gradients["j8mod_friend"] or G.C.UI.BACKGROUND_INACTIVE
+end
+
 SMODS.DrawStep {
     key = 'yuri_button',
     order = -30, -- before the Card is drawn
@@ -224,20 +498,44 @@ SMODS.DrawStep {
     end
 }
 
+SMODS.DrawStep {
+    key = 'friend_button',
+    order = -30, -- before the Card is drawn
+    func = function(card, layer)
+        if card.children.j8mod_friend_button then
+            card.children.j8mod_friend_button:draw()
+        end
+    end
+}
+
 -- make sure SMODS doesn't draw the button after the card is drawn
 SMODS.draw_ignore_keys.j8mod_yuri_button = true
+SMODS.draw_ignore_keys.j8mod_friend_button = true
 
 local highlight_ref = Card.highlight
 function Card.highlight(self, is_highlighted)
     self.children.j8mod_yuri_button = nil
+    self.children.j8mod_friend_button = nil
+
     local tm = next(SMODS.find_card("j_UTDR_tasque_manager"))
     local mm = next(SMODS.find_card("j_UTDR_missmizzle"))
+    local v = next(SMODS.find_card("j_UTDR_vessel"))
+    local f = next(SMODS.find_card("j_UTDR_FRIEND"))
+
     local can_yuri = tm and mm and not J8MOD.config.no_deltarune_spoilers
     if is_highlighted and self.ability.set == "Joker" and self.area == G.jokers and can_yuri and (self.config.center.key == "j_UTDR_tasque_manager" or self.config.center.key == "j_UTDR_missmizzle") then
         self.children.j8mod_yuri_button = yuri_button_ui(self)
     elseif self.children.j8mod_yuri_button then
         self.children.j8mod_yuri_button:remove()
         self.children.j8mod_yuri_button = nil
+    end
+
+    local can_friend = v and f
+    if is_highlighted and self.ability.set == "Joker" and self.area == G.jokers and can_friend and (self.config.center.key == "j_UTDR_vessel" or self.config.center.key == "j_UTDR_FRIEND") then
+        self.children.j8mod_friend_button = friend_button_ui(self)
+    elseif self.children.j8mod_friend_button then
+        self.children.j8mod_friend_button:remove()
+        self.children.j8mod_friend_button = nil
     end
 
     return highlight_ref(self, is_highlighted)

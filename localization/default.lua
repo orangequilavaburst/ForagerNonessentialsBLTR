@@ -107,8 +107,8 @@ return {
                 name = "Metamorphic Joker",
                 text = {
                     "{C:green}#1# in #2#{} chance for",
-                    "played {C:attention}Stone Cards{} to",
-                    "become {C:attention}Glass Cards{}",
+                    "played {C:attention}#3#s{} to",
+                    "become {C:attention}#4#s{}",
                 },
             },
             j_j8mod_clownfish = {
@@ -707,6 +707,88 @@ return {
                     "{C:attention}of a round{} gains a permanent",
                     "additional {X:mult,C:white} X#1# {} Mult"
                 },
+            },
+            j_j8mod_xUTDR_playerfriend = {
+                name = "PlayerFRIEND",
+                text = {
+                    "Every scored {C:attention}card{}",
+                    "permanently loses {C:chips}-#1#{} Chips",
+                    "and gains {X:mult,C:white} X#2# {} Mult when scored",
+                },
+            },
+            j_j8mod_xUTDR_gold_widow = {
+                name = "Gold Widow",
+                text = {
+                    "Scoring {C:attention}#1#s{} remove their",
+                    "enhancement, but gain",
+                    "{C:money}#2# Seals{} after",
+                    "hand is played"
+                },
+            },
+            j_j8mod_xUTDR_mr_sunshine_and_abberant = {
+                name = "Mr. Sunshine and Abberant",
+                text = {
+                    "{C:tarot}#1#{} always appears",
+                    "in {C:tarot}Arcana Packs{}"
+                },
+            },
+            j_j8mod_xUTDR_tactical_dreemurr = {
+                name = "Tactical Dreemurr",
+                text = {
+                    "Creates a random {C:attention}Tag{}",
+                    "if played hand triggers the",
+                    "{C:attention}Boss Blind{} ability",
+                },
+            },
+            j_j8mod_xelle_fizz_fizzle = {
+                name = "Fizz Fizzle",
+                text = {
+                    "+{C:attention}#1#{} to all {C:attention}retriggers{}"
+                },
+            },
+            j_j8mod_xelle_girlfriend = {
+                name = "Girlfriend",
+                text = {
+                    "Scores the {C:attention}leftmost{}",
+                    "and {C:attention}rightmost{} cards",
+                    "{C:attention}held in hand{} alongside",
+                    "scoring hand"
+                },
+            },
+            j_j8mod_xelle_lazy_worm = {
+                name = "Lazy Worm",
+                text = {
+                    "{C:inactive,s:0.8}\"Pft\"{s:1.0}",
+                    "This Joker gains {X:mult,C:white} X#1# {} Mult",
+                    "when a Rare or Legendary",
+                    "Joker is obtained",
+                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive}{C:inactive} Mult)",
+                },
+            },
+            j_j8mod_xelle_slimy_joker = {
+                name = "Slimy Joker",
+                text = {
+                    "{C:attention}#1#s{} have a",
+                    "{C:green}#1# in #2#{} chance to",
+                    "turn adjacent cards into",
+                    "{C:attention}#1#s{} after hand scores",
+                },
+            },
+            j_j8mod_xelle_audience_participation = {
+                name = "Audience Participation",
+                text = {
+                    "Create a random {C:attention}Consumeable{}",
+                    "after scoring if a {C:}#1#{}",
+                    "were retriggered that hand"
+                },
+            },
+            j_j8mod_xortalab_surface_joker = {
+                name = "Surface Joker",
+                text = {
+                    "Create a random {C:attention}Consumeable{}",
+                    "after scoring if a {C:}#1#{}",
+                    "were retriggered that hand"
+                },
             }
         },
         Other = {
@@ -791,6 +873,12 @@ return {
                 "alternate artwork",
                 "when enabled."
             },
+            j8mod_enable_crossmod_jokers = "Enable Cross-Mod Jokers",
+            j8mod_enable_crossmod_jokers_desc = {
+                "Makes Jokers requiring",
+                "other mods appear.",
+                "(Requires restart)"
+            },
             j8mod_monty_hall_open = "Open Door!",
             j8mod_sandwiched_ex = "Sandwiched!",
             j8mod_tagged_ex = "Tagged!",
@@ -812,7 +900,9 @@ return {
             j8mod_program_advance = "Program Advance!",
             j8mod_reroll_ex = "Reroll!",
             j8mod_activate_yuri = "ACTIVATE YURI",
-            j8mod_yuri = "Yuri!"
+            j8mod_yuri = "Yuri!",
+            j8mod_activate_friend = "???",
+            j8mod_friend = "!!!",
         }
     },
 }

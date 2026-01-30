@@ -72,6 +72,26 @@ J8MOD.config_tab = function()
 							},
 						}
 					},
+					{
+						n = G.UIT.R,
+						config = { align = "cl", padding = 0.05 },
+						nodes = {
+							{
+								n = G.UIT.C,
+								config = { align = "cl", padding = -0.25 },
+								nodes = {
+									create_toggle { col = true, label = "", scale = 0.85, w = 0.15, shadow = true, ref_table = my_config, ref_value = "enable_crossmod_jokers" },
+								}
+							},
+							{
+								n = G.UIT.C,
+								config = { align = "cl", padding = 0.2 },
+								nodes = {
+									{ n = G.UIT.T, config = { text = localize('j8mod_enable_crossmod_jokers'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT, tooltip = { text = localize('j8mod_enable_crossmod_jokers_desc') } } },
+								}
+							},
+						}
+					},
 				}
 			},
 		}
@@ -1319,6 +1339,15 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+
+	key = "j8jokers-dlc",
+	path = "jokers-dlc.png",
+	px = 71,
+	py = 95
+
+}
+
+SMODS.Atlas {
 	key = "j8jokers-werewire",
 	path = "jokers-werewire.png",
 	px = 71, py = 95
@@ -1574,6 +1603,13 @@ SMODS.Gradient({
 	key = 'lesbian',
 	colours = { HEX('D52D00'), HEX('EF7627'), HEX('FF9A56'), HEX('FFFFFF'), HEX('D162A4'), HEX('B55690'), HEX('A30262') },
 	cycle = 2,
+	interpolation = 'linear'
+})
+
+SMODS.Gradient({
+	key = 'friend',
+	colours = { HEX('FFF200'), HEX('FFAEC9') },
+	cycle = 5,
 	interpolation = 'trig'
 })
 

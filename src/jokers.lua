@@ -151,7 +151,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_metamorphic')
-		return { vars = { numerator, denominator } }
+		return { vars = { numerator, denominator, localize({ type = 'name_text', set = "Enhanced", key = 'm_stone' }) or 'Stone Card', localize({ type = 'name_text', set = "Enhanced", key = 'm_glass' }) or 'Glass Card' } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not context.other_card.debuff and
