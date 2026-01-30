@@ -3,11 +3,11 @@
 J8MOD = SMODS.current_mod
 local j8mod_id = J8MOD.id
 local j8mod_name = J8MOD.name
---print("I LOVE TASQUE MANAGER")
 --print("mod id: " .. j8mod_id)
 
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/decks.lua"))()
+assert(SMODS.load_file("src/cross-mod.lua"))()
 SMODS.load_file("config.lua")()
 
 J8MOD.optional_features = {
@@ -15,6 +15,8 @@ J8MOD.optional_features = {
 	post_trigger = true,
 	quantum_enhancements = true
 }
+
+to_big = to_big or function(x) return x end
 
 -- ## CONFIG UI ##
 
@@ -1566,6 +1568,13 @@ SMODS.Gradient({
 	colours = { HEX('FDB157'), HEX('FDB157'), HEX('FD5F55'), HEX('8755bf'), HEX('8755bf'), HEX('FD5F55'), },
 	cycle = 4,
 	interpolation = 'linear'
+})
+
+SMODS.Gradient({
+	key = 'lesbian',
+	colours = { HEX('D52D00'), HEX('EF7627'), HEX('FF9A56'), HEX('FFFFFF'), HEX('D162A4'), HEX('B55690'), HEX('A30262') },
+	cycle = 2,
+	interpolation = 'trig'
 })
 
 -- ## SHADERS ##

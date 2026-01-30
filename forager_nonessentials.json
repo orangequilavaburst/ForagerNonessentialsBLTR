@@ -1,13 +1,17 @@
 {
-
 	"id": "ForagerNonessentials",
 	"name": "Forager Nonessentials",
-	"author": ["J8-Bit"],
+	"author": [
+		"J8-Bit"
+	],
 	"badge_colour": "FDB157",
-	"description": "Mostly shameless reference Jokers.",
+	"description": "Mostly shameless reference Jokers. Supports cross-mod compatibility with the UT/DR mod and Talisman",
 	"prefix": "j8mod",
 	"display_name": "Forager",
+	"dependencies": [
+		"Steamodded (>=1.0.0~BETA-1224a)",
+		"Lovely (>=0.8)"
+	],
 	"main_file": "forager_nonessentials.lua",
 	"version": "0.1.0"
-
 }

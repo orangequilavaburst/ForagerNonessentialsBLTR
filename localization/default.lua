@@ -810,7 +810,9 @@ return {
             j8mod_yeah_ex = "Yeah!",
             j8mod_inactive = "inactive",
             j8mod_program_advance = "Program Advance!",
-            j8mod_reroll_ex = "Reroll!"
+            j8mod_reroll_ex = "Reroll!",
+            j8mod_activate_yuri = "ACTIVATE YURI",
+            j8mod_yuri = "Yuri!"
         }
     },
 }

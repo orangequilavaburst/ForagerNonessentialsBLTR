@@ -2645,7 +2645,7 @@ SMODS.Joker {
 		end
 	end,
 	in_pool = function(self, args)
-		return G.GAME.dollars >= 25
+		return G.GAME.dollars >= to_big(25)
 	end,
 	update = function(self, card, dt)
 		if J8MOD.config.furry_mode then
