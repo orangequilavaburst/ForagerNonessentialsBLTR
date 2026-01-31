@@ -440,7 +440,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = { type = 'name_text', key = "c_soul", set = 'Spectral' }
 		info_queue[#info_queue + 1] = { type = 'name_text', key = "c_black_hole", set = 'Spectral' }
 		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
-		return { vars = { card.ability.extra.ante_count, card.ability.extra.ante_max } }
+		return { vars = { card.ability.extra.ante_count, card.ability.extra.ante_max, localize { type = 'name_text', key = "c_soul", set = 'Spectral' }, localize { type = 'name_text', key = "c_black_hole", set = 'Spectral' } } }
 	end,
 	calculate = function(self, card, context)
 		if context.selling_self and (card.ability.extra.ante_count >= card.ability.extra.ante_max) and not context.blueprint then
@@ -1413,7 +1413,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
-		return {}
+		return { vars = { localize({ type = 'name_text', set = "Enhanced", key = "m_bonus" }), localize({ type = 'name_text', set = "Enhanced", key = "m_mult" }), localize({ type = 'name_text', set = "Enhanced", key = "m_wild" }) } }
 	end,
 	calculate = function(self, card, context)
 		if context.selling_self and not context.blueprint then
@@ -2673,7 +2673,7 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement_type]
 		info_queue[#info_queue + 1] = { key = "credits_neognw", set = "Other" }
-		return { vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Wild' } }
+		return { vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Wild Card' } }
 	end,
 	calculate = function(self, card, context)
 		if context.before and not context.blueprint then

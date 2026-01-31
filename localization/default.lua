@@ -161,7 +161,7 @@ return {
                 text = {
                     "After {C:attention}#2# Antes{},",
                     "sell this card to create a",
-                    "{C:spectral}Soul{} card and {C:spectral}Black Hole{} card",
+                    "{C:spectral}#3#{} card and {C:spectral}#4#{} card",
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)",
                     "{C:inactive}(Must have room)",
                 },
@@ -327,8 +327,8 @@ return {
                 text = {
                     "Sell this card to",
                     "enhance all cards in hand",
-                    "to a {C:attention}Bonus Card{}, {C:attention}Mult Card{},",
-                    "or {C:attention}Wild Card{} at random"
+                    "to a {C:attention}#1#{}, {C:attention}#2#{},",
+                    "or {C:attention}#3#{} at random"
                 },
             },
             j_j8mod_kitsune_mask = {
@@ -747,13 +747,13 @@ return {
                     "{C:attention}Boss Blind{} ability",
                 },
             },
-            j_j8mod_xelle_fizz_fizzle = {
+            j_j8mod_xellejokers_fizz_fizzle = {
                 name = "Fizz Fizzle",
                 text = {
                     "+{C:attention}#1#{} to all {C:attention}retriggers{}"
                 },
             },
-            j_j8mod_xelle_girlfriend = {
+            j_j8mod_xellejokers_girlfriend = {
                 name = "Girlfriend",
                 text = {
                     "Scores the {C:attention}leftmost{}",
@@ -762,41 +762,65 @@ return {
                     "scoring hand"
                 },
             },
-            j_j8mod_xelle_lazy_worm = {
+            j_j8mod_xellejokers_lazy_worm = {
                 name = "Lazy Worm",
                 text = {
                     "{C:inactive,s:0.8}\"Pft\"{s:1.0}",
                     "This Joker gains {X:mult,C:white} X#1# {} Mult",
-                    "when a Rare or Legendary",
+                    "when a {C:rare}Rare{} or {C:legendary}Legendary{}",
                     "Joker is obtained",
                     "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive}{C:inactive} Mult)",
                 },
             },
-            j_j8mod_xelle_slimy_joker = {
+            j_j8mod_xellejokers_slimy_joker = {
                 name = "Slimy Joker",
                 text = {
-                    "{C:attention}#1#s{} have a",
+                    "{C:attention}#3#s{} have a",
                     "{C:green}#1# in #2#{} chance to",
                     "turn adjacent cards into",
-                    "{C:attention}#1#s{} after hand scores",
+                    "{C:attention}#3#s{} after hand scores",
                 },
             },
-            j_j8mod_xelle_audience_participation = {
+            j_j8mod_xellejokers_audience_participation = {
                 name = "Audience Participation",
                 text = {
                     "Create a random {C:attention}Consumeable{}",
-                    "after scoring if a {C:}#1#{}",
+                    "after scoring if a {C:attention}#1#{}",
                     "were retriggered that hand"
                 },
             },
             j_j8mod_xortalab_surface_joker = {
                 name = "Surface Joker",
                 text = {
-                    "Create a random {C:attention}Consumeable{}",
-                    "after scoring if a {C:}#1#{}",
-                    "were retriggered that hand"
+                    "{C:green}#1# in #2#{} chance for",
+                    "played {C:attention}#3#s{} to",
+                    "become {C:attention}#4#s{}",
                 },
-            }
+            },
+            j_j8mod_xortalab_keepsake = {
+                name = "Surface Joker",
+                text = {
+                    "{C:green}#1# in #2#{} chance for",
+                    "played {C:attention}#3#s{} to",
+                    "become {C:attention}#4#s{}",
+                },
+            },
+            j_j8mod_xortalab_self_insert = {
+                name = "Self-Insert",
+                text = {
+                    "Creates a random {C:attention}Tag{} on hands",
+                    "containing only {C:attention}#1#s{} and {C:attention}#2#s{}"
+                },
+            },
+            j_j8mod_xortalab_receipt_printer = {
+                name = "Receipt Printer",
+                text = {
+                    "Sell this card to",
+                    "enhance all cards in hand",
+                    "to a {C:attention}#1#{}, {C:attention}#2#{},",
+                    "or {C:attention}#3#{} at random"
+                },
+            },
         },
         Other = {
             credits_j8 = {
@@ -910,6 +934,7 @@ return {
             j8mod_yuri = "Yuri!",
             j8mod_activate_friend = "???",
             j8mod_friend = "!!!",
+            j8mod_girlfriend = "That's how you do it!"
         }
     },
 }

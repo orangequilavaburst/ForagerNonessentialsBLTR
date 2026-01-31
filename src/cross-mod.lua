@@ -1,6 +1,6 @@
 -- ## CROSS-MOD COMPATIBILITY
 local utdr_mod_exists = next(SMODS.find_mod("UTDR"))
-local elle_mod_exists = next(SMODS.find_mod("elle"))
+local elle_mod_exists = next(SMODS.find_mod("ellejokers"))
 local ortalab_mod_exists = next(SMODS.find_mod("ortalab"))
 
 -- ## JOKERS
@@ -55,6 +55,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         pos = { x = 1, y = 0 },
         discovered = true,
         unlocked = true,
+        enhancement_gate = 'm_gold',
         config = { extra = { enhancement = 'm_gold', seal = 'Gold' } },
         dependencies = { "UTDR" },
         loc_vars = function(self, info_queue, card)
@@ -260,8 +261,277 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
             }, true)
         end
     end
+end
 
-    --
+if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
+    -- Fizz Fizzle
+
+    SMODS.Joker {
+        key = "xellejokers_fizz_fizzle",
+        blueprint_compat = false,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 3,
+        cost = 11,
+        atlas = "j8jokers-dlc",
+        pos = { x = 0, y = 1 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ellejokers" },
+        config = { extra = { extra_reps = 1 } },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = { card.ability.extra.extra_reps } }
+        end,
+        calculate = function(self, card, context)
+            if context.repetition and not context.blueprint then
+                local repetitions = 0 -- temporary
+                return {
+                    repetitions = repetitions + (repetitions > 0) * card.ability.extra.extra_reps
+                }
+            end
+        end
+    }
+
+    -- Girlfriend
+
+    SMODS.Joker {
+        key = "xellejokers_girlfriend",
+        blueprint_compat = true,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 1,
+        cost = 6,
+        atlas = "j8jokers-dlc",
+        pos = { x = 1, y = 1 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ellejokers" },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = {} }
+        end,
+        calculate = function(self, card, context)
+            if context.pre_joker and not context.blueprint then
+                local cards_to_trigger = {}
+                if #G.hand.cards > 0 then
+                    table.insert(cards_to_trigger, G.hand.cards[1])
+                    table.insert(cards_to_trigger, G.hand.cards[#G.hand.cards])
+                end
+                if #cards_to_trigger > 0 then
+                    local ctx = {
+                        cardarea = G.play,
+                        full_hand = G.play.cards,
+                        scoring_hand = context.scoring_hand,
+                        scoring_name = context.scoring_name,
+                        poker_hands = context.poker_hands
+                    }
+                    SMODS.calculate_effect({
+                        trigger = "after",
+                        delay = 0.5,
+                        message = localize("j8mod_girlfriend"),
+                        message_card = card,
+                        colour = G.C.RED,
+                        func = function()
+                            delay(0.5)
+                            for _, v in ipairs(cards_to_trigger) do
+                                SMODS.score_card(v, ctx)
+                            end
+                            return true
+                        end
+                    }, card)
+                end
+            end
+        end,
+    }
+
+    -- Lazy Worm
+
+    SMODS.Joker {
+        key = "xellejokers_lazy_worm",
+        blueprint_compat = true,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 2,
+        cost = 9,
+        atlas = "j8jokers-dlc",
+        pos = { x = 2, y = 1 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ellejokers" },
+        config = { extra = { xmult_inc = 0.5, xmult = 1 } },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = { card.ability.extra.xmult_inc, card.ability.extra.xmult } }
+        end,
+        calculate = function(self, card, context)
+            if context.card_added and not context.blueprint then
+                if context.card.ability.set == "Joker" and (context.card:is_rarity(3) or context.card:is_rarity(4)) then
+                    card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_inc
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.MULT,
+                        message_card = card
+                    }
+                end
+            end
+            if context.joker_main then
+                return {
+                    xmult = card.ability.extra.xmult
+                }
+            end
+        end
+    }
+
+    -- Slimy Joker
+
+    SMODS.Joker {
+        key = "xellejokers_slimy_joker",
+        blueprint_compat = true,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 2,
+        cost = 9,
+        atlas = "j8jokers-dlc",
+        pos = { x = 3, y = 1 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ellejokers" },
+        config = { extra = { odds = 4, enhancement = "m_elle_slime" } },
+        loc_vars = function(self, info_queue, card)
+            local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+                'xellejokers_slimy_joker')
+            info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = { numerator, denominator, localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) } }
+        end,
+        in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
+            for _, playing_card in ipairs(G.playing_cards or {}) do
+                if SMODS.has_enhancement(playing_card, 'm_ellejokers_slime') then
+                    return true
+                end
+            end
+            return false
+        end
+    }
+
+    -- Audience Participation
+
+    SMODS.Joker {
+        key = "xellejokers_audience_participation",
+        blueprint_compat = true,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 1,
+        cost = 4,
+        atlas = "j8jokers-dlc",
+        pos = { x = 4, y = 1 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ellejokers" },
+        config = { extra = { enhancement = "m_elle_jess" } },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) } }
+        end,
+        in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
+            for _, playing_card in ipairs(G.playing_cards or {}) do
+                if SMODS.has_enhancement(playing_card, 'm_ellejokers_jess') then
+                    return true
+                end
+            end
+            return false
+        end
+    }
+end
+
+if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
+    -- Surface Joker
+
+    -- Keepsake
+
+    -- Self-Insert
+
+    -- Receipt Printer
+
+    SMODS.Joker {
+        key = "xortalab_receipt_printer",
+        blueprint_compat = false,
+        perishable_compat = false,
+        eternal_compat = false,
+        rarity = 2,
+        cost = 6,
+        atlas = "j8jokers-dlc",
+        pos = { x = 3, y = 2 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ortalab" },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_post
+            info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_bent
+            info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_index
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = { localize({ type = 'name_text', set = "Enhanced", key = "m_ortalab_post" }), localize({ type = 'name_text', set = "Enhanced", key = "m_ortalab_bent" }), localize({ type = 'name_text', set = "Enhanced", key = "m_ortalab_index" }) } }
+        end,
+        calculate = function(self, card, context)
+            if context.selling_self and not context.blueprint then
+                return {
+                    func = function()
+                        for i, playing_card in ipairs(G.hand.cards) do
+                            local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                            G.E_MANAGER:add_event(Event({
+                                trigger = "after",
+                                delay = 0.2,
+                                func = function()
+                                    playing_card:flip()
+                                    play_sound('card1', percent)
+                                    playing_card:juice_up(0.3, 0.3)
+                                    return true
+                                end
+                            }))
+                        end
+                        delay(0.2)
+                        for i, playing_card in ipairs(G.hand.cards) do
+                            local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                            G.E_MANAGER:add_event(Event({
+                                trigger = "after",
+                                delay = 0.1,
+                                func = function()
+                                    local rng = pseudorandom('crayon_box', 1, 3)
+                                    local enhancement = 'm_ortalab_post'
+                                    if rng == 2 then
+                                        enhancement = 'm_ortalab_bent'
+                                    elseif rng == 3 then
+                                        enhancement = 'm_ortalab_index'
+                                    end
+                                    playing_card:set_ability(enhancement)
+                                    return true
+                                end
+                            }))
+                        end
+                        for i, playing_card in ipairs(G.hand.cards) do
+                            local percent = 0.85 + (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                            G.E_MANAGER:add_event(Event({
+                                trigger = "after",
+                                delay = 0.2,
+                                func = function()
+                                    playing_card:flip()
+                                    play_sound('tarot2', percent)
+                                    playing_card:juice_up(0.3, 0.3)
+                                    return true
+                                end
+                            }))
+                        end
+                        delay(0.5)
+                        return true -- This is for Joker retrigger purposes
+                    end
+                }
+            end
+        end
+    }
+
+    -- Boogie Joker
 end
 
 -- ## JOKER BUTTONS
