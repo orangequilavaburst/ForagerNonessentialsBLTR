@@ -282,16 +282,24 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
             return { vars = { card.ability.extra.extra_reps } }
-        end,
-        calculate = function(self, card, context)
-            if context.repetition and not context.blueprint then
-                local repetitions = 0 -- temporary
-                return {
-                    repetitions = repetitions + (repetitions > 0) * card.ability.extra.extra_reps
-                }
-            end
         end
     }
+
+    local oldevalcard = eval_card
+    function eval_card(card, context)
+        if not card then return end
+        local g, post = oldevalcard(card, context)
+        if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards or context.joker_type_destroyed) then
+            return
+                g, post
+        end
+        for k, v in pairs(g) do
+            if type(v) == 'table' and v.repetitions and type(v.repetitions) == 'number' and next(SMODS.find_card("j_j8mod_xellejokers_fizz_fizzle")) then
+                v.repetitions = v.repetitions + #SMODS.find_card("j_j8mod_xellejokers_fizz_fizzle")
+            end
+        end
+        return g, post
+    end
 
     -- Girlfriend
 
