@@ -497,7 +497,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
             info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-            return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) } }
+            return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }), card.ability.extra.cards_needed } }
         end,
         calculate = function(self, card, context)
             if context.after and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
