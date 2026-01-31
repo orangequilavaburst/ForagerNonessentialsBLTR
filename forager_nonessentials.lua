@@ -8,7 +8,7 @@ local j8mod_name = J8MOD.name
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/decks.lua"))()
 assert(SMODS.load_file("src/cross-mod.lua"))()
-SMODS.load_file("config.lua")()
+assert(SMODS.load_file("config.lua"))()
 
 J8MOD.optional_features = {
 	retrigger_joker = true,

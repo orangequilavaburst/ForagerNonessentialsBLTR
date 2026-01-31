@@ -98,6 +98,170 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
             return false
         end,
     }
+
+    -- Mr. Sunshine and Abberant
+    SMODS.Joker {
+        key = "xUTDR_mr_sunshine_and_abberant",
+        blueprint_compat = false,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 1,
+        cost = 5,
+        atlas = "j8jokers-dlc",
+        pos = { x = 2, y = 0 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "UTDR" },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = G.P_CENTERS["c_strength"]
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = { localize { type = 'name_text', key = "c_strength", set = 'Tarot' }, localize { type = 'name_text', key = "p_arcana_normal", set = 'Other' } } }
+        end,
+    }
+
+    -- Goner Kid
+    SMODS.Joker {
+        key = "xUTDR_goner_kid",
+        blueprint_compat = false,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 3,
+        cost = 11,
+        atlas = "j8jokers-dlc",
+        pos = { x = 3, y = 0 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "UTDR" },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return {}
+        end,
+        calculate = function(self, card, context)
+            if context.open_booster and not context.blueprint then
+                if not context.card.draw_cards then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'immediate',
+                        func = function()
+                            G.FUNCS.draw_from_deck_to_hand()
+
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.5,
+                                func = function()
+                                    G.CONTROLLER:recall_cardarea_focus('pack_cards')
+                                    return true
+                                end
+                            }))
+                            return true
+                        end
+                    }))
+                end
+            end
+        end,
+        add_to_deck = function(self, card, from_debuff)
+            G.GAME.modifiers.booster_size_mod = (G.GAME.modifiers.booster_size_mod or 0) + 1
+        end,
+        remove_from_deck = function(self, card, from_debuff)
+            G.GAME.modifiers.booster_size_mod = (G.GAME.modifiers.booster_size_mod or 0) - 1
+        end
+    }
+
+    -- Tactical Dreemurr
+    SMODS.Joker {
+        key = "xUTDR_tactical_dreemurr",
+        blueprint_compat = true,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 3,
+        cost = 11,
+        atlas = "j8jokers-dlc",
+        pos = { x = 4, y = 0 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "UTDR" },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return {}
+        end,
+        calculate = function(self, card, context)
+            if context.debuffed_hand or context.joker_main then
+                if G.GAME.blind.triggered then
+                    return {
+                        message = localize("j8mod_tagged_ex"),
+                        colour = G.C.GREEN,
+                        func = function()
+                            G.E_MANAGER:add_event(Event({
+                                trigger = "immediate",
+                                func = function()
+                                    --- Credits to Eremel
+                                    local tag_pool = get_current_pool('Tag')
+                                    local selected_tag = pseudorandom_element(tag_pool, 'j8mod_tactical_dreemurr')
+                                    local it = 1
+                                    while selected_tag == 'UNAVAILABLE' do
+                                        it = it + 1
+                                        selected_tag = pseudorandom_element(tag_pool,
+                                            'j8mod_tactical_dreemurr_resample' .. it)
+                                    end
+                                    local tag = Tag(selected_tag)
+                                    if tag.name == "Orbital Tag" then
+                                        local _poker_hands = {}
+                                        for k, v in pairs(G.GAME.hands) do
+                                            if v.visible then
+                                                _poker_hands[#_poker_hands + 1] = k
+                                            end
+                                        end
+                                        tag.ability.orbital_hand = pseudorandom_element(_poker_hands,
+                                            "j8mod_tactical_dreemurr_orbital_tag")
+                                    end
+                                    tag:set_ability()
+                                    add_tag(tag)
+                                    return true
+                                end
+                            }))
+                        end
+                    }
+                end
+            end
+        end,
+        check_for_unlock = function(self, args)
+            return args.type == 'round_win' and G.GAME.current_round.hands_played == 1 and
+                G.GAME.current_round.discards_left == G.GAME.round_resets.discards and
+                G.GAME.blind.boss
+        end
+    }
+
+
+    -- Booster Pack ownership
+
+    for key, prototype in pairs(G.P_CENTERS) do
+        if prototype.set == "Booster" then
+            local ref = prototype.create_card
+            SMODS.Booster:take_ownership(key, {
+                create_card = function(self, card, i)
+                    if next(SMODS.find_card("j_j8mod_xUTDR_mr_sunshine_and_abberant")) and self.kind and self.kind == "Arcana" and i == 1 then
+                        return {
+                            set = "Tarot",
+                            key = "c_strength",
+                            area = G.pack_cards,
+                            skip_materialize = true,
+                        }
+                    elseif next(SMODS.find_card("j_j8mod_xUTDR_goner_kid")) and i == prototype.config.extra + (G.GAME.modifiers.booster_size_mod or 0) then
+                        return {
+                            set = "Spectral",
+                            area = G.pack_cards,
+                            skip_materialize = true,
+                            soulable = true,
+                            key_append =
+                            "ar2"
+                        }
+                    end
+                    return ref(self, card, i)
+                end
+            }, true)
+        end
+    end
+
+    --
 end
 
 -- ## JOKER BUTTONS

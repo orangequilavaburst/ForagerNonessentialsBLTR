@@ -729,7 +729,14 @@ return {
                 name = "Mr. Sunshine and Abberant",
                 text = {
                     "{C:tarot}#1#{} always appears",
-                    "in {C:tarot}Arcana Packs{}"
+                    "in {C:tarot}#2#s{}"
+                },
+            },
+            j_j8mod_xUTDR_goner_kid = {
+                name = "Goner Kid",
+                text = {
+                    "{C:attention}Booster Packs{} additionally",
+                    "contain a {C:spectral}Prophecy{} card"
                 },
             },
             j_j8mod_xUTDR_tactical_dreemurr = {
