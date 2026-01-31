@@ -413,6 +413,62 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
             info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
             return { vars = { numerator, denominator, localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) } }
         end,
+        calculate = function(self, card, context)
+            if context.after and not context.blueprint then
+                -- find all cards next to slime cards
+                local indices_to_trigger = {}
+                for i, playing_card in ipairs(G.play.cards) do
+                    if SMODS.has_enhancement(playing_card, card.ability.extra.enhancement) then
+                        local check = 0
+                        for index = -1, 1, 2 do
+                            check = i + index
+                            if check >= 1 and check <= #G.play.cards then
+                                if not SMODS.has_enhancement(G.play.cards[check], card.ability.extra.enhancement) then
+                                    table.insert(indices_to_trigger, check)
+                                end
+                            end
+                        end
+                    end
+                end
+                -- filter duplicates
+                local hash = {}
+                for _, v in ipairs(indices_to_trigger) do
+                    hash[v] = true
+                end
+                local res = {} -- transform keys back into values
+                for k, _ in pairs(hash) do
+                    res[#res + 1] = k
+                    --print(k)
+                end
+                indices_to_trigger = res
+                -- convert to slime cards
+                -- send message
+                local do_message = false
+                for i = 1, #indices_to_trigger do
+                    local percent = 0.85 + (i - 0.999) / (#G.play.cards - 0.998) * 0.3
+                    if SMODS.pseudorandom_probability(card, 'j8mod_xelle_slimy_joker', 1, card.ability.extra.odds) then
+                        do_message = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.25,
+                            func = function()
+                                G.play.cards[indices_to_trigger[i]]:set_ability(card.ability.extra
+                                    .enhancement)
+                                play_sound('tarot2', percent, 0.6)
+                                G.play.cards[indices_to_trigger[i]]:juice_up(0.3, 0.5)
+                                return true
+                            end
+                        }))
+                    end
+                end
+                if do_message then
+                    return {
+                        message = localize("k_upgrade_ex"),
+                        colour = G.C.FILTER
+                    }
+                end
+            end
+        end,
         in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
             for _, playing_card in ipairs(G.playing_cards or {}) do
                 if SMODS.has_enhancement(playing_card, 'm_ellejokers_slime') then
@@ -437,11 +493,46 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         discovered = true,
         unlocked = true,
         dependencies = { "ellejokers" },
-        config = { extra = { enhancement = "m_elle_jess" } },
+        config = { extra = { enhancement = "m_elle_jess", cards_needed = 2 } },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
             info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
             return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) } }
+        end,
+        calculate = function(self, card, context)
+            if context.after and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                local enhanced = 0
+                for _, playing_card in ipairs(G.hand.cards) do
+                    if SMODS.has_enhancement(playing_card, card.ability.extra.enhancement) then
+                        enhanced = enhanced + 1
+                    end
+                end
+                if enhanced >= card.ability.extra.cards_needed then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    card.ability.extra.can_create = false
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            local sets = { "Tarot", "Planet", "Spectral" }
+                            if ortalab_mod_exists then
+                                table.insert(sets, "ortalab_loteria")
+                                table.insert(sets, "ortalab_zodiac")
+                                table.insert(sets, "ortalab_mythos")
+                            end
+                            SMODS.add_card {
+                                set = pseudorandom_element(sets, 'j8mod_xellejokers_audience_participation'),
+                                soulable = false,
+                                key_append = 'j8mod_xellejokers_audience_participation' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
+                            }
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                        end)
+                    }))
+                    return {
+                        message = localize('j8mod_card_ex'),
+                        colour = G.ARGS.LOC_COLOURS['elle']
+                    }
+                end
+            end
         end,
         in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
             for _, playing_card in ipairs(G.playing_cards or {}) do
@@ -457,9 +548,212 @@ end
 if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
     -- Surface Joker
 
+    SMODS.Joker {
+        key = "xortalab_surface_joker",
+        blueprint_compat = true,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 2,
+        cost = 8,
+        atlas = "j8jokers-dlc",
+        pos = { x = 0, y = 2 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ortalab" },
+        config = { extra = { odds = 2 } },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_ore
+            info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_sand
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
+                'j8mod_xortalab_surface')
+            return { vars = { numerator, denominator, localize({ type = 'name_text', set = "Enhanced", key = 'm_ortalab_ore' }) or 'Ore Card', localize({ type = 'name_text', set = "Enhanced", key = 'm_ortalab_sand' }) or 'Sand Card' } }
+        end,
+        calculate = function(self, card, context)
+            if context.individual and context.cardarea == G.play and not context.other_card.debuff and
+                SMODS.has_enhancement(context.other_card, 'm_ortalab_ore') and
+                SMODS.pseudorandom_probability(card, 'j8mod_xortalab_surface', 1, card.ability.extra.odds) then
+                local current_card = context.other_card
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.SECONDARY_SET.Enhanced,
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'immediate',
+                            func = function()
+                                current_card:flip()
+                                return true
+                            end
+                        }))
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.2,
+                            func = function()
+                                current_card:set_ability('m_ortalab_sand')
+                                return true
+                            end
+                        }))
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.2,
+                            func = function()
+                                current_card:flip()
+                                return true
+                            end
+                        }))
+                    end
+                }
+            end
+        end,
+        in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
+            for _, playing_card in ipairs(G.playing_cards or {}) do
+                if SMODS.has_enhancement(playing_card, 'm_ortalab_ore') then
+                    return true
+                end
+            end
+            return false
+        end
+    }
+
     -- Keepsake
 
+    SMODS.Joker {
+        key = "xortalab_keepsake",
+        blueprint_compat = false,
+        eternal_compat = false,
+        perishable_compat = false,
+        rarity = 3,
+        cost = 1,
+        atlas = "j8jokers-dlc",
+        pos = { x = 1, y = 2 },
+        pixel_size = { w = 37, h = 49 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ortalab" },
+        config = { extra = { ante_count = 0, ante_max = 3 } },
+        loc_vars = function(self, info_queue, card)
+            --info_queue[#info_queue + 1] = G.P_CENTERS["c_ortalab_corpus"]
+            --info_queue[#info_queue + 1] = G.P_CENTERS["c_ortalab_ophiuchus"]
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = { card.ability.extra.ante_count, card.ability.extra.ante_max, localize { type = 'name_text', key = "c_ortalab_corpus", set = 'ortalab_mythos' }, localize { type = 'name_text', key = "c_ortalab_ophiuchus", set = 'ortalab_mythos' } } }
+        end,
+        calculate = function(self, card, context)
+            if context.selling_self and (card.ability.extra.ante_count >= card.ability.extra.ante_max) and not context.blueprint then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        if G.consumeables.config.card_limit > #G.consumeables.cards then
+                            play_sound('timpani')
+                            SMODS.add_card({ key = "c_ortalab_corpus" })
+                            card:juice_up(0.3, 0.5)
+                        end
+                        return true
+                    end
+                }))
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        if G.consumeables.config.card_limit > #G.consumeables.cards then
+                            play_sound('timpani')
+                            SMODS.add_card({ key = "c_ortalab_ophiuchus" })
+                            card:juice_up(0.3, 0.5)
+                        end
+                        return true
+                    end
+                }))
+            end
+            if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss and not context.blueprint then
+                card.ability.extra.ante_count = card.ability.extra.ante_count + 1
+                if card.ability.extra.ante_count >= card.ability.extra.ante_max then
+                    local eval = function(card) return not card.REMOVED end
+                    juice_card_until(card, eval, true)
+                end
+                return {
+                    message = (card.ability.extra.ante_count < card.ability.extra.ante_max) and
+                        (card.ability.extra.ante_count .. '/' .. card.ability.extra.ante_max) or
+                        localize('k_active_ex'),
+                    colour = G.ARGS.LOC_COLOURS['ortalab_mythos']
+                }
+            end
+        end
+
+    }
+
     -- Self-Insert
+
+    SMODS.Joker {
+        key = "xortalab_self_insert",
+        blueprint_compat = true,
+        perishable_compat = true,
+        eternal_compat = true,
+        rarity = 1,
+        cost = 5,
+        atlas = "j8jokers-dlc",
+        pos = { x = 2, y = 2 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ortalab" },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return {}
+        end,
+        calculate = function(self, card, context)
+            if context.before then
+                local eight_check = false
+                local jack_check = false
+                local rank_check = true
+                for i = 1, #G.play.cards do
+                    if not G.play.cards[i].debuff then
+                        if G.play.cards[i]:get_id() == 8 then
+                            eight_check = true
+                        elseif G.play.cards[i]:get_id() == 11 then
+                            jack_check = true
+                        else
+                            rank_check = false
+                        end
+                    end
+                end
+                if eight_check and jack_check and rank_check then
+                    -- See note about SMODS Scaling Manipulation on the wikilocal tag_pool = get_current_pool('Tag')
+                    return {
+                        message = localize("j8mod_tagged_ex"),
+                        colour = G.C.GREEN,
+                        func = function()
+                            G.E_MANAGER:add_event(Event({
+                                trigger = "immediate",
+                                func = function()
+                                    --- Credits to Eremel
+                                    local tag_pool = get_current_pool('Tag')
+                                    local selected_tag = pseudorandom_element(tag_pool, 'j8mod_xortalab_self_insert')
+                                    local it = 1
+                                    while selected_tag == 'UNAVAILABLE' do
+                                        it = it + 1
+                                        selected_tag = pseudorandom_element(tag_pool, 'j8mod_xortalab_self_insert' .. it)
+                                    end
+                                    local tag = Tag(selected_tag)
+                                    if tag.name == "Orbital Tag" then
+                                        local _poker_hands = {}
+                                        for k, v in pairs(G.GAME.hands) do
+                                            if v.visible then
+                                                _poker_hands[#_poker_hands + 1] = k
+                                            end
+                                        end
+                                        tag.ability.orbital_hand = pseudorandom_element(_poker_hands,
+                                            "j8mod_xortalab_self_insert_orbital_tag")
+                                    end
+                                    tag:set_ability()
+                                    add_tag(tag)
+                                    return true
+                                end
+                            }))
+                        end
+                    }
+                end
+            end
+        end
+    }
 
     -- Receipt Printer
 
@@ -540,6 +834,62 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
     }
 
     -- Boogie Joker
+
+    SMODS.Joker {
+        key = "xortalab_boogie_joker",
+        blueprint_compat = false,
+        perishable_compat = false,
+        eternal_compat = false,
+        rarity = 3,
+        cost = 10,
+        atlas = "j8jokers-dlc",
+        pos = { x = 4, y = 2 },
+        discovered = true,
+        unlocked = true,
+        dependencies = { "ortalab" },
+        config = { extra = { enhancement = "m_ortalab_iou" } },
+        loc_vars = function(self, info_queue, card)
+            info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
+            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            return { vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Cosmic Card' } }
+        end,
+        calculate = function(self, card, context)
+            if context.after and not context.blueprint then
+                local cards_to_trigger = {}
+                return {
+                    message = localize("k_upgrade_ex"),
+                    colour = G.C.UI.TEXT_DARK,
+                    func = function()
+                        for _, v in ipairs(G.play.cards) do
+                            local percent = 0.85 + (_ - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                            if _ > 1 and SMODS.has_enhancement(v, card.ability.extra.enhancement) then
+                                G.E_MANAGER:add_event(Event({
+                                    trigger = 'after',
+                                    delay = 0.1,
+                                    func = function()
+                                        copy_card(v, G.play.cards[_ - 1])
+                                        play_sound('tarot2', percent, 0.6)
+                                        G.play.cards[_ - 1]:juice_up(0.3, 0.5)
+                                        return true
+                                    end
+                                }))
+                            end
+                        end
+                        delay(0.5)
+                        return true
+                    end
+                }
+            end
+        end,
+        in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
+            for _, playing_card in ipairs(G.playing_cards or {}) do
+                if SMODS.has_enhancement(playing_card, "m_ortalab_iou") then
+                    return true
+                end
+            end
+            return false
+        end,
+    }
 end
 
 -- ## JOKER BUTTONS

@@ -647,7 +647,7 @@ SMODS.Joker {
 	pos = { x = 2, y = 1 },
 	discovered = true,
 	unlocked = true,
-	config = { extra = { dollars = 8 } },
+	config = { extra = { dollars = 4 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { vars = { card.ability.extra.dollars } }
@@ -1058,6 +1058,8 @@ SMODS.Joker {
 							}))
 						end
 					end
+
+					delay(0.5)
 					return true
 				end
 			}

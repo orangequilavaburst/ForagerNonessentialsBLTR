@@ -785,8 +785,8 @@ return {
                 name = "Audience Participation",
                 text = {
                     "Create a random {C:attention}Consumeable{}",
-                    "after scoring if a {C:attention}#1#{}",
-                    "were retriggered that hand"
+                    "after scoring if {C:attention}#2#{} or more",
+                    "{C:attention}#1#s{} are held in hand"
                 },
             },
             j_j8mod_xortalab_surface_joker = {
@@ -798,18 +798,20 @@ return {
                 },
             },
             j_j8mod_xortalab_keepsake = {
-                name = "Surface Joker",
+                name = "Keepsake",
                 text = {
-                    "{C:green}#1# in #2#{} chance for",
-                    "played {C:attention}#3#s{} to",
-                    "become {C:attention}#4#s{}",
+                    "After {C:attention}#2# Antes{},",
+                    "sell this card to create a",
+                    "{C:ortalab_mythos}#3#{} card and {C:ortalab_mythos}#4#{} card",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)",
+                    "{C:inactive}(Must have room)",
                 },
             },
             j_j8mod_xortalab_self_insert = {
                 name = "Self-Insert",
                 text = {
                     "Creates a random {C:attention}Tag{} on hands",
-                    "containing only {C:attention}#1#s{} and {C:attention}#2#s{}"
+                    "containing only {C:attention}Jacks{} and {C:attention}8s{}"
                 },
             },
             j_j8mod_xortalab_receipt_printer = {
@@ -819,6 +821,14 @@ return {
                     "enhance all cards in hand",
                     "to a {C:attention}#1#{}, {C:attention}#2#{},",
                     "or {C:attention}#3#{} at random"
+                },
+            },
+            j_j8mod_xortalab_boogie_joker = {
+                name = "Boogie Joker",
+                text = {
+                    "Played {C:attention}#1#s{}",
+                    "convert to the card on ",
+                    "their {C:attention}left{} after scoring"
                 },
             },
         },
@@ -934,7 +944,8 @@ return {
             j8mod_yuri = "Yuri!",
             j8mod_activate_friend = "???",
             j8mod_friend = "!!!",
-            j8mod_girlfriend = "That's how you do it!"
+            j8mod_girlfriend = "That's how you do it!",
+            j8mod_card_ex = "Card!"
         }
     },
 }
