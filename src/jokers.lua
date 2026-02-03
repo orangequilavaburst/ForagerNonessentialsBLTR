@@ -1654,7 +1654,7 @@ SMODS.Joker {
 -- this is a shorthand for all the relevant values needed from set_ability
 local function reduced_set_ability(card, center)
 	local new_ability = {
-		name = center.name or localize{type = 'name_text', key = center.key, set = center.set} or center.key,
+		name = center.name or localize { type = 'name_text', key = center.key, set = center.set } or center.key,
 		effect = center.effect,
 		set = center.set,
 		mult = center.config.mult or 0,
@@ -1715,7 +1715,7 @@ local function reduced_set_ability(card, center)
 	if center.name == 'To Do List' then
 		local _poker_hands = {}
 		for k, v in pairs(G.GAME.hands) do
-			if SMODS.is_poker_hand_visible(k) then _poker_hands[#_poker_hands+1] = k end
+			if SMODS.is_poker_hand_visible(k) then _poker_hands[#_poker_hands + 1] = k end
 		end
 
 		card.ability.to_do_poker_hand = pseudorandom_element(_poker_hands, pseudoseed('to_do'))
@@ -1831,7 +1831,7 @@ SMODS.Joker {
 			}
 			local res = {}
 
-			info_queue[#info_queue+1] = G.P_CENTERS['j_j8mod_modeling_clay'];
+			info_queue[#info_queue + 1] = G.P_CENTERS['j_j8mod_modeling_clay'];
 			local obj = G.P_CENTERS[card.ability.j8mod_modeling_key]
 			if obj.loc_vars and type(obj.loc_vars) == 'function' then
 				res = obj:loc_vars(info_queue, card) or {}
@@ -1845,19 +1845,23 @@ SMODS.Joker {
 			if desc_nodes == full_UI_table.main and not full_UI_table.name then
 				full_UI_table.name = localize { type = 'name', set = target.set, key = self.key, nodes = full_UI_table.name, vars = {} }
 			elseif desc_nodes ~= full_UI_table.main and not desc_nodes.name then
-				desc_nodes.name = localize{type = 'name_text', key = self.key, set = target.set }
+				desc_nodes.name = localize { type = 'name_text', key = self.key, set = target.set }
 			end
 
 			if specific_vars and specific_vars.debuffed and not res.replace_debuff then
 				target = { type = 'other', key = 'debuffed_default', nodes = desc_nodes, AUT = full_UI_table }
 			end
 
-			local copied_name = localize{type = 'name_text', key = card.ability.j8mod_modeling_key, set = target.set }
+			local copied_name = localize { type = 'name_text', key = card.ability.j8mod_modeling_key, set = target.set }
 			local copied_rarity_color = G.C.RARITY[G.P_CENTERS[card.ability.j8mod_modeling_key].rarity];
 			desc_nodes[#desc_nodes + 1] = {
-				{n=G.UIT.R, config = {align = "cm", colour = copied_rarity_color, padding = 0.04, r = 0.1}, nodes = {
-					{n=G.UIT.T, config={text = copied_name, colour = G.C.UI.TEXT_LIGHT, scale = 0.26}},
-				}}
+				{
+					n = G.UIT.R,
+					config = { align = "cm", colour = copied_rarity_color, padding = 0.04, r = 0.1 },
+					nodes = {
+						{ n = G.UIT.T, config = { text = copied_name, colour = G.C.UI.TEXT_LIGHT, scale = 0.26 } },
+					}
+				}
 			}
 			if res.main_start then
 				desc_nodes[#desc_nodes + 1] = res.main_start
@@ -1875,10 +1879,10 @@ SMODS.Joker {
 
 		if card.config and card.config.center.discovered then
 			-- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
-			full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
+			full_UI_table.name = localize { type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {} }
 		end
 
-		localize{type = 'descriptions', key = self.key, set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {}}
+		localize { type = 'descriptions', key = self.key, set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {} }
 	end,
 }
 
@@ -3434,7 +3438,7 @@ function lowest_level_poker_hand()
 		if G.GAME.hands[_].visible and (lowest_level < 0 or (v.level < lowest_level or v.level == lowest_level and order > v.order)) then
 			lowest_level = v.level
 			lowest_hand = _
-			print(lowest_hand .. "is now the lowest at level " .. tostring(lowest_level))
+			--print(lowest_hand .. "is now the lowest at level " .. tostring(lowest_level))
 		end
 	end
 	return lowest_hand

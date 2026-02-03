@@ -345,6 +345,42 @@ SMODS.current_mod.extra_tabs = function()
 														},
 													}
 												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "overgrown.robot",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "NeoGnW",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
 											}
 										},
 										{
@@ -507,6 +543,25 @@ SMODS.current_mod.extra_tabs = function()
 															config = {
 																align = 'cm',
 																text = "J8-Bit",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "Vivian Giacobbi",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
 																padding = 0.05
@@ -838,6 +893,25 @@ SMODS.current_mod.extra_tabs = function()
 														},
 													}
 												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "ellestuff",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
 											}
 										},
 										{
@@ -1097,7 +1171,7 @@ SMODS.current_mod.extra_tabs = function()
 															n = G.UIT.T,
 															config = {
 																align = 'cm',
-																text = "thewintercomet",
+																text = "Vivian Giacobbi",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
 																padding = 0.05
@@ -1136,6 +1210,25 @@ SMODS.current_mod.extra_tabs = function()
 															config = {
 																align = 'cm',
 																text = "Viomarks",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "ellestuff",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
 																padding = 0.05
@@ -1307,6 +1400,25 @@ SMODS.current_mod.extra_tabs = function()
 															config = {
 																align = 'cm',
 																text = "Cryptid devs",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "Ortalab devs",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
 																padding = 0.05
