@@ -78,11 +78,15 @@ SMODS.Joker {
 		if J8MOD.config.no_deltarune_spoilers then
 			card.children.center:set_sprite_pos({ x = 0, y = 0 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
-			card.children.floating_sprite.states.visible = false
+			if card.children.floating_sprite then
+				card.children.floating_sprite.states.visible = false
+			end
 		else
 			card.children.center:set_sprite_pos({ x = 0, y = 0 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-prophecy']
-			card.children.floating_sprite.states.visible = true
+			if card.children.floating_sprite then
+				card.children.floating_sprite.states.visible = true
+			end
 		end
 	end
 }
@@ -1724,6 +1728,10 @@ SMODS.Joker {
 			})
 		end
 	end,
+	update = function(self, card, dt)
+		card.children.center:set_sprite_pos({ x = 0, y = 0 })
+		card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-clay']
+	end
 }
 
 -- Geode
@@ -1854,10 +1862,14 @@ SMODS.Joker {
 	update = function(self, card, dt)
 		if J8MOD.config.furry_mode then
 			card.children.center:set_sprite_pos({ x = 0, y = 1 })
-			card.children.floating_sprite:set_sprite_pos({ x = 1, y = 1 })
+			if card.children.floating_sprite then
+				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 1 })
+			end
 		else
 			card.children.center:set_sprite_pos({ x = 0, y = 0 })
-			card.children.floating_sprite:set_sprite_pos({ x = 1, y = 0 })
+			if card.children.floating_sprite then
+				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 0 })
+			end
 		end
 	end
 }
@@ -2409,16 +2421,24 @@ SMODS.Joker {
 		if J8MOD.config.no_deltarune_spoilers then
 			card.children.center:set_sprite_pos({ x = 8, y = 3 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
-			card.children.floating_sprite.states.visible = false
+			if card.children.floating_sprite then
+				card.children.floating_sprite.states.visible = false
+			end
 		else
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-yuri']
-			card.children.floating_sprite.states.visible = true
+			if card.children.floating_sprite then
+				card.children.floating_sprite.states.visible = true
+			end
 			if J8MOD.config.furry_mode then
 				card.children.center:set_sprite_pos({ x = 0, y = 1 })
-				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 1 })
+				if card.children.floating_sprite then
+					card.children.floating_sprite:set_sprite_pos({ x = 1, y = 1 })
+				end
 			else
 				card.children.center:set_sprite_pos({ x = 0, y = 0 })
-				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 0 })
+				if card.children.floating_sprite then
+					card.children.floating_sprite:set_sprite_pos({ x = 1, y = 0 })
+				end
 			end
 		end
 	end
