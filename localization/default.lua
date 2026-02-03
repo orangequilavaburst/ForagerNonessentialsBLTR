@@ -360,11 +360,10 @@ return {
             j_j8mod_modeling_clay = {
                 name = "Modeling Clay",
                 text = {
-                    "Changes ability to that",
-                    "of a random {C:attention}Joker{}",
+                    "Changes ability to",
+                    " random {C:attention}Joker{}",
                     "at start of round",
-                    "or after {C:red}discard{}",
-                    "{C:inactive}(Currently {V:1}#1#{C:inactive})",
+                    "or on {C:red}discard{}",
                 }
             },
             j_j8mod_geode = {

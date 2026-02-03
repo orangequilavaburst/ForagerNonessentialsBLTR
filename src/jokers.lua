@@ -1651,6 +1651,79 @@ SMODS.Joker {
 	end
 }
 
+-- this is a shorthand for all the relevant values needed from set_ability
+local function reduced_set_ability(card, center)
+	local new_ability = {
+		name = center.name or localize{type = 'name_text', key = center.key, set = center.set} or center.key,
+		effect = center.effect,
+		set = center.set,
+		mult = center.config.mult or 0,
+		h_mult = center.config.h_mult or 0,
+		h_x_mult = center.config.h_x_mult or 0,
+		h_dollars = center.config.h_dollars or 0,
+		p_dollars = center.config.p_dollars or 0,
+		t_mult = center.config.t_mult or 0,
+		t_chips = center.config.t_chips or 0,
+		x_mult = center.config.Xmult or center.config.x_mult or 1,
+		h_chips = center.config.h_chips or 0,
+		x_chips = center.config.x_chips or 1,
+		h_x_chips = center.config.h_x_chips or 1,
+		h_size = center.config.h_size or 0,
+		d_size = center.config.d_size or 0,
+		extra = copy_table(center.config.extra) or nil,
+		type = center.config.type or '',
+		order = center.order or nil,
+		bonus = (card.ability.bonus or 0) + (center.config.bonus or 0),
+		perma_bonus = 0,
+		perma_x_chips = 0,
+		perma_mult = card.ability and card.ability.perma_mult or 0,
+		perma_x_mult = card.ability and card.ability.perma_x_mult or 0,
+		perma_h_chips = card.ability and card.ability.perma_h_chips or 0,
+		perma_h_x_chips = card.ability and card.ability.perma_h_x_chips or 0,
+		perma_h_mult = card.ability and card.ability.perma_h_mult or 0,
+		perma_h_x_mult = card.ability and card.ability.perma_h_x_mult or 0,
+		perma_p_dollars = card.ability and card.ability.perma_p_dollars or 0,
+		perma_h_dollars = card.ability and card.ability.perma_h_dollars or 0,
+		extra_value = card.ability.extra_value or 0,
+		hands_played_at_create = G.GAME and G.GAME.hands_played or 0,
+		invis_rounds = center.name == 'Invisible Joker' and 0 or nil,
+		caino_xmult = center.name == 'Caino' and 1 or nil,
+		yorick_discards = center.name == 'Yorick' and center.config.extra.discards,
+		burnt_hand = center.name == 'Loyalty Card' and 0 or nil,
+		loyalty_remaining = center.name == 'Loyalty Card' and center.config.extra.every or nil,
+		csau_extra_value = 0,
+		card_limit = card.ability and card.ability.card_limit or 0,
+		extra_slots_used = card.ability and card.ability.extra_slots_used or 0,
+	}
+
+	card.ability = {}
+	for k, v in pairs(new_ability) do
+		card.ability[k] = v
+	end
+
+	for k, v in pairs(center.config) do
+		if not new_ability[k] then
+			if type(v) == 'table' then
+				card.ability[k] = copy_table(v)
+			else
+				card.ability[k] = v
+			end
+		end
+	end
+
+	-- have to do this individually
+	if center.name == 'To Do List' then
+		local _poker_hands = {}
+		for k, v in pairs(G.GAME.hands) do
+			if SMODS.is_poker_hand_visible(k) then _poker_hands[#_poker_hands+1] = k end
+		end
+
+		card.ability.to_do_poker_hand = pseudorandom_element(_poker_hands, pseudoseed('to_do'))
+	end
+
+	card:set_cost()
+end
+
 -- Modeling Clay
 SMODS.Joker {
 	key = "modeling_clay",
@@ -1663,75 +1736,150 @@ SMODS.Joker {
 	pos = { x = 0, y = 0 },
 	discovered = true,
 	unlocked = true,
-	config = { extra = { copying_joker = "j_joker" } },
-	loc_vars = function(self, info_queue, card)
-		-- super thanks somethingcom515 !
-		local center = G.P_CENTERS[card.ability.extra.copying_joker]
-		local other_center = SMODS.shallow_copy(center)
-		other_center.loc_vars = function(self, info_queue, uncard)
-			return center.loc_vars(self, info_queue,
-				G.j8mod_savedjokercards[card.sort_id][card.ability.extra.copying_joker])
-		end
-		table.insert(info_queue, other_center)
-		info_queue[#info_queue + 1] = { key = "credits_sharb", set = "Other" }
-		return { vars = { card.ability.extra.copying_joker and localize({ type = 'name_text', set = "Joker", key = card.ability.extra.copying_joker }) or 'Nothing', colours = { card.ability.extra.copying_joker and G.C.RARITY[G.P_CENTERS[card.ability.extra.copying_joker].rarity] or G.C.FILTER } } }
-	end,
-	draw = function(self, card, layer)
-		if card.config.center.discovered or card.bypass_discovery_center then
-			card.children.center:draw_shader('j8mod_normal_mapped', nil, card.ARGS.send_to_shader)
+	config = {
+		extra = {
+			target_card = nil,
+			timer = 0,
+			timer_max = 3
+		}
+	},
+
+	add_to_deck = function(self, card, from_debuff)
+		if card.ability.j8mod_modeling_key then
+			card.config.center = G.P_CENTERS[card.ability.j8mod_modeling_key]
+			local ret = card:add_to_deck(from_debuff)
+			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
+			return ret
 		end
 	end,
+
+	remove_from_deck = function(self, card, from_debuff)
+		if card.ability.j8mod_modeling_key then
+			card.config.center = G.P_CENTERS[card.ability.j8mod_modeling_key]
+			card.added_to_deck = true
+			local ret = card:remove_from_deck(from_debuff)
+			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
+			return ret
+		end
+	end,
+
+	load = function(self, card, card_table, other_card)
+		if card_table.ability.j8mod_modeling_key then
+			reduced_set_ability(card, G.P_CENTERS[card_table.ability.j8mod_modeling_key])
+			card.ability.j8mod_modeling_key = card_table.ability.j8mod_modeling_key
+		end
+	end,
+
+	calc_dollar_bonus = function(self, card)
+		if card.ability.j8mod_modeling_key then
+			card.config.center = G.P_CENTERS[card.ability.j8mod_modeling_key]
+			local ret = card:calculate_dollar_bonus()
+			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
+			return ret
+		end
+	end,
+
 	calculate = function(self, card, context)
-		-- thanks, somethingcom515 !
-		if (context.setting_blind or context.pre_discard) and not context.blueprint then
-			G.j8mod_savedjokercards[card.sort_id][card.ability.extra.copying_joker]:remove_from_deck()
-			card.ability.extra.copying_joker = pseudorandom_element(G.P_CENTER_POOLS.Joker, 'j8mod_modeling_clay').key
-			return {
-				message = localize { type = 'name_text', set = "Joker", key = card.ability.extra.copying_joker } .. "!",
-				colour = G.C.RARITY[G.P_CENTERS[card.ability.extra.copying_joker].rarity]
-			}
-		end
-		if card.ability.extra.copying_joker then
-			local key = card.ability.extra.copying_joker
-			G.j8mod_savedjokercards = G.j8mod_savedjokercards or {}
-			G.j8mod_savedjokercards[card.sort_id] = G.j8mod_savedjokercards[card.sort_id] or {}
-			if not G.j8mod_savedjokercards[card.sort_id][key] then
-				local old_ability = copy_table(card.ability)
-				local old_center = card.config.center
-				local old_center_key = card.config.center_key
-				card:set_ability(key, nil, 'quantum')
-				card:update(0.016)
-				G.j8mod_savedjokercards[card.sort_id][key] = SMODS.shallow_copy(card)
-				G.j8mod_savedjokercards[card.sort_id][key].ability = copy_table(G.j8mod_savedjokercards[card.sort_id]
-					[key].ability)
-				for i, v in ipairs({ "T", "VT", "CT" }) do
-					G.j8mod_savedjokercards[card.sort_id][key][v] = copy_table(G.j8mod_savedjokercards[card.sort_id]
-						[key][v])
-				end
-				G.j8mod_savedjokercards[card.sort_id][key].config = SMODS.shallow_copy(G.j8mod_savedjokercards
-					[card.sort_id][key].config)
-				card.ability = old_ability
-				card.config.center = old_center
-				card.config.center_key = old_center_key
-				for i, v in ipairs({ 'juice_up', 'start_dissolve', 'remove', 'flip' }) do
-					G.j8mod_savedjokercards[card.sort_id][key][v] = function(_, ...)
-						return Card[v](card, ...)
-					end
-				end
-			end
-			return G.j8mod_savedjokercards[card.sort_id][key]:calculate_joker(context)
-		end
-		if (context.setting_blind or context.pre_discard) then
-			G.j8mod_savedjokercards[card.sort_id][card.ability.extra.copying_joker]:calculate_joker({
-				setting_blind = true,
-				blind = G.GAME.round_resets.blind
+		if (context.setting_blind or context.pre_discard) and not card.debuff and not context.blueprint and not context.retrigger_joker then
+			local center = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('j8_modeling_clay'))
+			reduced_set_ability(card, center)
+			card.ability.j8mod_modeling_key = center.key
+			card.config.center.atlas = 'j8jokers-clay'
+			card_eval_status_text(card, 'extra', nil, nil, nil, {
+				message = localize { type = 'name_text', set = "Joker", key = card.ability.j8mod_modeling_key } .. "!",
+				colour = G.C.RARITY[G.P_CENTERS[card.ability.j8mod_modeling_key].rarity]
 			})
+
+			card.config.center = G.P_CENTERS[card.ability.j8mod_modeling_key]
+			card.added_to_deck = nil
+			card:add_to_deck()
+			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
+		end
+
+		if card.ability.j8mod_modeling_key then
+			card.config.center = G.P_CENTERS[card.ability.j8mod_modeling_key]
+			local ret, triggered = card:calculate_joker(context)
+			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
+
+			return ret, triggered or true
 		end
 	end,
+
 	update = function(self, card, dt)
-		card.children.center:set_sprite_pos({ x = 0, y = 0 })
-		card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-clay']
-	end
+		if card.ability.j8mod_modeling_key then
+			card.config.center = G.P_CENTERS[card.ability.j8mod_modeling_key]
+			local ret = card:update(dt)
+			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
+			return ret
+		end
+	end,
+
+	generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+		if not card then
+			card = self:create_fake_card()
+		end
+
+		if card.ability and card.ability.j8mod_modeling_key then
+			local target = {
+				type = 'descriptions',
+				key = card.ability.j8mod_modeling_key,
+				set = 'Joker',
+				nodes = desc_nodes,
+				AUT = full_UI_table,
+				vars =
+					specific_vars or {}
+			}
+			local res = {}
+
+			info_queue[#info_queue+1] = G.P_CENTERS['j_j8mod_modeling_clay'];
+			local obj = G.P_CENTERS[card.ability.j8mod_modeling_key]
+			if obj.loc_vars and type(obj.loc_vars) == 'function' then
+				res = obj:loc_vars(info_queue, card) or {}
+				target.vars = res.vars or target.vars
+				target.key = res.key or target.key
+				target.set = res.set or target.set
+				target.scale = res.scale
+				target.text_colour = res.text_colour
+			end
+
+			if desc_nodes == full_UI_table.main and not full_UI_table.name then
+				full_UI_table.name = localize { type = 'name', set = target.set, key = self.key, nodes = full_UI_table.name, vars = {} }
+			elseif desc_nodes ~= full_UI_table.main and not desc_nodes.name then
+				desc_nodes.name = localize{type = 'name_text', key = self.key, set = target.set }
+			end
+
+			if specific_vars and specific_vars.debuffed and not res.replace_debuff then
+				target = { type = 'other', key = 'debuffed_default', nodes = desc_nodes, AUT = full_UI_table }
+			end
+
+			local copied_name = localize{type = 'name_text', key = card.ability.j8mod_modeling_key, set = target.set }
+			local copied_rarity_color = G.C.RARITY[G.P_CENTERS[card.ability.j8mod_modeling_key].rarity];
+			desc_nodes[#desc_nodes + 1] = {
+				{n=G.UIT.R, config = {align = "cm", colour = copied_rarity_color, padding = 0.04, r = 0.1}, nodes = {
+					{n=G.UIT.T, config={text = copied_name, colour = G.C.UI.TEXT_LIGHT, scale = 0.26}},
+				}}
+			}
+			if res.main_start then
+				desc_nodes[#desc_nodes + 1] = res.main_start
+			end
+
+			localize(target)
+
+			if res.main_end then
+				desc_nodes[#desc_nodes + 1] = res.main_end
+			end
+
+			desc_nodes.background_colour = res.background_colour
+			return
+		end
+
+		if card.config and card.config.center.discovered then
+			-- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
+			full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
+		end
+
+		localize{type = 'descriptions', key = self.key, set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {}}
+	end,
 }
 
 -- Geode
