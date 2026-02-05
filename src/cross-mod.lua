@@ -379,7 +379,11 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
                     return {
                         message = localize('k_upgrade_ex'),
                         colour = G.C.MULT,
-                        message_card = card
+                        message_card = card,
+                        func = function()
+                            play_sound('j8mod_mattman' .. tostring(math.random(1, 18)), 1.0)
+                            return true
+                        end
                     }
                 end
             end
@@ -543,6 +547,14 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
             return false
         end
     }
+
+    -- Mattman Screaming
+    for i = 1, 18 do
+        SMODS.Sound {
+            key = "mattman" .. tostring(i),
+            path = "mattman" .. tostring(i) .. ".wav"
+        }
+    end
 end
 
 if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
