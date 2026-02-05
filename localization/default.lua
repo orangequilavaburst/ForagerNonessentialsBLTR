@@ -892,6 +892,12 @@ return {
                     "NeoGnW"
                 }
             },
+            credits_mattman = {
+                name = "Screams",
+                text = {
+                    "Lazy Mattman"
+                }
+            },
             credits_placeholder = {
                 name = "Artist",
                 text = {

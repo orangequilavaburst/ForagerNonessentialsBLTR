@@ -1247,6 +1247,44 @@ SMODS.current_mod.extra_tabs = function()
 															n = G.UIT.T,
 															config = {
 																align = 'cm',
+																text = "ozoneserpent",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "submarine_screw",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
 																text = "Dr. Spectred",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
@@ -1286,6 +1324,25 @@ SMODS.current_mod.extra_tabs = function()
 															config = {
 																align = 'cm',
 																text = "Bean",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "LazyMattman",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
 																padding = 0.05
