@@ -1817,6 +1817,84 @@ SMODS.Shader({ key = 'spiral', path = 'spiral.fs' })
 SMODS.Shader({ key = 'yuri', path = 'yuri.fs' })
 SMODS.Shader({ key = 'normal_mapped', path = 'normal_mapped.fs' })
 SMODS.Shader({ key = 'prophecy', path = 'prophecy.fs' })
+SMODS.Shader({ key = 'jevil', path = 'jevil.fs' })
+--SMODS.Shader({ key = 'mosiac', path = 'mosiac.fs' })
+--SMODS.Shader({ key = 'wiggly', path = 'wiggly.fs' })
+
+-- ## DRAW STEPS ##
+
+SMODS.DrawStep {
+	key = "decoration",
+	order = 30,
+	func = function(card, layer)
+		if card and card.config.center.discovered or card.bypass_discovery_center then
+			if card.config.center == G.P_CENTERS["j_j8mod_prophecy"] then
+				if not J8MOD.config.no_deltarune_spoilers then
+					card.config.j8mod_decoration = card.config.j8mod_decoration or
+						SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, 'j8mod_j8jokers-prophecy',
+							{ x = 1, y = 0 })
+					card.config.j8mod_decoration.role.draw_major = card
+					G.SHADERS['j8mod_prophecy']:send("depths_texture", J8MOD.prophecy_texture)
+					--G.SHADERS['j8mod_prophecy']:send("depths_dimensions", {J8MOD.prophecy_texture:getWidth(), J8MOD.prophecy_texture:getHeight()})
+					card.config.j8mod_decoration:draw_shader('j8mod_prophecy', nil, card.ARGS.send_to_shader, nil,
+						card.children.center)
+				else
+					if card.config.j8mod_decoration then
+						card.config.j8mod_decoration = nil
+					end
+				end
+			elseif card.config.center == G.P_CENTERS["j_j8mod_hypnotic_joker"] then
+				card.config.j8mod_decoration = card.config.j8mod_decoration or
+					SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, 'j8mod_j8jokers-hypno',
+						{ x = 1, y = 0 })
+				card.config.j8mod_decoration.role.draw_major = card
+				card.config.j8mod_decoration:set_sprite_pos({ x = 1, y = J8MOD.config.furry_mode and 1 or 0 })
+				card.config.j8mod_decoration:draw_shader('j8mod_spiral', nil, card.ARGS.send_to_shader, nil,
+					card.children.center)
+			elseif card.config.center == G.P_CENTERS["j_j8mod_werewire"] then
+				if not J8MOD.config.no_deltarune_spoilers then
+					card.config.j8mod_decoration = card.config.j8mod_decoration or
+						SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, 'j8mod_j8jokers-werewire',
+							{ x = 1, y = 0 })
+					card.config.j8mod_decoration.role.draw_major = card
+					card.config.j8mod_decoration:draw_shader('j8mod_ww', nil, card.ARGS.send_to_shader, nil,
+						card.children.center)
+				else
+					if card.config.j8mod_decoration then
+						card.config.j8mod_decoration = nil
+					end
+				end
+			elseif card.config.center == G.P_CENTERS["j_j8mod_mizzmanaged"] then
+				if not J8MOD.config.no_deltarune_spoilers then
+					card.config.j8mod_decoration = card.config.j8mod_decoration or
+						SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, 'j8mod_j8jokers-yuri',
+							{ x = 1, y = J8MOD.config.furry_mode and 1 or 0 })
+					card.config.j8mod_decoration.role.draw_major = card
+					card.config.j8mod_decoration:draw_shader('j8mod_yuri', nil, card.ARGS.send_to_shader, nil,
+						card.children.center)
+				else
+					if card.config.j8mod_decoration then
+						card.config.j8mod_decoration = nil
+					end
+				end
+			elseif card.config.center == G.P_CENTERS["j_j8mod_the_world_revolving"] then
+				if not J8MOD.config.no_deltarune_spoilers then
+					card.config.j8mod_decoration = card.config.j8mod_decoration or
+						SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, 'j8mod_j8jokers-jevil',
+							{ x = 1, y = 0 })
+					card.config.j8mod_decoration.role.draw_major = card
+					card.config.j8mod_decoration:draw_shader('j8mod_jevil', nil, card.ARGS.send_to_shader, nil,
+						card.children.center)
+				else
+					if card.config.j8mod_decoration then
+						card.config.j8mod_decoration = nil
+					end
+				end
+			end
+		end
+	end,
+	conditions = { vortex = false, facing = 'front' }
+}
 
 -- ## FUNCTIONS ##
 
