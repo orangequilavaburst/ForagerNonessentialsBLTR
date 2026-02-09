@@ -783,7 +783,7 @@ return {
             j_j8mod_xellejokers_audience_participation = {
                 name = "Audience Participation",
                 text = {
-                    "Create a random {C:attention}Consumeable{}",
+                    "Create a random {C:attention}consumable{}",
                     "after scoring if {C:attention}#2#{} or more",
                     "{C:attention}#1#s{} are held in hand"
                 },
