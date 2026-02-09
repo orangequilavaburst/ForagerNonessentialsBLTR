@@ -892,6 +892,12 @@ return {
                     "NeoGnW"
                 }
             },
+            credits_glasus = {
+                name = "Artist",
+                text = {
+                    "Glasus"
+                }
+            },
             credits_mattman = {
                 name = "Screams",
                 text = {

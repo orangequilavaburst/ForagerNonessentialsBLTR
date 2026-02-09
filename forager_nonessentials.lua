@@ -1571,6 +1571,11 @@ SMODS.Atlas {
 	px = 71, py = 95
 }
 SMODS.Atlas {
+	key = "swatchlings",
+	path = "swatchlings.png",
+	px = 71, py = 95
+}
+SMODS.Atlas {
 	key = "j8jokers-bn",
 	path = "jokers-bn.png",
 	px = 74, py = 98
@@ -1818,7 +1823,7 @@ SMODS.Shader({ key = 'yuri', path = 'yuri.fs' })
 SMODS.Shader({ key = 'normal_mapped', path = 'normal_mapped.fs' })
 SMODS.Shader({ key = 'prophecy', path = 'prophecy.fs' })
 SMODS.Shader({ key = 'jevil', path = 'jevil.fs' })
---SMODS.Shader({ key = 'mosiac', path = 'mosiac.fs' })
+SMODS.Shader({ key = 'scroll', path = 'scroll.fs' })
 --SMODS.Shader({ key = 'wiggly', path = 'wiggly.fs' })
 
 -- ## DRAW STEPS ##
@@ -1888,6 +1893,31 @@ SMODS.DrawStep {
 				else
 					if card.config.j8mod_decoration then
 						card.config.j8mod_decoration = nil
+					end
+				end
+			elseif card.config.center == G.P_CENTERS["j_j8mod_color_cafe"] then
+				if not J8MOD.config.no_deltarune_spoilers then
+					card.config.j8mod_decoration2 = card.config.j8mod_decoration2 or
+						SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h,
+							'j8mod_swatchlings',
+							{ x = 0, y = 0 })
+					card.config.j8mod_decoration2.role.draw_major = card
+					G.SHADERS['j8mod_scroll']:send("scroll_speed", { 0.125, 0.0 })
+					card.config.j8mod_decoration2:draw_shader('j8mod_scroll', nil, card.ARGS.send_to_shader, nil,
+						card.children.center, 0, 0)
+
+					card.config.j8mod_decoration = card.config.j8mod_decoration or
+						SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, 'j8mod_j8jokers-swatch',
+							{ x = 1, y = 0 })
+					card.config.j8mod_decoration.role.draw_major = card
+					card.config.j8mod_decoration:draw_shader('dissolve', nil, nil, nil,
+						card.children.center, 0, 0)
+				else
+					if card.config.j8mod_decoration then
+						card.config.j8mod_decoration = nil
+					end
+					if card.config.j8mod_decoration2 then
+						card.config.j8mod_decoration2 = nil
 					end
 				end
 			end

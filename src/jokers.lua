@@ -2231,7 +2231,11 @@ SMODS.Joker {
 	config = { extra = { odds = 10 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS["e_polychrome"]
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		if J8MOD.config.no_deltarune_spoilers then
+			info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		else
+			info_queue[#info_queue + 1] = { key = "credits_glasus", set = "Other" }
+		end
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_color_cafe')
 		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_makeup_palette" or "j_j8mod_color_cafe", vars = { numerator, denominator } }
 	end,
