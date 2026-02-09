@@ -271,6 +271,7 @@ SMODS.Joker {
 	config = { extra = { chips = 0, chip_mod = 4 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
 		return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
 	end,
 	calculate = function(self, card, context)
@@ -608,7 +609,7 @@ SMODS.Joker {
 	unlocked = true,
 	config = { extra = { chips = 0, chip_mod = 20, odds = 25 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_milkshake')
 		return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod, numerator, denominator } }
 	end,
@@ -1234,7 +1235,7 @@ SMODS.Joker {
 	discovered = true,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return {}
 	end,
 	calculate = function(self, card, context)
@@ -1819,6 +1820,7 @@ SMODS.Joker {
 			card = self:create_fake_card()
 		end
 
+		info_queue[#info_queue + 1] = { key = "credits_sharb", set = "Other" }
 		if card.ability and card.ability.j8mod_modeling_key then
 			local target = {
 				type = 'descriptions',
@@ -3035,7 +3037,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 0 },
 	config = { extra = { Xmult = 3 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_sleight_of_hand" or "j_j8mod_the_world_revolving", vars = { card.ability.extra.Xmult } }
 	end,
 	calculate = function(self, card, context)

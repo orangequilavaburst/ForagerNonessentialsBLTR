@@ -501,7 +501,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         config = { extra = { enhancement = "m_elle_jess", cards_needed = 2 } },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
-            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }), card.ability.extra.cards_needed } }
         end,
         calculate = function(self, card, context)
@@ -577,7 +577,7 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_ore
             info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_sand
-            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
                 'j8mod_xortalab_surface')
             return { vars = { numerator, denominator, localize({ type = 'name_text', set = "Enhanced", key = 'm_ortalab_ore' }) or 'Ore Card', localize({ type = 'name_text', set = "Enhanced", key = 'm_ortalab_sand' }) or 'Sand Card' } }
