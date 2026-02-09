@@ -3322,7 +3322,7 @@ SMODS.Joker {
 	cost = 7,
 	config = { extra = { poker_hand = "Full House", scale_amount = 1, hand_size = 0 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { vars = { localize(card.ability.extra.poker_hand, 'poker_hands'), card.ability.extra.scale_amount, card.ability.extra.hand_size } }
 	end,
 	calculate = function(self, card, context)
@@ -3373,7 +3373,7 @@ SMODS.Joker {
 	cost = 10,
 	config = { extra = { poker_hand = "Three of a Kind", scale_amount = 0.3 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
 		return { vars = { localize(card.ability.extra.poker_hand, 'poker_hands'), card.ability.extra.scale_amount, 1.0 + card.ability.extra.scale_amount * G.GAME.hands[card.ability.extra.poker_hand].played } }
 	end,
 	calculate = function(self, card, context)

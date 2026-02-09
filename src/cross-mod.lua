@@ -115,7 +115,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         dependencies = { "UTDR" },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS["c_strength"]
-            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             return { vars = { localize { type = 'name_text', key = "c_strength", set = 'Tarot' }, localize { type = 'name_text', key = "p_arcana_normal", set = 'Other' } } }
         end,
     }
@@ -786,7 +786,7 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
             info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_post
             info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_bent
             info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_index
-            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             return { vars = { localize({ type = 'name_text', set = "Enhanced", key = "m_ortalab_post" }), localize({ type = 'name_text', set = "Enhanced", key = "m_ortalab_bent" }), localize({ type = 'name_text', set = "Enhanced", key = "m_ortalab_index" }) } }
         end,
         calculate = function(self, card, context)
