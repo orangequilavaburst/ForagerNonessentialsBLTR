@@ -22,6 +22,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         dependencies = { "UTDR" },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "requested_by_viomarks", set = "Other" }
             return { vars = { math.abs(card.ability.extra.chips), card.ability.extra.xmult } }
         end,
         calculate = function(self, card, context)
@@ -182,6 +183,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         dependencies = { "UTDR" },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "oc_credits_submarine_screw", set = "Other" }
             return {}
         end,
         calculate = function(self, card, context)
@@ -281,6 +283,8 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         config = { extra = { extra_reps = 1 } },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
             return { vars = { card.ability.extra.extra_reps } }
         end
     }
@@ -501,6 +505,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         config = { extra = { enhancement = "m_elle_jess", cards_needed = 2 } },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
+            info_queue[#info_queue + 1] = { key = "oc_credits_elle", set = "Other" }
             info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }), card.ability.extra.cards_needed } }
         end,
@@ -864,6 +869,7 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
             info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "oc_credits_ozoneserpent", set = "Other" }
             return { vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Cosmic Card' } }
         end,
         calculate = function(self, card, context)

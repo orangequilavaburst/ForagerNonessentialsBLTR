@@ -909,7 +909,73 @@ return {
                 text = {
                     "Placeholder"
                 }
-            }
+            },
+            oc_credits_j8 = {
+                name = "OC Credits",
+                text = {
+                    "J8-Bit"
+                }
+            },
+            oc_credits_thatartisan = {
+                name = "OC Credits",
+                text = {
+                    "ThatArtisan"
+                }
+            },
+            oc_credits_sift = {
+                name = "OC Credits",
+                text = {
+                    "Sift"
+                }
+            },
+            oc_credits_thisisbennyk = {
+                name = "OC Credits",
+                text = {
+                    "ThisIsBennyK"
+                }
+            },
+            oc_credits_elle = {
+                name = "OC Credits",
+                text = {
+                    "ellestuff"
+                }
+            },
+            oc_credits_ozoneserpent = {
+                name = "OC Credits",
+                text = {
+                    "ozoneserpent"
+                }
+            },
+            oc_credits_submarine_screw = {
+                name = "Character Design Credits",
+                text = {
+                    "Submarine Screw"
+                }
+            },
+            oc_pronouns_hehim = {
+                name = "OC Pronouns",
+                text = {
+                    "he/him"
+                }
+            },
+            oc_pronouns_sheher = {
+                name = "OC Pronouns",
+                text = {
+                    "she/her"
+                }
+            },
+            oc_pronouns_theythem = {
+                name = "OC Pronouns",
+                text = {
+                    "they/them"
+                }
+            },
+            requested_by_viomarks = {
+                name = "Requested by",
+                text = {
+                    "Viomarks"
+                }
+            },
         }
     },
     misc = {

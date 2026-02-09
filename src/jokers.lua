@@ -1886,6 +1886,11 @@ SMODS.Joker {
 
 		localize { type = 'descriptions', key = self.key, set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {} }
 	end,
+	draw = function(self, card, layer)
+		if card.config.center.discovered or card.bypass_discovery_center then
+			card.children.center:draw_shader('j8mod_normal_mapped', nil, card.ARGS.send_to_shader)
+		end
+	end
 }
 
 -- Geode
@@ -2627,6 +2632,9 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = { key = "credits_vjb", set = "Other" }
 		if not J8MOD.config.furry_mode then
 			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		else
+			info_queue[#info_queue + 1] = { key = "oc_credits_sift", set = "Other" }
+			info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
 		end
 		return { vars = { card.ability.extra.mult, card.ability.extra.mult_inc } }
 	end,
@@ -2683,6 +2691,9 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = { key = "credits_vjb", set = "Other" }
 		if not J8MOD.config.furry_mode then
 			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		else
+			info_queue[#info_queue + 1] = { key = "oc_credits_sift", set = "Other" }
+			info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
 		end
 		return { vars = { card.ability.extra.dollars } }
 	end,
@@ -3540,6 +3551,8 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS["e_negative"]
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
 		return { vars = { card.ability.extra.repetitions } }
 	end,
 	calculate = function(self, card, context)
@@ -3593,7 +3606,8 @@ SMODS.Joker {
 	config = { extra = { extra_boosters = 2, extra_vouchers = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
-
+		info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "oc_pronouns_sheher", set = "Other" }
 		return { vars = { card.ability.extra.extra_boosters, card.ability.extra.extra_vouchers } }
 	end,
 	add_to_deck = function(self, card, from_debuff)
@@ -3653,6 +3667,8 @@ SMODS.Joker {
 	--config = { extra = { inc = 1, hand_req = 2, total = 0, total_current = 0, Xmult = 1.5 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "oc_pronouns_sheher", set = "Other" }
 		return {}
 		--return { vars = { card.ability.extra.inc, card.ability.extra.hand_req, card.ability.extra.total_current, card.ability.extra.total, card.ability.extra.Xmult } }
 	end,
@@ -3722,6 +3738,8 @@ SMODS.Joker {
 	config = { extra = { rank = "Ace" } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_thatartisan", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "oc_credits_thatartisan", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "oc_pronouns_sheher", set = "Other" }
 		return { vars = { localize((card.ability.extra.rank or "Ace"), 'ranks') } }
 	end,
 	calculate = function(self, card, context)
@@ -3782,6 +3800,8 @@ SMODS.Joker {
 	config = { extra = { Xmult = 0.2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "oc_credits_thisisbennyk", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "oc_pronouns_theythem", set = "Other" }
 		return { vars = { card.ability.extra.Xmult } }
 	end,
 	calculate = function(self, card, context)
