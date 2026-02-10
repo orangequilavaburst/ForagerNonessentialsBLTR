@@ -212,13 +212,13 @@ SMODS.Joker {
 	eternal_compat = true,
 	rarity = 1,
 	cost = 5,
-	atlas = "j8jokers",
+	atlas = "j8jokers-clownfish",
 	discovered = true,
 	unlocked = true,
-	pos = { x = 3, y = 0 },
+	pos = { x = 0, y = 0 },
 	config = { extra = { chips = 0, chip_mod = 4 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
 		return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
 	end,
 	calculate = function(self, card, context)

@@ -36,11 +36,17 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     // Position of a pixel within the sprite
 	vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
     
-	vec2 sprite_dim = texture_details.zw / image_details;
-	vec2 sprite_pos = texture_details.xy * sprite_dim;
-    vec2 new_pos = clamp(texture_coords + vec2(sin(texture_coords.y*20.0 + wiggly.y*2.0) * 0.01, 0.0), sprite_dim, sprite_dim + sprite_pos);
+	//vec2 sprite_dim = texture_details.zw / image_details;
+	//vec2 sprite_pos = texture_details.xy * sprite_dim;
+    //vec2 new_pos = clamp(texture_coords + vec2(0.0, wiggly.x * 0.01), sprite_dim, sprite_dim + sprite_pos);
 	// Take pixel color (rgba) from `texture` at `texture_coords`, equivalent of texture2D in GLSL
+    //vec4 tex = Texel(texture, new_pos);
+    vec2 new_pos = texture_coords + vec2(sin(wiggly.y * 2.0 - wiggly.x*2.0 + texture_coords.y*100.0 + 1.0)*0.0025, sin(wiggly.y * 2.0 + wiggly.x*2.0 + texture_coords.x*75.0)*0.01125);
     vec4 tex = Texel(texture, new_pos);
+
+    if (uv.x > uv.x * 2.0) {
+        uv = wiggly;
+    }
 
     // required
 	return dissolve_mask(tex*colour, texture_coords, uv);

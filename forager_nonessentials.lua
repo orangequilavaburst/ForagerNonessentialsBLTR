@@ -1536,6 +1536,11 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+	key = "j8jokers-clownfish",
+	path = "jokers-clownfish.png",
+	px = 71, py = 95
+}
+SMODS.Atlas {
 	key = "j8jokers-werewire",
 	path = "jokers-werewire.png",
 	px = 71, py = 95
@@ -1571,11 +1576,6 @@ SMODS.Atlas {
 	px = 71, py = 95
 }
 SMODS.Atlas {
-	key = "swatchlings",
-	path = "swatchlings.png",
-	px = 71, py = 95
-}
-SMODS.Atlas {
 	key = "j8jokers-bn",
 	path = "jokers-bn.png",
 	px = 74, py = 98
@@ -1588,6 +1588,12 @@ SMODS.Atlas {
 	px = 71,
 	py = 95
 
+}
+
+SMODS.Atlas {
+	key = "swatchlings",
+	path = "swatchlings.png",
+	px = 71, py = 95
 }
 
 -- ## POOLS ##
@@ -1824,7 +1830,7 @@ SMODS.Shader({ key = 'normal_mapped', path = 'normal_mapped.fs' })
 SMODS.Shader({ key = 'prophecy', path = 'prophecy.fs' })
 SMODS.Shader({ key = 'jevil', path = 'jevil.fs' })
 SMODS.Shader({ key = 'scroll', path = 'scroll.fs' })
---SMODS.Shader({ key = 'wiggly', path = 'wiggly.fs' })
+SMODS.Shader({ key = 'wiggly', path = 'wiggly.fs' })
 
 -- ## DRAW STEPS ##
 
@@ -1910,7 +1916,9 @@ SMODS.DrawStep {
 						SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, 'j8mod_j8jokers-swatch',
 							{ x = 1, y = 0 })
 					card.config.j8mod_decoration.role.draw_major = card
-					card.config.j8mod_decoration:draw_shader('dissolve', nil, nil, nil,
+					card.config.j8mod_decoration:draw_shader(
+						card.edition and (card.edition.shader or string.sub(card.edition.key, 3)) or 'dissolve', nil,
+						card.edition and card.ARGS.send_to_shader or nil, nil,
 						card.children.center, 0, 0)
 				else
 					if card.config.j8mod_decoration then
@@ -1920,6 +1928,23 @@ SMODS.DrawStep {
 						card.config.j8mod_decoration2 = nil
 					end
 				end
+			elseif card.config.center == G.P_CENTERS["j_j8mod_clownfish"] then
+				card.config.j8mod_decoration2 = card.config.j8mod_decoration2 or
+					SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h,
+						'j8mod_j8jokers-clownfish',
+						{ x = 1, y = 0 })
+				card.config.j8mod_decoration2.role.draw_major = card
+				card.config.j8mod_decoration2:draw_shader('j8mod_wiggly', nil, card.ARGS.send_to_shader, nil,
+					card.children.center, 0, 0)
+
+				card.config.j8mod_decoration = card.config.j8mod_decoration or
+					SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, 'j8mod_j8jokers-clownfish',
+						{ x = 2, y = 0 })
+				card.config.j8mod_decoration.role.draw_major = card
+				card.config.j8mod_decoration:draw_shader(
+					card.edition and (card.edition.shader or string.sub(card.edition.key, 3)) or 'dissolve', nil,
+					card.edition and card.ARGS.send_to_shader or nil, nil,
+					card.children.center, 0, 0)
 			end
 		end
 	end,
