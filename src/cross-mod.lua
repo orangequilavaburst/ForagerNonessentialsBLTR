@@ -505,7 +505,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         config = { extra = { enhancement = "m_elle_jess", cards_needed = 2 } },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
-            info_queue[#info_queue + 1] = { key = "oc_credits_elle", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "oc_credits_jess", set = "Other" }
             info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }), card.ability.extra.cards_needed } }
         end,

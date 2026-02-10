@@ -835,19 +835,22 @@ return {
             credits_j8 = {
                 name = "Artist",
                 text = {
-                    "J8-Bit"
+                    "J8-Bit",
+                    "{s:0.75,C:inactive}j8-bit.bsky.social{}"
                 }
             },
             credits_fizlok = {
                 name = "Artist",
                 text = {
-                    "Fizlok"
+                    "Fizlok",
+                    "{s:0.75,C:inactive}fizlok.bsky.social{}"
                 }
             },
             credits_catachrome = {
                 name = "Artist",
                 text = {
-                    "CataChrome"
+                    "CataChrome",
+                    "{s:0.75,C:inactive}catachrome.bsky.social{}"
                 }
             },
             credits_czarkhasm = {
@@ -859,49 +862,56 @@ return {
             credits_gimmick = {
                 name = "Artist",
                 text = {
-                    "gimmick"
+                    "gimmick",
                 }
             },
             credits_thatartisan = {
                 name = "Artist",
                 text = {
-                    "ThatArtisan"
+                    "ThatArtisan",
+                    "{s:0.75,C:inactive}thatartisan.bsky.social{}"
                 }
             },
             credits_sharb = {
                 name = "Artist",
                 text = {
-                    "Sharb"
+                    "Sharb",
+                    "{s:0.75,C:inactive}firengames.com{}"
                 }
             },
             credits_vjb = {
                 name = "Artist",
                 text = {
-                    "Veejaybees"
+                    "Veejaybees",
+                    "{s:0.75,C:inactive}veejaybees.bsky.social{}"
                 }
             },
             credits_overgrownrobot = {
                 name = "Artist",
                 text = {
-                    "overgrown.robot"
+                    "overgrown.robot",
+                    "{s:0.75,C:inactive}overgrownrobot.dev{}"
                 }
             },
             credits_neognw = {
                 name = "Artist",
                 text = {
-                    "NeoGnW"
+                    "NeoGnW",
+                    "{s:0.75,C:inactive}neognw.bsky.social{}"
                 }
             },
             credits_glasus = {
                 name = "Artist",
                 text = {
-                    "Glasus"
+                    "Glasus",
+                    "{s:0.75,C:inactive}greendogsandham.bsky.social{}"
                 }
             },
             credits_mattman = {
                 name = "Screams",
                 text = {
-                    "Lazy Mattman"
+                    "Lazy Mattman",
+                    "{s:0.75,X:mult,C:white}@lazymattman{}"
                 }
             },
             credits_placeholder = {
@@ -913,43 +923,57 @@ return {
             oc_credits_j8 = {
                 name = "OC Credits",
                 text = {
-                    "J8-Bit"
+                    "J8-Bit",
+                    "{s:0.75,C:inactive}j8-bit.bsky.social{}"
                 }
             },
             oc_credits_thatartisan = {
                 name = "OC Credits",
                 text = {
-                    "ThatArtisan"
+                    "ThatArtisan",
+                    "{s:0.75,C:inactive}thatartisan.bsky.social{}"
                 }
             },
             oc_credits_sift = {
                 name = "OC Credits",
                 text = {
-                    "Sift"
+                    "Sift",
+                    "{s:0.75,C:inactive}siftmicro.bsky.social{}"
                 }
             },
             oc_credits_thisisbennyk = {
                 name = "OC Credits",
                 text = {
-                    "ThisIsBennyK"
+                    "ThisIsBennyK",
+                    "{s:0.75,C:inactive}thisisbennyk.com{}"
                 }
             },
             oc_credits_elle = {
                 name = "OC Credits",
                 text = {
-                    "ellestuff"
+                    "ellestuff",
+                    "{s:0.75,C:inactive}ellestuff.dev{}"
                 }
             },
             oc_credits_ozoneserpent = {
                 name = "OC Credits",
                 text = {
-                    "ozoneserpent"
+                    "ozoneserpent",
+                    "{s:0.75,C:inactive}ozoneserpent.bsky.social{}"
+                }
+            },
+            oc_credits_jess = {
+                name = "OC Credits",
+                text = {
+                    "Jess",
+                    "{s:0.75,C:inactive}soup587.bsky.social{}"
                 }
             },
             oc_credits_submarine_screw = {
                 name = "Character Design Credits",
                 text = {
-                    "Submarine Screw"
+                    "Submarine Screw",
+                    "{s:0.75,C:inactive}submarinescrew.bsky.social{}"
                 }
             },
             oc_pronouns_hehim = {
@@ -973,7 +997,8 @@ return {
             requested_by_viomarks = {
                 name = "Requested by",
                 text = {
-                    "Viomarks"
+                    "Viomarks",
+                    "{s:0.75,C:inactive}viomarks.bsky.social{}"
                 }
             },
         }
