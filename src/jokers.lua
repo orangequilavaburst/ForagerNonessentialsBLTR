@@ -2237,7 +2237,7 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS["e_polychrome"]
 		if J8MOD.config.no_deltarune_spoilers then
-			info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		else
 			info_queue[#info_queue + 1] = { key = "credits_glasus", set = "Other" }
 		end
@@ -2270,6 +2270,10 @@ SMODS.Joker {
 		if J8MOD.config.no_deltarune_spoilers then
 			card.children.center:set_sprite_pos({ x = 4, y = 3 })
 			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+			card.T.w = G.CARD_W * (68 / 71)
+			card.T.h = G.CARD_H * (85 / 95)
+			card.children.center.scale.x = 68
+			card.children.center.scale.y = 85
 			--card.children.floating_sprite.states.visible = false
 		else
 			card.children.center:set_sprite_pos({ x = 0, y = 0 })
