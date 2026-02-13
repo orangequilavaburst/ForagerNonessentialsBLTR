@@ -14,7 +14,8 @@ return {
                 text = {
                     "{C:blue}+#1#{} hands every round,",
                     "{C:red}#2# discards every round,",
-                    "Interest is {C:attention}doubled",
+                    "Interest is {C:attention}doubled,",
+                    "{C:red}X#3#{} base Blind size",
                 }
             },
             b_j8mod_pinstripes = {
@@ -908,6 +909,13 @@ return {
                     "{s:0.75,C:inactive}greendogsandham.bsky.social{}"
                 }
             },
+            credits_submarine_screw = {
+                name = "Artist",
+                text = {
+                    "Submarine Screw",
+                    "{s:0.75,C:inactive}submarinescrew.bsky.social{}"
+                }
+            },
             credits_mattman = {
                 name = "Screams",
                 text = {
@@ -1008,20 +1016,32 @@ return {
         dictionary = {
             j8mod_no_deltarune_spoilers = "No Deltarune Spoilers",
             j8mod_no_deltarune_spoilers_desc = {
-                "Replaces references to",
-                "Deltarune with other things."
+                "Replaces references to Deltarune Chapters 3-4",
+                "with other things. Enable this if you haven't",
+                "played past Chapter 2 and don't want to be spoiled.",
+                "Does not affect references to Undertale,",
+                "Deltarune Chapters 1-2, or any cross-mod Jokers."
             },
-            j8mod_furry_mode = "Furry Mode",
+            j8mod_furry_mode = "Original Art Direction",
             j8mod_furry_mode_desc = {
-                "Some Jokers will have",
-                "alternate artwork",
-                "when enabled."
+                "Some Jokers will have alternate artwork",
+                "when enabled which aligns with the original",
+                "art direction for said Jokers. Though none",
+                "of the artwork contains nudity or any NSFW",
+                "material, some players may not be comfortable",
+                "with the contents of said Jokers. Not required",
+                "but highly recommended to disable for streamers.",
+                "Does not affect cross-mod Jokers."
             },
             j8mod_enable_crossmod_jokers = "Enable Cross-Mod Jokers",
             j8mod_enable_crossmod_jokers_desc = {
-                "Makes Jokers requiring",
-                "other mods appear.",
-                "(Requires restart)"
+                "Some Jokers only appear when other",
+                "mods are installed. Those mods include",
+                "the UT/DR mod, ellejokers, and Ortalab.",
+                "Does not require all mods listed to be installed",
+                "at the same time, and will only add the Jokers",
+                "related to each mod. Requires restart for the",
+                "new Jokers to appear/disappear properly."
             },
             j8mod_monty_hall_open = "Open Door!",
             j8mod_sandwiched_ex = "Sandwiched!",

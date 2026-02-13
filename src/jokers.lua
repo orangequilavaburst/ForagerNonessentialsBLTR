@@ -2801,7 +2801,7 @@ SMODS.Joker {
 	config = { extra = { money_current = 0, money_max = 150 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = 'e_negative', set = 'Edition', config = { extra = 1 } }
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_submarine_screw", set = "Other" }
 		return { vars = { card.ability.extra.money_current, card.ability.extra.money_max } }
 	end,
 	calculate = function(self, card, context)

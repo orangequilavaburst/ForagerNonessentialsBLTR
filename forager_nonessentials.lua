@@ -47,7 +47,7 @@ J8MOD.config_tab = function()
 								n = G.UIT.C,
 								config = { align = "cl", padding = 0.2 },
 								nodes = {
-									{ n = G.UIT.T, config = { text = localize('j8mod_no_deltarune_spoilers'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT, tooltip = { text = localize("j8mod_no_deltarune_spoilers_desc") } } },
+									{ n = G.UIT.T, config = { text = localize('j8mod_no_deltarune_spoilers'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT, tooltip = { text = localize("j8mod_no_deltarune_spoilers_desc"), scale = 0.5 } } },
 								}
 							},
 						}
@@ -67,7 +67,7 @@ J8MOD.config_tab = function()
 								n = G.UIT.C,
 								config = { align = "cl", padding = 0.2 },
 								nodes = {
-									{ n = G.UIT.T, config = { text = localize('j8mod_furry_mode'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT, tooltip = { text = localize('j8mod_furry_mode_desc') } } },
+									{ n = G.UIT.T, config = { text = localize('j8mod_furry_mode'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT, tooltip = { text = localize('j8mod_furry_mode_desc'), scale = 0.5 } } },
 								}
 							},
 						}
@@ -87,7 +87,7 @@ J8MOD.config_tab = function()
 								n = G.UIT.C,
 								config = { align = "cl", padding = 0.2 },
 								nodes = {
-									{ n = G.UIT.T, config = { text = localize('j8mod_enable_crossmod_jokers'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT, tooltip = { text = localize('j8mod_enable_crossmod_jokers_desc') } } },
+									{ n = G.UIT.T, config = { text = localize('j8mod_enable_crossmod_jokers'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT, tooltip = { text = localize('j8mod_enable_crossmod_jokers_desc'), scale = 0.5 } } },
 								}
 							},
 						}
@@ -638,25 +638,6 @@ SMODS.current_mod.extra_tabs = function()
 															n = G.UIT.T,
 															config = {
 																align = 'cm',
-																text = "ajb03",
-																colour = G.C.UI.TEXT_LIGHT,
-																scale = 0.25,
-																padding = 0.05
-															}
-														},
-													}
-												},
-												{
-													n = G.UIT.R,
-													config = {
-														align = "cm"
-													},
-													nodes = {
-
-														{
-															n = G.UIT.T,
-															config = {
-																align = 'cm',
 																text = "twilightparasite",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
@@ -924,6 +905,44 @@ SMODS.current_mod.extra_tabs = function()
 															config = {
 																align = 'cm',
 																text = "AgentTheVandal",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "Nxkoo",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "soso",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
 																padding = 0.05

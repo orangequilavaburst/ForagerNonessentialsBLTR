@@ -47,9 +47,9 @@ SMODS.Back {
 	key = "lakeside",
 	pos = { x = 1, y = 0 },
 	atlas = "j8decks",
-	config = { hands = 2, discards = 0 },
+	config = { hands = 2, discards = 0, ante_scaling = 0.8 },
 	loc_vars = function(self, info_queue, back)
-		return { vars = { self.config.hands, self.config.discards } }
+		return { vars = { self.config.hands, self.config.discards, self.config.ante_scaling } }
 	end,
 	calculate = function(self, back, context)
 		if context.setting_blind then
