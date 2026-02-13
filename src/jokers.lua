@@ -554,7 +554,7 @@ SMODS.Joker {
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = { G.GAME.current_round.j8mod_bookmark_rank and localize((G.GAME.current_round.j8mod_bookmark_rank), 'ranks') or "None" } }
+		return { vars = { (G.GAME.current_round.j8mod_bookmark_rank and G.GAME.current_round.j8mod_bookmark_rank ~= "None") and localize((G.GAME.current_round.j8mod_bookmark_rank), 'ranks') or "None" } }
 	end,
 	calculate = function(self, card, context)
 		if (context.setting_blind or context.after) and not context.blueprint then
