@@ -3424,7 +3424,7 @@ SMODS.Joker {
 	config = { extra = { booster_type = "p_spectral_jumbo" } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.booster_type .. "_1"]
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_anubis_jr", set = "Other" }
 		return { vars = { localize({ type = 'name_text', key = card.ability.extra.booster_type, set = 'Other' }) } }
 	end,
 	calculate = function(self, card, context)

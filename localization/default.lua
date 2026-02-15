@@ -916,11 +916,18 @@ return {
                     "{s:0.75,C:inactive}submarinescrew.bsky.social{}"
                 }
             },
+            credits_anubis_jr = {
+                name = "Artist",
+                text = {
+                    "Anubis Jr.",
+                    "{s:0.75,C:inactive}anubis-jr.bsky.social{}"
+                }
+            },
             credits_mattman = {
                 name = "Screams",
                 text = {
                     "Lazy Mattman",
-                    "{s:0.75,X:mult,C:white}@lazymattman{}"
+                    "{s:0.75,X:red,C:white}@lazymattman{}"
                 }
             },
             credits_placeholder = {
