@@ -416,14 +416,14 @@ return {
                 name = "Weather Together",
                 text = {
                     "{C:purple}Swaps{} Chips and Mult",
-                    "{C:inactive}(counted as a {C:blue}+{C:inactive}Chips/{C:red}+{C:inactive}Mult Joker)"
+                    "{C:inactive}(counted as a {C:chips}+{C:inactive}Chips/{C:mult}+{C:inactive}Mult Joker)"
                 },
             },
             j_j8mod_reverse_polarity = {
                 name = "Reverse Polarity",
                 text = {
                     "{C:purple}Swaps{} Chips and Mult",
-                    "{C:inactive}(counted as a {C:blue}+{C:inactive}Chips/{C:red}+{C:inactive}Mult Joker)"
+                    "{C:inactive}(counted as a {C:chips}+{C:inactive}Chips/{C:mult}+{C:inactive}Mult Joker)"
                 },
             },
             j_j8mod_color_cafe = {
@@ -497,7 +497,7 @@ return {
             j_j8mod_planetary_domination = {
                 name = "Planetary Domination",
                 text = {
-                    "This Joker gains {C:red}+#2#{} Mult",
+                    "This Joker gains {C:mult}+#2#{} Mult",
                     "for each {C:planet}Planet{} card sold",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
                 },
