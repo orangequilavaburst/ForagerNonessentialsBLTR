@@ -1627,7 +1627,7 @@ SMODS.Joker {
 				}
 			}
 		end
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { vars = { numerator, denominator }, main_end = main_end }
 	end,
 	calculate = function(self, card, context)
@@ -3400,7 +3400,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
-	cost = 10,
+	cost = 9,
 	config = { extra = { poker_hand = "Three of a Kind", scale_amount = 0.3 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
@@ -3515,7 +3515,7 @@ SMODS.Joker {
 			end
 			table.insert(rank_keys, key)
 		end
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return {
 			vars = {
 				localize((rank_keys[1] or "6"), 'ranks'),

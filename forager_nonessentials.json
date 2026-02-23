@@ -5,7 +5,7 @@
 		"J8-Bit"
 	],
 	"badge_colour": "FDB157",
-	"description": "Mostly shameless reference Jokers. Supports cross-mod compatibility with the UT/DR mod and Talisman",
+	"description": "60+ new Jokers and 8 new decks! (Cross compatible with select mods)",
 	"prefix": "j8mod",
 	"display_name": "Forager",
 	"dependencies": [
@@ -13,5 +13,5 @@
 		"Lovely (>=0.8)"
 	],
 	"main_file": "forager_nonessentials.lua",
-	"version": "0.1.0"
+	"version": "1.0.0"
 }

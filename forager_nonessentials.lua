@@ -18,6 +18,359 @@ J8MOD.optional_features = {
 
 to_big = to_big or function(x) return x end
 
+-- ## MOD DESCRIPTION UI
+
+SMODS.current_mod.custom_ui = function(mod_nodes)
+	mod_nodes = EMPTY(mod_nodes)
+
+	mod_nodes[#mod_nodes + 1] = {
+		n = G.UIT.C,
+		config = { padding = 0.1 },
+		nodes = {
+			{
+				n = G.UIT.R,
+				config = {
+					align = "cm"
+				},
+				nodes = {
+					{
+						n = G.UIT.C,
+						config = {
+							r = 0.1,
+							align = "cm",
+							padding = 0.1,
+							colour = SMODS.Gradients["j8mod_fn"],
+						},
+						nodes = {
+							{
+								n = G.UIT.R,
+								config = {
+									r = 0.5,
+									align = "cm",
+									padding = 0.2,
+									colour = G.C.CLEAR
+								},
+								nodes = {
+									{ n = G.UIT.T, config = { text = "Forager Nonessentials v1.0", scale = .75, colour = G.C.WHITE } }
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				n = G.UIT.R,
+				config = {
+					align = "cm"
+				},
+				nodes = {
+					{
+						n = G.UIT.C,
+						config = { padding = 0.1 },
+						nodes = {
+							{
+								n = G.UIT.R,
+								config = {
+									r = 0.1,
+									align = "cm",
+									minh = 3,
+									padding = 0.1,
+									colour = G.C.L_BLACK,
+								},
+								nodes = {
+									{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_j8bit'), align = "cm", } } } },
+									{
+										n = G.UIT.C,
+										config = { align = "cr", padding = 0.1 },
+										nodes = {
+											{
+												n = G.UIT.R,
+												config = { align = "cm" },
+												nodes = {
+													{ n = G.UIT.T, config = { text = "Created by ", scale = .4, colour = G.C.WHITE } },
+													{ n = G.UIT.T, config = { text = "J8-Bit", scale = .4, colour = SMODS.Gradients["j8mod_fn"] } }
+												}
+											},
+											{
+												n = G.UIT.R,
+												config = { align = "cm" },
+												nodes = {
+													{
+														n = G.UIT.C,
+														config = { align = "cm" },
+														nodes = {
+															{
+																n = G.UIT.R,
+																config = { align = "cm" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "(See Credits for", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cm" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "all contributors!)", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							},
+						}
+					},
+					{
+						n = G.UIT.C,
+						config = { padding = 0.1 },
+						nodes = {
+							{
+								n = G.UIT.R,
+								config = {
+									r = 0.1,
+									align = "cm",
+									minh = 3,
+									padding = 0.1,
+									colour = G.C.L_BLACK,
+								},
+								nodes = {
+									{
+										n = G.UIT.C,
+										config = { align = "cm", padding = 0.1 },
+										nodes = {
+											{
+												n = G.UIT.R,
+												config = { align = "cm" },
+												nodes = {
+													{
+														n = G.UIT.C,
+														config = { align = "cm" },
+														nodes = {
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "A vanilla-adjacent", scale = .4, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "content mod", scale = .4, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "containing:", scale = .4, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "- 60+ new Jokers!", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "- 8 new Decks!", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "- Various references!", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "- Fancy shader effects!", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "- Alternate card art!", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "- Cross-mod content!", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+														}
+													}
+												}
+											}
+										}
+									},
+									{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_clownfish'), align = "cm", } } } },
+								}
+							}
+						}
+					},
+					{
+						n = G.UIT.C,
+						config = { padding = 0.1 },
+						nodes = {
+							{
+								n = G.UIT.R,
+								config = {
+									r = 0.1,
+									align = "cm",
+									minh = 3,
+									padding = 0.1,
+									colour = G.C.L_BLACK,
+								},
+								nodes = {
+									{
+										n = G.UIT.C,
+										config = { align = "cm", padding = 0.1 },
+										nodes = {
+											{
+												n = G.UIT.R,
+												config = { align = "cm" },
+												nodes = {
+													{
+														n = G.UIT.C,
+														config = { align = "cm" },
+														nodes = {
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "Discover extra Jokers", scale = .4, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "while using these mods:", scale = .4, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "- Undertale/Deltarune Mod", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "- ellejokers.", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cl" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "- Ortalab", scale = .3, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cm" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "(new Jokers will appear when", scale = .25, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cm" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "their respective mod is installed", scale = .25, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cm" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "and when " .. localize("j8mod_enable_crossmod_jokers"), scale = .25, colour = G.C.WHITE } },
+																}
+															},
+															{
+																n = G.UIT.R,
+																config = { align = "cm" },
+																nodes = {
+																	{ n = G.UIT.T, config = { text = "is enabled in Config)", scale = .25, colour = G.C.WHITE } },
+																}
+															},
+														}
+													}
+												}
+											}
+										}
+									},
+								}
+							}
+						}
+					},
+				}
+			},
+			{
+				n = G.UIT.R,
+				config = {
+					r = 0.1,
+					align = "cm",
+					minh = 3,
+					padding = 0.1,
+					colour = G.C.L_BLACK,
+				},
+				nodes = {
+					{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_community_resource'), align = "cm", } } } },
+					{
+						n = G.UIT.C,
+						config = { align = "cm", padding = 0.05 },
+						nodes = {
+							{
+								n = G.UIT.R,
+								config = {
+									align = "cm",
+									padding = 0.1,
+									colour = G.C.RED,
+									emboss = 0.05,
+									r = 0.1,
+								},
+								nodes = {
+									{ n = G.UIT.T, config = { text = "Important note for players!", scale = .4, colour = G.C.WHITE, align = "cm" } },
+								}
+							},
+							{ n = G.UIT.R, config = { align = "cl", }, nodes = { { n = G.UIT.T, config = { text = "This mod was developed over several months with the goal to", scale = .3, colour = G.C.WHITE } }, } },
+							{ n = G.UIT.R, config = { align = "cl", }, nodes = { { n = G.UIT.T, config = { text = "add fun, creative, interesting, and sometimes self-indulgent", scale = .3, colour = G.C.WHITE } }, } },
+							{ n = G.UIT.R, config = { align = "cl", }, nodes = { { n = G.UIT.T, config = { text = "content to compliment the original game of Balatro.", scale = .3, colour = G.C.WHITE } }, } },
+							{ n = G.UIT.R, config = { align = "cr", }, nodes = { { n = G.UIT.T, config = { text = "Please visit the Config tab to best customize your experience", scale = .3, colour = G.C.WHITE } }, } },
+							{ n = G.UIT.R, config = { align = "cr", }, nodes = { { n = G.UIT.T, config = { text = "with the mod, as some of the original Joker designs were", scale = .3, colour = G.C.WHITE } }, } },
+							{ n = G.UIT.R, config = { align = "cr", }, nodes = { { n = G.UIT.T, config = { text = "not intended with a general audience in mind. Thank you!", scale = .3, colour = G.C.WHITE } }, } },
+							{ n = G.UIT.R, config = { align = "cm", }, nodes = { { n = G.UIT.T, config = { text = "Disable " .. localize("j8mod_no_deltarune_spoilers") .. " and enable " .. localize("j8mod_furry_mode") .. " for the fully intended experience.", scale = .25, colour = G.C.BLUE } }, } },
+							{ n = G.UIT.R, config = { align = "cm", }, nodes = { { n = G.UIT.T, config = { text = "Recommended to turn off " .. localize("j8mod_furry_mode") .. " for streaming to a general audience.", scale = .25, colour = G.C.RED } }, } },
+
+						}
+					},
+					{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_kaleidoscope'), align = "cm", } } } },
+				}
+			},
+
+		}
+	}
+end
+
 -- ## CONFIG UI ##
 
 local my_config = J8MOD.config
@@ -32,6 +385,16 @@ J8MOD.config_tab = function()
 				n = G.UIT.R,
 				config = { align = 'cm' },
 				nodes = {
+					{
+						n = G.UIT.R,
+						config = { align = "cm", padding = 0.05 },
+						nodes = {
+							{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_the_world_revolving'), align = "cm", } } } },
+							{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_werewire'), align = "cm", } } } },
+							{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_assimilation_joker'), align = "cm", } } } },
+							{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_expansion_plans'), align = "cm", } } } },
+						}
+					},
 					{
 						n = G.UIT.R,
 						config = { align = "cl", padding = 0.05 },
@@ -166,7 +529,7 @@ SMODS.current_mod.extra_tabs = function()
 														align = "cm",
 														colour = G.C.RED,
 														r = 0.05,
-														emboss = 0.1,
+														emboss = 0.05,
 														padding = 0.1
 													},
 													nodes = {
@@ -381,6 +744,78 @@ SMODS.current_mod.extra_tabs = function()
 														},
 													}
 												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "Glasus",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "Anubis Jr.",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "Mário Santos",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "Submarine Screw",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
 											}
 										},
 										{
@@ -403,7 +838,7 @@ SMODS.current_mod.extra_tabs = function()
 														align = "cm",
 														colour = G.C.MONEY,
 														r = 0.05,
-														emboss = 0.1,
+														emboss = 0.05,
 														padding = 0.1
 													},
 													nodes = {
@@ -515,7 +950,7 @@ SMODS.current_mod.extra_tabs = function()
 														align = "cm",
 														colour = G.C.GREEN,
 														r = 0.05,
-														emboss = 0.1,
+														emboss = 0.05,
 														padding = 0.1
 													},
 													nodes = {
@@ -591,7 +1026,7 @@ SMODS.current_mod.extra_tabs = function()
 														align = "cm",
 														colour = G.C.BLUE,
 														r = 0.05,
-														emboss = 0.1,
+														emboss = 0.05,
 														padding = 0.1
 													},
 													nodes = {
@@ -972,7 +1407,7 @@ SMODS.current_mod.extra_tabs = function()
 														align = "cm",
 														colour = G.C.PURPLE,
 														r = 0.05,
-														emboss = 0.1,
+														emboss = 0.05,
 														padding = 0.1
 													},
 													nodes = {
@@ -1285,25 +1720,6 @@ SMODS.current_mod.extra_tabs = function()
 															n = G.UIT.T,
 															config = {
 																align = 'cm',
-																text = "ozoneserpent",
-																colour = G.C.UI.TEXT_LIGHT,
-																scale = 0.25,
-																padding = 0.05
-															}
-														},
-													}
-												},
-												{
-													n = G.UIT.R,
-													config = {
-														align = "cm"
-													},
-													nodes = {
-
-														{
-															n = G.UIT.T,
-															config = {
-																align = 'cm',
 																text = "Submarine Screw",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
@@ -1425,7 +1841,25 @@ SMODS.current_mod.extra_tabs = function()
 															}
 														},
 													}
+												}, {
+												n = G.UIT.R,
+												config = {
+													align = "cm"
 												},
+												nodes = {
+
+													{
+														n = G.UIT.T,
+														config = {
+															align = 'cm',
+															text = "Potato Patch",
+															colour = G.C.UI.TEXT_LIGHT,
+															scale = 0.25,
+															padding = 0.05
+														}
+													},
+												}
+											},
 												{
 													n = G.UIT.R,
 													config = {
@@ -1514,6 +1948,25 @@ SMODS.current_mod.extra_tabs = function()
 															config = {
 																align = 'cm',
 																text = "Ortalab devs",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "localthunk",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
 																padding = 0.05
@@ -1817,6 +2270,8 @@ SMODS.Gradient({
 	interpolation = 'linear'
 })
 
+J8MOD.badge_colour = SMODS.Gradients["j8mod_fn"]
+
 SMODS.Gradient({
 	key = 'lesbian',
 	colours = { HEX('D52D00'), HEX('EF7627'), HEX('FF9A56'), HEX('FFFFFF'), HEX('D162A4'), HEX('B55690'), HEX('A30262') },
@@ -2075,4 +2530,13 @@ function spindown(card, amount)
 		index = 1 + (index + #G.P_CENTER_POOLS.Spectral + amount - 1) % #G.P_CENTER_POOLS.Spectral
 		card:set_ability(G.P_CENTER_POOLS.Spectral[index].key)
 	end
+end
+
+-- totally not taken from slimeutils. thanks elle
+function create_display_card(key)
+	local card = Card(G.ROOM.T.x, G.ROOM.T.y, G.CARD_W * .75, G.CARD_H * .75, nil, G.P_CENTERS[key],
+		{ bypass_discovery_center = true, bypass_discovery_ui = true })
+	card.no_ui = true
+	card.states.drag.can = false
+	return card
 end

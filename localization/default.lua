@@ -415,6 +415,8 @@ return {
             j_j8mod_weather_together = {
                 name = "Weather Together",
                 text = {
+                    "{C:inactive,s:0.8,E:2}\"The weather...{s:1.0}",
+                    "{C:inactive,s:0.8,E:2}...always sticks together.\"{s:1.0}",
                     "{C:purple}Swaps{} Chips and Mult",
                     "{C:inactive}(counted as a {C:chips}+{C:inactive}Chips/{C:mult}+{C:inactive}Mult Joker)"
                 },
@@ -1047,12 +1049,11 @@ return {
                 "but highly recommended to disable for streamers.",
                 "Does not affect cross-mod Jokers."
             },
-            j8mod_enable_crossmod_jokers = "Enable Cross-Mod Jokers",
+            j8mod_enable_crossmod_jokers = "Cross-Mod Jokers",
             j8mod_enable_crossmod_jokers_desc = {
                 "Some Jokers only appear when other",
-                "mods are installed. Those mods include",
-                "the UT/DR mod, ellejokers, and Ortalab.",
-                "Does not require all mods listed to be installed",
+                "mods are installed. Does not require",
+                "all compatible mods to be installed",
                 "at the same time, and will only add the Jokers",
                 "related to each mod. Requires restart for the",
                 "new Jokers to appear/disappear properly."
