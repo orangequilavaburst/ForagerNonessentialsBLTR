@@ -9,7 +9,7 @@ SMODS.Joker {
 	eternal_compat = false,
 	perishable_compat = false,
 	rarity = 2,
-	cost = 8,
+	cost = 6,
 	atlas = "j8jokers-prophecy",
 	pos = { x = 0, y = 0 },
 	--[[
@@ -100,7 +100,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 2,
-	cost = 5,
+	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 1, y = 0 },
 	config = { extra = { extra_numerator = 0, extra_mod = 1 } },
@@ -145,7 +145,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 2,
-	cost = 8,
+	cost = 5,
 	atlas = "j8jokers",
 	discovered = true,
 	pos = { x = 2, y = 0 },
@@ -262,7 +262,7 @@ SMODS.Joker {
 	perishable_compat = false,
 	eternal_compat = true,
 	rarity = 1,
-	cost = 8,
+	cost = 6,
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
@@ -299,7 +299,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
-	cost = 11,
+	cost = 8,
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
@@ -331,7 +331,7 @@ SMODS.Joker {
 	eternal_compat = false,
 	perishable_compat = true,
 	rarity = 2,
-	cost = 6,
+	cost = 7,
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
@@ -384,7 +384,7 @@ SMODS.Joker {
 	eternal_compat = false,
 	perishable_compat = true,
 	rarity = 3,
-	cost = 11,
+	cost = 9,
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
@@ -546,7 +546,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 1,
-	cost = 5,
+	cost = 4,
 	atlas = "j8jokers",
 	pixel_size = { w = 23, h = 95 },
 	pos = { x = 0, y = 1 },
@@ -647,7 +647,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = false,
 	rarity = 2,
-	cost = 6,
+	cost = 4,
 	atlas = "j8jokers",
 	pos = { x = 2, y = 1 },
 	discovered = true,
@@ -684,7 +684,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
-	cost = 10,
+	cost = 7,
 	atlas = "j8jokers",
 	pixel_size = { w = 51, h = 81 },
 	pos = { x = 3, y = 1 },
@@ -729,7 +729,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
-	cost = 10,
+	cost = 9,
 	atlas = "j8jokers",
 	pos = { x = 4, y = 1 },
 	discovered = true,
@@ -738,7 +738,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_mario_santos", set = "Other" }
 		return {}
 	end,
 	calculate = function(self, card, context)
@@ -815,7 +815,7 @@ SMODS.Joker {
 	discovered = true,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
 	end,
 	calculate = function(self, card, context)
 		if context.evaluate_poker_hand and context.scoring_name == "Pair" and not context.blueprint then
@@ -1229,7 +1229,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
-	cost = 11,
+	cost = 10,
 	atlas = "j8jokers",
 	pos = { x = 2, y = 2 },
 	discovered = true,
@@ -1486,7 +1486,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 2,
-	cost = 8,
+	cost = 7,
 	atlas = "j8jokers",
 	pos = { x = 5, y = 2 },
 	discovered = true,
@@ -1534,14 +1534,15 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 2,
-	cost = 8,
+	cost = 7,
 	atlas = "j8jokers",
 	pos = { x = 6, y = 2 },
 	discovered = true,
 	unlocked = true,
 	config = { extra = { odds = 10 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_mario_santos", set = "Other" }
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_thrift_shop')
 		return { vars = { numerator, denominator } }
 	end,
@@ -1594,7 +1595,7 @@ SMODS.Joker {
 	eternal_compat = false,
 	perishable_compat = true,
 	rarity = 2,
-	cost = 8,
+	cost = 7,
 	atlas = "j8jokers",
 	pos = { x = 7, y = 2 },
 	discovered = true,
@@ -1732,7 +1733,7 @@ SMODS.Joker {
 	perishable_compat = false,
 	eternal_compat = false,
 	rarity = 2,
-	cost = 9,
+	cost = 5,
 	atlas = "j8jokers-clay",
 	pos = { x = 0, y = 0 },
 	discovered = true,
@@ -1900,7 +1901,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 1,
-	cost = 4,
+	cost = 5,
 	atlas = "j8jokers",
 	pos = { x = 8, y = 2 },
 	discovered = true,
@@ -2046,7 +2047,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = false,
 	rarity = 1,
-	cost = 4,
+	cost = 1,
 	atlas = "j8jokers",
 	pos = { x = 9, y = 2 },
 	discovered = true,
@@ -2087,7 +2088,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 1,
-	cost = 4,
+	cost = 5,
 	atlas = "j8jokers",
 	pos = { x = 0, y = 3 },
 	discovered = true,
@@ -2176,7 +2177,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 2,
-	cost = 7,
+	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 3, y = 3 },
 	discovered = true,
@@ -2228,7 +2229,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
-	cost = 11,
+	cost = 9,
 	atlas = "j8jokers-swatch",
 	pos = { x = 0, y = 0 },
 	discovered = true,
@@ -2316,7 +2317,11 @@ SMODS.Joker {
 	config = { extra = { repetitions = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS["e_polychrome"]
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		if J8MOD.config.no_deltarune_spoilers then
+			info_queue[#info_queue + 1] = { key = "credits_mario_santos", set = "Other" }
+		else
+			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		end
 		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_pinwheel" or "j_j8mod_werewire", vars = { card.ability.extra.repetitions } }
 	end,
 	calculate = function(self, card, context)
@@ -2375,7 +2380,7 @@ SMODS.Joker {
 	perishable_compat = false,
 	eternal_compat = false,
 	rarity = 3,
-	cost = 11,
+	cost = 15,
 	atlas = "j8jokers",
 	discovered = true,
 	pos = { x = 6, y = 3 },
@@ -2461,7 +2466,7 @@ SMODS.Joker {
 	eternal_compat = false,
 	perishable_compat = false,
 	rarity = 3,
-	cost = 11,
+	cost = 15,
 	atlas = "j8jokers",
 	discovered = true,
 	pos = { x = 7, y = 3 },
@@ -2544,7 +2549,7 @@ SMODS.Joker {
 	perishable_compat = false,
 	eternal_compat = true,
 	rarity = 3,
-	cost = 11,
+	cost = 9,
 	discovered = true,
 	atlas = "j8jokers-yuri",
 	pos = { x = 0, y = 1 },
@@ -2561,7 +2566,11 @@ SMODS.Joker {
 	]]
 	config = { extra = { Xmult_gain = 0.125, Xmult_extra = 0.25, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		if J8MOD.config.no_deltarune_spoilers then
+			info_queue[#info_queue + 1] = { key = "credits_mario_santos", set = "Other" }
+		else
+			info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		end
 		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_iron_maiden" or "j_j8mod_mizzmanaged", vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult_extra, card.ability.extra.Xmult } }
 	end,
 	calculate = function(self, card, context)
@@ -2626,7 +2635,7 @@ SMODS.Joker {
 	perishable_compat = false,
 	eternal_compat = true,
 	rarity = 1,
-	cost = 5,
+	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 0, y = 4 },
 	discovered = true,
@@ -2746,7 +2755,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 1,
-	cost = 5,
+	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 3, y = 4 },
 	discovered = true,
@@ -2793,7 +2802,7 @@ SMODS.Joker {
 	perishable_compat = false,
 	eternal_compat = false,
 	rarity = 2,
-	cost = 9,
+	cost = 5,
 	atlas = "j8jokers",
 	pos = { x = 5, y = 4 },
 	discovered = true,
@@ -2867,7 +2876,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 1,
-	cost = 4,
+	cost = 3,
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
@@ -2934,7 +2943,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
-	cost = 11,
+	cost = 8,
 	atlas = "j8jokers",
 	discovered = true,
 	unlocked = true,
@@ -2959,7 +2968,7 @@ SMODS.Joker {
 	perishable_compat = false,
 	eternal_compat = true,
 	rarity = 2,
-	cost = 8,
+	cost = 9,
 	atlas = "j8jokers",
 	discovered = true,
 	pos = { x = 8, y = 4 },
@@ -2989,7 +2998,7 @@ SMODS.Joker {
 	key = "puzzle_swap",
 	blueprint_compat = false,
 	rarity = 2,
-	cost = 8,
+	cost = 7,
 	atlas = "j8jokers",
 	discovered = true,
 	perishable_compat = true,
@@ -3048,7 +3057,7 @@ SMODS.Joker {
 	key = "the_world_revolving",
 	blueprint_compat = true,
 	rarity = 3,
-	cost = 11,
+	cost = 10,
 	atlas = "j8jokers-jevil",
 	discovered = true,
 	perishable_compat = true,
@@ -3100,7 +3109,7 @@ SMODS.Joker {
 	perishable_compat = false,
 	eternal_compat = true,
 	rarity = 2,
-	cost = 9,
+	cost = 12,
 	atlas = "j8jokers",
 	pos = { x = 1, y = 5 },
 	discovered = true,
@@ -3167,7 +3176,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
-	cost = 11,
+	cost = 9,
 	atlas = "j8jokers",
 	discovered = true,
 	pos = { x = 2, y = 5 },
@@ -3202,7 +3211,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 2,
-	cost = 8,
+	cost = 7,
 	atlas = "j8jokers",
 	discovered = true,
 	pos = { x = 3, y = 5 },
@@ -3271,7 +3280,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 2,
-	cost = 6,
+	cost = 7,
 	config = { extra = { poker_hand = "Straight Flush" } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_neognw", set = "Other" }

@@ -909,6 +909,13 @@ return {
                     "{s:0.75,C:inactive}greendogsandham.bsky.social{}"
                 }
             },
+            credits_mario_santos = {
+                name = "Artist",
+                text = {
+                    "Mário Santos",
+                    "{s:0.75,C:inactive}mariosantos.bsky.social{}"
+                }
+            },
             credits_submarine_screw = {
                 name = "Artist",
                 text = {

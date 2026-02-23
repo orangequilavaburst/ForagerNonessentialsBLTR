@@ -13,7 +13,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         perishable_compat = true,
         eternal_compat = true,
         rarity = 3,
-        cost = 11,
+        cost = 1,
         atlas = "j8jokers-dlc",
         pos = { x = 0, y = 0 },
         discovered = true,
@@ -128,7 +128,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         perishable_compat = true,
         eternal_compat = true,
         rarity = 3,
-        cost = 11,
+        cost = 9,
         atlas = "j8jokers-dlc",
         pos = { x = 3, y = 0 },
         discovered = true,
@@ -175,7 +175,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         perishable_compat = true,
         eternal_compat = true,
         rarity = 3,
-        cost = 11,
+        cost = 10,
         atlas = "j8jokers-dlc",
         pos = { x = 4, y = 0 },
         discovered = true,
@@ -274,7 +274,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         perishable_compat = true,
         eternal_compat = true,
         rarity = 3,
-        cost = 11,
+        cost = 8,
         atlas = "j8jokers-dlc",
         pos = { x = 0, y = 1 },
         discovered = true,
@@ -282,7 +282,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         dependencies = { "ellejokers" },
         config = { extra = { extra_reps = 1 } },
         loc_vars = function(self, info_queue, card)
-            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
             info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
             return { vars = { card.ability.extra.extra_reps } }
@@ -320,7 +320,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         unlocked = true,
         dependencies = { "ellejokers" },
         loc_vars = function(self, info_queue, card)
-            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             return { vars = {} }
         end,
         calculate = function(self, card, context)
@@ -364,8 +364,8 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = true,
         perishable_compat = true,
         eternal_compat = true,
-        rarity = 2,
-        cost = 9,
+        rarity = 3,
+        cost = 10,
         atlas = "j8jokers-dlc",
         pos = { x = 2, y = 1 },
         discovered = true,
@@ -408,7 +408,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         perishable_compat = true,
         eternal_compat = true,
         rarity = 2,
-        cost = 9,
+        cost = 7,
         atlas = "j8jokers-dlc",
         pos = { x = 3, y = 1 },
         discovered = true,
@@ -419,7 +419,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
             local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
                 'xellejokers_slimy_joker')
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
-            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             return { vars = { numerator, denominator, localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) } }
         end,
         calculate = function(self, card, context)
@@ -572,7 +572,7 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         perishable_compat = true,
         eternal_compat = true,
         rarity = 2,
-        cost = 8,
+        cost = 5,
         atlas = "j8jokers-dlc",
         pos = { x = 0, y = 2 },
         discovered = true,
