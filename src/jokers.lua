@@ -1784,6 +1784,8 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		if (context.setting_blind or context.pre_discard) and not card.debuff and not context.blueprint and not context.retrigger_joker then
 			local center = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('j8_modeling_clay'))
+			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
+			card:remove_from_deck()
 			reduced_set_ability(card, center)
 			card.ability.j8mod_modeling_key = center.key
 			card.config.center.atlas = 'j8jokers-clay'
@@ -1812,6 +1814,8 @@ SMODS.Joker {
 			card.config.center = G.P_CENTERS[card.ability.j8mod_modeling_key]
 			local ret = card:update(dt)
 			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
+			card.children.center:set_sprite_pos({ x = 0, y = 0 })
+			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-clay']
 			return ret
 		end
 	end,
@@ -1888,7 +1892,7 @@ SMODS.Joker {
 		localize { type = 'descriptions', key = self.key, set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {} }
 	end,
 	draw = function(self, card, layer)
-		if card.config.center.discovered or card.bypass_discovery_center then
+		if card.config.center.discovered or card.bypass_discovery_center and card.children.center then
 			card.children.center:draw_shader('j8mod_normal_mapped', nil, card.ARGS.send_to_shader)
 		end
 	end
@@ -1920,7 +1924,7 @@ SMODS.Joker {
 		if context.setting_blind and not context.blueprint then
 			card.ability.extra.enhancement_type = pseudorandom_element(G.P_CENTER_POOLS.Enhanced, 'j8mod_geode').key
 			local it = 0
-			while (card.ability.extra.enhancement_type == "m_stone" or card.ability.extra.enhancement_type == "m_wild") do
+			while (card.ability.extra.enhancement_type == "m_stone" or card.ability.extra.enhancement_type == "m_wild" or card.ability.extra.enhancement_type == "m_ortalab_sand" or card.ability.extra.enhancement_type == "m_ortalab_index" or card.ability.extra.enhancement_type == "m_ellejokers_copycat") do
 				card.ability.extra.enhancement_type = pseudorandom_element(G.P_CENTER_POOLS.Enhanced,
 					'j8mod_geode_resample' .. it).key
 				it = it + 1
@@ -1930,40 +1934,16 @@ SMODS.Joker {
 					"!"
 			}
 		end
-		if context.check_enhancement then
-			if (context.other_card.config.center.key == "m_stone") and (context.other_card.area and context.other_card.area == G.play or context.other_card.area == G.hand) then
-				if card.ability.extra.enhancement_type == "m_bonus" then
-					return {
-						m_bonus = true,
-					}
-				elseif card.ability.extra.enhancement_type == "m_mult" then
-					return {
-						m_mult = true,
-					}
-				elseif card.ability.extra.enhancement_type == "m_gold" then
-					return {
-						m_gold = true,
-					}
-				elseif card.ability.extra.enhancement_type == "m_steel" then
-					return {
-						m_steel = true,
-					}
-				elseif card.ability.extra.enhancement_type == "m_lucky" then
-					return {
-						m_lucky = true,
-					}
-				elseif card.ability.extra.enhancement_type == "m_glass" then
-					return {
-						m_glass = true,
-					}
-				end
-			end
+		if context.check_enhancement and context.other_card.config.center_key == "m_stone" then
+			return {
+				[card.ability.extra.enhancement_type] = true, -- thanks theambushingbush
+			}
 		end
 	end,
 	set_ability = function(self, card, initial, delay_sprites)
 		card.ability.extra.enhancement_type = pseudorandom_element(G.P_CENTER_POOLS.Enhanced, 'j8mod_geode').key
 		local it = 0
-		while (card.ability.extra.enhancement_type == "m_stone" or card.ability.extra.enhancement_type == "m_wild") do
+		while (card.ability.extra.enhancement_type == "m_stone" or card.ability.extra.enhancement_type == "m_wild" or card.ability.extra.enhancement_type == "m_ortalab_sand" or card.ability.extra.enhancement_type == "m_ortalab_index" or card.ability.extra.enhancement_type == "m_ellejokers_copycat") do
 			card.ability.extra.enhancement_type = pseudorandom_element(G.P_CENTER_POOLS.Enhanced,
 				'j8mod_geode_resample' .. it).key
 			it = it + 1
