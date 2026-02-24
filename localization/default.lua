@@ -291,8 +291,7 @@ return {
                 text = {
                     "This Joker gains {X:mult,C:white} X#1# {} Mult on hands",
                     "with a scoring {C:attention}3{} and {C:attention}4{}",
-                    "{C:red}Resets{} on hands",
-                    "with a scoring {C:attention}Ace{}",
+                    "{C:red}Resets{} on hands with a scoring {C:attention}Ace{}",
                     "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive}{C:inactive} Mult)",
                 },
             },
@@ -361,10 +360,8 @@ return {
             j_j8mod_modeling_clay = {
                 name = "Modeling Clay",
                 text = {
-                    "Changes ability to",
-                    " random {C:attention}Joker{}",
-                    "at start of round",
-                    "or on {C:red}discard{}",
+                    "Changes ability to a random {C:attention}Joker{}",
+                    "at start of round or on {C:red}discard{}",
                 }
             },
             j_j8mod_geode = {
@@ -397,8 +394,7 @@ return {
                 name = "Rap Battle",
                 text = {
                     "Retrigger all played cards",
-                    "if {C:attention}poker hand{}",
-                    "is a {C:attention}#2#{},",
+                    "if {C:attention}poker hand{} is a {C:attention}#2#{},",
                     "poker hand changes",
                     "after scoring",
                 },

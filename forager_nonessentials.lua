@@ -391,6 +391,7 @@ J8MOD.config_tab = function()
 						nodes = {
 							{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_the_world_revolving'), align = "cm", } } } },
 							{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_werewire'), align = "cm", } } } },
+							{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_mizzmanaged'), align = "cm", } } } },
 							{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_assimilation_joker'), align = "cm", } } } },
 							{ n = G.UIT.C, nodes = { { n = G.UIT.O, config = { object = create_display_card('j_j8mod_expansion_plans'), align = "cm", } } } },
 						}
