@@ -2268,7 +2268,7 @@ SMODS.Joker {
 -- Werewire
 SMODS.Joker {
 	key = "werewire",
-	blueprint_compat = false,
+	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 2,
@@ -2314,6 +2314,14 @@ SMODS.Joker {
 			}
 		end
 		-- jokers
+		if context.retrigger_joker_check then
+			if context.other_card ~= card and context.other_card.edition and context.other_card.edition.polychrome then
+				return {
+					repetitions = card.ability.extra.repetitions
+				}
+			end
+		end
+		--[[
 		local rets = {}
 		for i, joker in ipairs(G.jokers.cards) do
 			if joker.edition and joker.edition.polychrome and joker ~= card then
@@ -2325,6 +2333,7 @@ SMODS.Joker {
 			end
 		end
 		return SMODS.merge_effects(rets)
+		]]
 	end,
 	in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
 		for _, joker in ipairs(G.jokers.cards or {}) do
