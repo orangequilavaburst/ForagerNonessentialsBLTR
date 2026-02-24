@@ -918,18 +918,32 @@ return {
                     "{s:0.75,C:inactive}mariosantos.bsky.social{}"
                 }
             },
-            credits_submarine_screw = {
-                name = "Artist",
-                text = {
-                    "Submarine Screw",
-                    "{s:0.75,C:inactive}submarinescrew.bsky.social{}"
-                }
-            },
             credits_anubis_jr = {
                 name = "Artist",
                 text = {
                     "Anubis Jr.",
                     "{s:0.75,C:inactive}anubis-jr.bsky.social{}"
+                }
+            },
+            credits_igjh = {
+                name = "Artist",
+                text = {
+                    "IGJH",
+                    "{s:0.75,C:inactive}igjhspritin.bsky.social{}"
+                }
+            },
+            credits_suplex = {
+                name = "Artist",
+                text = {
+                    "Grizzly Suplex",
+                    "{s:0.75,C:inactive}maximumcooldude.bsky.social{}"
+                }
+            },
+            credits_submarine_screw = {
+                name = "Artist",
+                text = {
+                    "Submarine Screw",
+                    "{s:0.75,C:inactive}submarinescrew.bsky.social{}"
                 }
             },
             credits_mattman = {

@@ -2138,11 +2138,12 @@ SMODS.Joker {
 	cost = 7,
 	atlas = "j8jokers",
 	pos = { x = 1, y = 3 },
-	pixel_size = { w = 69, h = 70 },
+	pixel_size = { w = 71, h = 71 },
 	discovered = true,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_igjh", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 	end,
 	calculate = function(self, card, context)
 		if context.first_hand_drawn and not context.blueprint then
@@ -3563,7 +3564,8 @@ SMODS.Joker {
 	config = { extra = { repetitions = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS["e_negative"]
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_suplex", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8bit", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
 		return { vars = { card.ability.extra.repetitions } }
@@ -3618,7 +3620,8 @@ SMODS.Joker {
 	cost = 20,
 	config = { extra = { extra_boosters = 2, extra_vouchers = 1 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_suplex", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8bit", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_pronouns_sheher", set = "Other" }
 		return { vars = { card.ability.extra.extra_boosters, card.ability.extra.extra_vouchers } }
@@ -3679,7 +3682,8 @@ SMODS.Joker {
 	cost = 20,
 	--config = { extra = { inc = 1, hand_req = 2, total = 0, total_current = 0, Xmult = 1.5 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_suplex", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8bit", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_pronouns_sheher", set = "Other" }
 		return {}
@@ -3812,7 +3816,7 @@ SMODS.Joker {
 	cost = 20,
 	config = { extra = { Xmult = 0.2 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_j8bit", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_credits_thisisbennyk", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_pronouns_theythem", set = "Other" }
 		return { vars = { card.ability.extra.Xmult } }

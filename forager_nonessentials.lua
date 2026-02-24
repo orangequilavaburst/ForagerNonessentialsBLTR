@@ -808,6 +808,42 @@ SMODS.current_mod.extra_tabs = function()
 															n = G.UIT.T,
 															config = {
 																align = 'cm',
+																text = "IGJH",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "Grizzly Suplex",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
 																text = "Submarine Screw",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
