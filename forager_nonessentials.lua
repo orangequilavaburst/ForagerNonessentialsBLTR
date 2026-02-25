@@ -373,6 +373,42 @@ end
 
 -- ## CONFIG UI ##
 
+function G.FUNCS.j8mod_discover_all() -- totally not taken from kcvanilla
+	--print("Discover all!")
+	for index, center in pairs(G.P_CENTER_POOLS.Joker) do
+		--print(tostring(index) .. " " .. center.key .. " ")
+		--print((center.original_mod and center.original_mod.id or "Vanilla"))
+		if center.original_mod and center.original_mod.id == j8mod_id then
+			discover_card(center)
+		end
+	end
+end
+
+function G.FUNCS.j8mod_undiscover_all()
+	--print("Undiscover all!")
+	for index, center in pairs(G.P_CENTER_POOLS.Joker) do
+		--print(tostring(index) .. " " .. center.key .. " ")
+		--print((center.original_mod and center.original_mod.id or "Vanilla"))
+		if center.original_mod and center.original_mod.id == j8mod_id then
+			j8mod_undiscover(center)
+		end
+	end
+end
+
+function j8mod_undiscover(card)
+	if G.GAME.seeded or G.GAME.challenge then
+		return
+	end
+	card.discovered = false
+	set_discover_tallies()
+	G.E_MANAGER:add_event(Event({
+		func = (function()
+			G:save_progress()
+			return true
+		end)
+	}))
+end
+
 local my_config = J8MOD.config
 
 -- Create config UI (Thanks, Paperback!)
@@ -454,6 +490,21 @@ J8MOD.config_tab = function()
 									{ n = G.UIT.T, config = { text = localize('j8mod_enable_crossmod_jokers'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT, tooltip = { text = localize('j8mod_enable_crossmod_jokers_desc'), scale = 0.5 } } },
 								}
 							},
+						}
+					},
+					{
+						n = G.UIT.R,
+						config = { align = "cm", padding = 0.05 },
+						nodes = {
+							UIBox_button({
+								label = { localize("j8mod_discover_all") or "Discover all" },
+								button = 'j8mod_discover_all'
+							}),
+
+							UIBox_button({
+								label = { localize("j8mod_undiscover_all") or "Undiscover all" },
+								button = 'j8mod_undiscover_all'
+							})
 						}
 					},
 				}
@@ -1434,6 +1485,25 @@ SMODS.current_mod.extra_tabs = function()
 															config = {
 																align = 'cm',
 																text = "Jonmcbane",
+																colour = G.C.UI.TEXT_LIGHT,
+																scale = 0.25,
+																padding = 0.05
+															}
+														},
+													}
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm"
+													},
+													nodes = {
+
+														{
+															n = G.UIT.T,
+															config = {
+																align = 'cm',
+																text = "CyanSoCalico",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
 																padding = 0.05
@@ -2533,6 +2603,7 @@ function spindown(card, amount)
 	local index = 0
 	if set == "Default" then -- playing card
 		SMODS.modify_rank(card, amount)
+		--[[
 	elseif set == "Joker" then
 		--print("Joker count: " .. #G.P_CENTER_POOLS.Joker)
 		for i, joker in ipairs(G.P_CENTER_POOLS.Joker) do
@@ -2585,6 +2656,16 @@ function spindown(card, amount)
 		end
 		index = 1 + (index + #G.P_CENTER_POOLS.Spectral + amount - 1) % #G.P_CENTER_POOLS.Spectral
 		card:set_ability(G.P_CENTER_POOLS.Spectral[index].key)
+	]]
+	else
+		for i, thing in ipairs(G.P_CENTER_POOLS[set]) do
+			if thing.key == key then
+				index = i
+				break
+			end
+		end
+		index = 1 + (index + #G.P_CENTER_POOLS[set] + amount - 1) % #G.P_CENTER_POOLS[set]
+		card:set_ability(G.P_CENTER_POOLS[set][index].key)
 	end
 end
 

@@ -4,7 +4,7 @@
 SMODS.Joker {
 	key = "prophecy",
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = false,
 	eternal_compat = false,
 	perishable_compat = false,
@@ -77,16 +77,18 @@ SMODS.Joker {
 		end
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({ x = 0, y = 0 })
-			card.T.w = G.CARD_W * (31 / 71)
-			card.T.h = G.CARD_H * (82 / 95)
-			card.children.center.scale.x = 31
-			card.children.center.scale.y = 82
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
-		else
-			card.children.center:set_sprite_pos({ x = 0, y = 0 })
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-prophecy']
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.no_deltarune_spoilers then
+				card.children.center:set_sprite_pos({ x = 0, y = 0 })
+				card.T.w = G.CARD_W * (31 / 71)
+				card.T.h = G.CARD_H * (82 / 95)
+				card.children.center.scale.x = 31
+				card.children.center.scale.y = 82
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+			else
+				card.children.center:set_sprite_pos({ x = 0, y = 0 })
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-prophecy']
+			end
 		end
 	end
 }
@@ -95,7 +97,7 @@ SMODS.Joker {
 SMODS.Joker {
 	key = "monty_hall",
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
@@ -147,7 +149,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 5,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 2, y = 0 },
 	config = { extra = { odds = 2 } },
 	loc_vars = function(self, info_queue, card)
@@ -213,7 +215,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 5,
 	atlas = "j8jokers-clownfish",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 0, y = 0 },
 	config = { extra = { chips = 0, chip_mod = 4 } },
@@ -264,7 +266,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 6,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 4, y = 0 },
 	pixel_size = { w = 49, h = 72 },
@@ -310,7 +312,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 8,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 5, y = 0 },
 	draw = function(self, card, layer)
@@ -342,7 +344,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 6, y = 0 },
 	config = { extra = { c_min = 3, s_count = 5, s_mod = 1 } },
@@ -395,7 +397,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 9,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 7, y = 0 },
 	config = { extra = { mult = 5, s_count = 25, s_mod = 1 } },
@@ -445,7 +447,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 1,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 8, y = 0 },
 	pixel_size = { w = 69, h = 78 },
@@ -509,7 +511,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 6,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 9, y = 0 },
 	config = { extra = { odds = 3 } },
@@ -559,7 +561,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	pixel_size = { w = 23, h = 95 },
 	pos = { x = 0, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
@@ -614,7 +616,7 @@ SMODS.Joker {
 	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 1, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { chips = 0, chip_mod = 20, odds = 25 } },
 	loc_vars = function(self, info_queue, card)
@@ -659,7 +661,7 @@ SMODS.Joker {
 	cost = 4,
 	atlas = "j8jokers",
 	pos = { x = 2, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { dollars = 4 } },
 	loc_vars = function(self, info_queue, card)
@@ -697,7 +699,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	pixel_size = { w = 51, h = 81 },
 	pos = { x = 3, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { rerolls = 2, rerolls_max = 2 } },
 	loc_vars = function(self, info_queue, card)
@@ -741,7 +743,7 @@ SMODS.Joker {
 	cost = 9,
 	atlas = "j8jokers",
 	pos = { x = 4, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_gold
@@ -821,7 +823,7 @@ SMODS.Joker {
 	cost = 4,
 	atlas = "j8jokers",
 	pos = { x = 5, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
@@ -851,7 +853,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	pixel_size = { w = 55 },
 	pos = { x = 6, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { saved_packs = {} } },
 	loc_vars = function(self, info_queue, card)
@@ -928,7 +930,7 @@ SMODS.Joker {
 	cost = 10,
 	atlas = "j8jokers",
 	pos = { x = 8, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { rank_saved = 13, rank_name = 'Ace' } },
 	loc_vars = function(self, info_queue, card)
@@ -1043,7 +1045,7 @@ SMODS.Joker {
 	cost = 10,
 	atlas = "j8jokers",
 	pos = { x = 8, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { enhancement = "m_wild" } },
 	loc_vars = function(self, info_queue, card)
@@ -1089,10 +1091,12 @@ SMODS.Joker {
 		return false
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({ x = 8, y = 1 })
-		else
-			card.children.center:set_sprite_pos({ x = 7, y = 1 })
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.furry_mode then
+				card.children.center:set_sprite_pos({ x = 8, y = 1 })
+			else
+				card.children.center:set_sprite_pos({ x = 7, y = 1 })
+			end
 		end
 	end
 }
@@ -1106,7 +1110,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 9, y = 1 },
 	config = { extra = { Xmult_gain = 0.34, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
@@ -1163,7 +1167,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 5,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 1, y = 2 },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
@@ -1224,10 +1228,12 @@ SMODS.Joker {
 		end
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({ x = 1, y = 2 })
-		else
-			card.children.center:set_sprite_pos({ x = 0, y = 2 })
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.furry_mode then
+				card.children.center:set_sprite_pos({ x = 1, y = 2 })
+			else
+				card.children.center:set_sprite_pos({ x = 0, y = 2 })
+			end
 		end
 	end
 }
@@ -1242,7 +1248,7 @@ SMODS.Joker {
 	cost = 10,
 	atlas = "j8jokers",
 	pos = { x = 2, y = 2 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
@@ -1310,7 +1316,7 @@ SMODS.Joker {
 	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 3, y = 2 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { money_min = 1, money_max = 5, con_count = 1, joker_min = 1, joker_max = 2 } },
 	loc_vars = function(self, info_queue, card)
@@ -1423,7 +1429,7 @@ SMODS.Joker {
 	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 4, y = 2 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
@@ -1499,7 +1505,7 @@ SMODS.Joker {
 	cost = 7,
 	atlas = "j8jokers",
 	pos = { x = 5, y = 2 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { odds = 7 } },
 	loc_vars = function(self, info_queue, card)
@@ -1547,7 +1553,7 @@ SMODS.Joker {
 	cost = 7,
 	atlas = "j8jokers",
 	pos = { x = 6, y = 2 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { odds = 4 } },
 	loc_vars = function(self, info_queue, card)
@@ -1608,7 +1614,7 @@ SMODS.Joker {
 	cost = 7,
 	atlas = "j8jokers",
 	pos = { x = 7, y = 2 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { odds = 8 } },
 	loc_vars = function(self, info_queue, card)
@@ -1746,7 +1752,7 @@ SMODS.Joker {
 	cost = 5,
 	atlas = "j8jokers-clay",
 	pos = { x = 0, y = 0 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = {
 		extra = {
@@ -1820,13 +1826,15 @@ SMODS.Joker {
 	end,
 
 	update = function(self, card, dt)
-		if card.ability.j8mod_modeling_key then
-			card.config.center = G.P_CENTERS[card.ability.j8mod_modeling_key]
-			local ret = card:update(dt)
-			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
-			card.children.center:set_sprite_pos({ x = 0, y = 0 })
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-clay']
-			return ret
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if card.ability.j8mod_modeling_key then
+				card.config.center = G.P_CENTERS[card.ability.j8mod_modeling_key]
+				local ret = card:update(dt)
+				card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
+				card.children.center:set_sprite_pos({ x = 0, y = 0 })
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-clay']
+				return ret
+			end
 		end
 	end,
 
@@ -1918,7 +1926,7 @@ SMODS.Joker {
 	cost = 5,
 	atlas = "j8jokers",
 	pos = { x = 8, y = 2 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { enhancement_type = "m_stone" } },
 	loc_vars = function(self, info_queue, card)
@@ -1988,7 +1996,7 @@ SMODS.Joker {
 		end
 	},
 	]]
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { chips = 1, mult = 1, adding_chips = true } },
 	loc_vars = function(self, info_queue, card)
@@ -2012,20 +2020,22 @@ SMODS.Joker {
 		end
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({ x = 0, y = 1 })
-			--[[
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.furry_mode then
+				card.children.center:set_sprite_pos({ x = 0, y = 1 })
+				--[[
 			if card.children.floating_sprite then
 				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 1 })
 			end
 			]]
-		else
-			card.children.center:set_sprite_pos({ x = 0, y = 0 })
-			--[[
+			else
+				card.children.center:set_sprite_pos({ x = 0, y = 0 })
+				--[[
 			if card.children.floating_sprite then
 				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 0 })
 			end
 			]]
+			end
 		end
 	end
 }
@@ -2040,7 +2050,7 @@ SMODS.Joker {
 	cost = 1,
 	atlas = "j8jokers",
 	pos = { x = 9, y = 2 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { t_chips = 1 } },
 	loc_vars = function(self, info_queue, card)
@@ -2081,7 +2091,7 @@ SMODS.Joker {
 	cost = 5,
 	atlas = "j8jokers",
 	pos = { x = 0, y = 3 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { retriggers = 1, poker_hand = 'High Card' } },
 	loc_vars = function(self, info_queue, card)
@@ -2129,7 +2139,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	pos = { x = 1, y = 3 },
 	pixel_size = { w = 71, h = 71 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_igjh", set = "Other" }
@@ -2171,7 +2181,7 @@ SMODS.Joker {
 	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 3, y = 3 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { rot_extra = 0.0 } },
 	loc_vars = function(self, info_queue, card)
@@ -2205,10 +2215,12 @@ SMODS.Joker {
 		end
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({ x = 2, y = 3 })
-		else
-			card.children.center:set_sprite_pos({ x = 3, y = 3 })
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.no_deltarune_spoilers then
+				card.children.center:set_sprite_pos({ x = 2, y = 3 })
+			else
+				card.children.center:set_sprite_pos({ x = 3, y = 3 })
+			end
 		end
 	end
 }
@@ -2223,7 +2235,7 @@ SMODS.Joker {
 	cost = 9,
 	atlas = "j8jokers-swatch",
 	pos = { x = 0, y = 0 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { odds = 10 } },
 	loc_vars = function(self, info_queue, card)
@@ -2259,18 +2271,20 @@ SMODS.Joker {
 		end
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({ x = 4, y = 3 })
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
-			card.T.w = G.CARD_W * (68 / 71)
-			card.T.h = G.CARD_H * (85 / 95)
-			card.children.center.scale.x = 68
-			card.children.center.scale.y = 85
-			--card.children.floating_sprite.states.visible = false
-		else
-			card.children.center:set_sprite_pos({ x = 0, y = 0 })
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-swatch']
-			--card.children.floating_sprite.states.visible = true
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.no_deltarune_spoilers then
+				card.children.center:set_sprite_pos({ x = 4, y = 3 })
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+				card.T.w = G.CARD_W * (68 / 71)
+				card.T.h = G.CARD_H * (85 / 95)
+				card.children.center.scale.x = 68
+				card.children.center.scale.y = 85
+				--card.children.floating_sprite.states.visible = false
+			else
+				card.children.center:set_sprite_pos({ x = 0, y = 0 })
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-swatch']
+				--card.children.floating_sprite.states.visible = true
+			end
 		end
 	end
 }
@@ -2303,7 +2317,7 @@ SMODS.Joker {
         end
     end,
 	]]
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { repetitions = 1 } },
 	loc_vars = function(self, info_queue, card)
@@ -2359,14 +2373,16 @@ SMODS.Joker {
 		return false
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({ x = 5, y = 3 })
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
-			--card.children.floating_sprite.states.visible = false
-		else
-			card.children.center:set_sprite_pos({ x = 0, y = 0 })
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-werewire']
-			--card.children.floating_sprite.states.visible = true
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.no_deltarune_spoilers then
+				card.children.center:set_sprite_pos({ x = 5, y = 3 })
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+				--card.children.floating_sprite.states.visible = false
+			else
+				card.children.center:set_sprite_pos({ x = 0, y = 0 })
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-werewire']
+				--card.children.floating_sprite.states.visible = true
+			end
 		end
 	end
 }
@@ -2382,7 +2398,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 15,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 6, y = 3 },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
@@ -2468,7 +2484,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 15,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 7, y = 3 },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
@@ -2526,7 +2542,7 @@ SMODS.Joker {
 					trigger = 'after',
 					delay = 0.1,
 					func = function()
-						spindown(sd, pseudorandom("j8mod_d100", 1, 1000))
+						spindown(sd, pseudorandom("j8mod_d100", 1, #G.P_CENTER_POOLS[sd.ability.set]))
 						sd:flip()
 						play_sound('tarot2', percent, 0.6)
 						sd:juice_up(0.3, 0.3)
@@ -2550,7 +2566,7 @@ SMODS.Joker {
 	eternal_compat = true,
 	rarity = 3,
 	cost = 9,
-	discovered = true,
+	discovered = false,
 	atlas = "j8jokers-yuri",
 	pos = { x = 0, y = 1 },
 	--[[
@@ -2604,25 +2620,27 @@ SMODS.Joker {
 		return false
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({ x = 8, y = 3 })
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
-		else
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-yuri']
-			if J8MOD.config.furry_mode then
-				card.children.center:set_sprite_pos({ x = 0, y = 1 })
-				--[[
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.no_deltarune_spoilers then
+				card.children.center:set_sprite_pos({ x = 8, y = 3 })
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+			else
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-yuri']
+				if J8MOD.config.furry_mode then
+					card.children.center:set_sprite_pos({ x = 0, y = 1 })
+					--[[
 				if card.children.floating_sprite then
 					card.children.floating_sprite:set_sprite_pos({ x = 1, y = 1 })
 				end
 				]]
-			else
-				card.children.center:set_sprite_pos({ x = 0, y = 0 })
-				--[[
+				else
+					card.children.center:set_sprite_pos({ x = 0, y = 0 })
+					--[[
 				if card.children.floating_sprite then
 					card.children.floating_sprite:set_sprite_pos({ x = 1, y = 0 })
 				end
 				]]
+				end
 			end
 		end
 	end
@@ -2638,7 +2656,7 @@ SMODS.Joker {
 	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 0, y = 4 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { mult = 0, mult_inc = 5 } },
 	loc_vars = function(self, info_queue, card)
@@ -2679,10 +2697,12 @@ SMODS.Joker {
 		return false
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({ x = 0, y = 4 })
-		else
-			card.children.center:set_sprite_pos({ x = 9, y = 3 })
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.furry_mode then
+				card.children.center:set_sprite_pos({ x = 0, y = 4 })
+			else
+				card.children.center:set_sprite_pos({ x = 9, y = 3 })
+			end
 		end
 	end
 }
@@ -2697,7 +2717,7 @@ SMODS.Joker {
 	cost = 8,
 	atlas = "j8jokers",
 	pos = { x = 2, y = 4 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { dollars = 0 } },
 	loc_vars = function(self, info_queue, card)
@@ -2740,10 +2760,12 @@ SMODS.Joker {
 		return false
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({ x = 2, y = 4 })
-		else
-			card.children.center:set_sprite_pos({ x = 1, y = 4 })
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.furry_mode then
+				card.children.center:set_sprite_pos({ x = 2, y = 4 })
+			else
+				card.children.center:set_sprite_pos({ x = 1, y = 4 })
+			end
 		end
 	end
 }
@@ -2758,7 +2780,7 @@ SMODS.Joker {
 	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 3, y = 4 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { odds = 2, dollars = 5 } },
 	loc_vars = function(self, info_queue, card)
@@ -2805,7 +2827,7 @@ SMODS.Joker {
 	cost = 5,
 	atlas = "j8jokers",
 	pos = { x = 5, y = 4 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { money_current = 0, money_max = 150 } },
 	loc_vars = function(self, info_queue, card)
@@ -2860,10 +2882,12 @@ SMODS.Joker {
 		return G.GAME.dollars >= to_big(25)
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.furry_mode then
-			card.children.center:set_sprite_pos({ x = 5, y = 4 })
-		else
-			card.children.center:set_sprite_pos({ x = 4, y = 4 })
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.furry_mode then
+				card.children.center:set_sprite_pos({ x = 5, y = 4 })
+			else
+				card.children.center:set_sprite_pos({ x = 4, y = 4 })
+			end
 		end
 	end
 }
@@ -2878,7 +2902,7 @@ SMODS.Joker {
 	rarity = 1,
 	cost = 3,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 6, y = 4 },
 	config = { extra = { enhancement = "m_wild" } },
@@ -2945,7 +2969,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 8,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 7, y = 4 },
 	config = { extra = { booster_mod = 1 } },
@@ -2970,7 +2994,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 9,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 8, y = 4 },
 	config = { extra = { Xmult_gain = 0.5, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
@@ -3000,7 +3024,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	perishable_compat = true,
 	eternal_compat = true,
 	pos = { x = 9, y = 4 },
@@ -3059,7 +3083,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 10,
 	atlas = "j8jokers-jevil",
-	discovered = true,
+	discovered = false,
 	perishable_compat = true,
 	eternal_compat = true,
 	pos = { x = 0, y = 0 },
@@ -3090,14 +3114,16 @@ SMODS.Joker {
 		end
 	end,
 	update = function(self, card, dt)
-		if J8MOD.config.no_deltarune_spoilers then
-			card.children.center:set_sprite_pos({ x = 0, y = 5 })
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
-			--card.children.floating_sprite.states.visible = false
-		else
-			card.children.center:set_sprite_pos({ x = 0, y = 0 })
-			card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-jevil']
-			--card.children.floating_sprite.states.visible = true
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.no_deltarune_spoilers then
+				card.children.center:set_sprite_pos({ x = 0, y = 5 })
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers']
+				--card.children.floating_sprite.states.visible = false
+			else
+				card.children.center:set_sprite_pos({ x = 0, y = 0 })
+				card.children.center.atlas = G.ASSET_ATLAS['j8mod_j8jokers-jevil']
+				--card.children.floating_sprite.states.visible = true
+			end
 		end
 	end
 }
@@ -3112,7 +3138,7 @@ SMODS.Joker {
 	cost = 12,
 	atlas = "j8jokers",
 	pos = { x = 1, y = 5 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { seal = 'Purple', money_current = 0, money_max = 12 } },
 	loc_vars = function(self, info_queue, card)
@@ -3178,7 +3204,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 9,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 2, y = 5 },
 	config = { extra = { blind_multiplier = 0.25 } },
 	loc_vars = function(self, info_queue, card)
@@ -3213,7 +3239,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 3, y = 5 },
 	config = { extra = { rank_inc = 1 } },
 	loc_vars = function(self, info_queue, card)
@@ -3275,7 +3301,7 @@ SMODS.Joker {
 	pixel_size = { w = 74, h = 98 },
 	display_size = { w = 74, h = 98 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
@@ -3344,7 +3370,7 @@ SMODS.Joker {
 	pos = { x = 4, y = 5 },
 	pixel_size = { w = 69, h = 69 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = false,
@@ -3395,7 +3421,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	pos = { x = 5, y = 5 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
@@ -3424,7 +3450,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	pos = { x = 6, y = 5 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
@@ -3494,7 +3520,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	pos = { x = 7, y = 5 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
@@ -3554,7 +3580,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 6 },
 	soul_pos = { x = 1, y = 6 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
@@ -3611,7 +3637,7 @@ SMODS.Joker {
 	pos = { x = 2, y = 6 },
 	soul_pos = { x = 3, y = 6 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = false,
@@ -3673,7 +3699,7 @@ SMODS.Joker {
 	pos = { x = 4, y = 6 },
 	soul_pos = { x = 5, y = 6 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
@@ -3745,7 +3771,7 @@ SMODS.Joker {
 	pos = { x = 6, y = 6 },
 	soul_pos = { x = 7, y = 6 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
@@ -3807,7 +3833,7 @@ SMODS.Joker {
 	pos = { x = 8, y = 6 },
 	soul_pos = { x = 9, y = 6 },
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
@@ -3876,7 +3902,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	pos = { x = 9, y = 0 },
 	config = { extra = { creates = 2 } },
@@ -3920,7 +3946,7 @@ SMODS.Joker {
 	cost = 6,
 	atlas = "j8jokers",
 	pos = { x = 3, y = 1 },
-	discovered = true,
+	discovered = false,
 	unlocked = true,
 	config = { extra = { dollars = 0, increase = 4 } },
 	loc_vars = function(self, info_queue, card)
@@ -3985,7 +4011,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 0, y = 2 },
 	config = { extra = { chips = 0, mult = 0, chip_mod = 9, mult_mod = 6 } },
 	loc_vars = function(self, info_queue, card)
@@ -4037,7 +4063,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 11,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 9, y = 4 },
 	config = { extra = { price_reduction = 1 } },
 	loc_vars = function(self, info_queue, card)
@@ -4133,7 +4159,7 @@ SMODS.Joker {
 	rarity = 3,
 	cost = 11,
 	atlas = "j8jokers",
-	discovered = true,
+	discovered = false,
 	pos = { x = 0, y = 6 },
 	config = { extra = { creates = 2, rarity = "Uncommon", perish_rounds = 1 } },
 	loc_vars = function(self, info_queue, card)

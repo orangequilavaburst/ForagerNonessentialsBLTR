@@ -1093,7 +1093,9 @@ return {
             j8mod_activate_friend = "???",
             j8mod_friend = "!!!",
             j8mod_girlfriend = "That's how you do it!",
-            j8mod_card_ex = "Card!"
+            j8mod_card_ex = "Card!",
+            j8mod_discover_all = "Discover All Jokers",
+            j8mod_undiscover_all = "Undiscover All Jokers"
         }
     },
 }
