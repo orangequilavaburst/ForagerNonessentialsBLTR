@@ -241,7 +241,7 @@ return {
             j_j8mod_kaleidoscope = {
                 name = "Kaleidoscope",
                 text = {
-                    "{C:attention}Pairs{} count as {C:attention}Two Pairs{}"
+                    "{C:attention}#1#s{} count as {C:attention}#2#s{}"
                 },
             },
             j_j8mod_b1g1f = {
@@ -560,16 +560,16 @@ return {
                 text = {
                     "{C:inactive,s:0.8,E:1}\"CHAOS, CHAOS!\"{s:1.0}",
                     "{X:mult,C:white} X#1# {} Mult",
-                    "Reshuffles cards in hand back",
-                    "into deck after scoring"
+                    "Reshuffles cards held in hand",
+                    "back into deck after scoring"
                 },
             },
             j_j8mod_sleight_of_hand = {
                 name = "Sleight of Hand",
                 text = {
                     "{X:mult,C:white} X#1# {} Mult",
-                    "Reshuffles cards in hand back",
-                    "into deck after scoring"
+                    "Reshuffles cards held in hand",
+                    "back into deck after scoring"
                 },
             },
             j_j8mod_spider_bake_sale = {

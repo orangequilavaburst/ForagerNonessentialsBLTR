@@ -224,7 +224,7 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		if context.post_trigger and not context.blueprint and context.cardarea == G.jokers then
 			--print(context.other_context)
-			if not context.other_context.check_enhancement and not context.other_context.mod_probability and not context.other_context.evaluate_poker_hand and context.other_card ~= card then
+			if not context.other_context.check_enhancement and not context.other_context.mod_probability and not context.other_context.evaluate_poker_hand and context.other_card ~= card and context.other_card.config.center.key ~= "j_j8mod_modeling_clay" then
 				--print("It's not check enhancement!")
 				card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
 
@@ -283,6 +283,15 @@ SMODS.Joker {
 				colour = G.C.CHIPS,
 				message_card = card
 			}
+		elseif context.remove_playing_cards and not context.blueprint then
+			card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod * #context.removed
+			if #context.removed > 0 then
+				return {
+					message = localize('k_upgrade_ex'),
+					colour = G.C.CHIPS,
+					message_card = card
+				}
+			end
 		end
 		if context.joker_main then
 			return {
@@ -816,10 +825,11 @@ SMODS.Joker {
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
+		return { vars = { G.localization.misc.poker_hands['Pair'], G.localization.misc.poker_hands['Two Pair'] } }
 	end,
 	calculate = function(self, card, context)
 		if context.evaluate_poker_hand and context.scoring_name == "Pair" and not context.blueprint then
-			context.poker_hands["Pair"] = context.poker_hands["Two Pair"]
+			context.poker_hands["Two Pair"] = context.poker_hands["Pair"]
 			return {
 				replace_scoring_name = "Two Pair"
 			}
@@ -1539,7 +1549,7 @@ SMODS.Joker {
 	pos = { x = 6, y = 2 },
 	discovered = true,
 	unlocked = true,
-	config = { extra = { odds = 10 } },
+	config = { extra = { odds = 4 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "credits_mario_santos", set = "Other" }
@@ -1788,7 +1798,7 @@ SMODS.Joker {
 			card:remove_from_deck()
 			reduced_set_ability(card, center)
 			card.ability.j8mod_modeling_key = center.key
-			card.config.center.atlas = 'j8jokers-clay'
+			card.config.center.atlas = 'j8mod_j8jokers-clay'
 			card_eval_status_text(card, 'extra', nil, nil, nil, {
 				message = localize { type = 'name_text', set = "Joker", key = card.ability.j8mod_modeling_key } .. "!",
 				colour = G.C.RARITY[G.P_CENTERS[card.ability.j8mod_modeling_key].rarity]
