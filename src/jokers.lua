@@ -1556,7 +1556,7 @@ SMODS.Joker {
 	pos = { x = 6, y = 2 },
 	discovered = false,
 	unlocked = true,
-	config = { extra = { odds = 4 } },
+	config = { extra = { odds = 6 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "credits_mario_santos", set = "Other" }
