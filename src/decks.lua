@@ -190,7 +190,7 @@ SMODS.Back {
 				if joker.ability.yoshi then
 					SMODS.calculate_effect({
 						trigger = "after",
-						delay = 0.2,
+						delay = 0.5,
 						message_card = joker,
 						message = localize('k_val_up'),
 						colour = G.C.MONEY,
@@ -203,7 +203,7 @@ SMODS.Back {
 				end
 			end
 		end
-		if context.buying_card then
+		if context.card_added and context.card.ability.set == "Joker" then
 			context.card.ability.yoshi = true
 			context.card:set_cost()
 		end

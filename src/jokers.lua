@@ -1056,30 +1056,29 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		if context.after and not context.blueprint then
 			local cards_to_trigger = {}
-			return {
-				message = localize("k_upgrade_ex"),
-				colour = G.C.UI.TEXT_DARK,
-				func = function()
-					for _, v in ipairs(G.hand.cards) do
-						local percent = 0.85 + (_ - 0.999) / (#G.hand.cards - 0.998) * 0.3
-						if _ < #G.hand.cards and SMODS.has_enhancement(v, card.ability.extra.enhancement) then
-							G.E_MANAGER:add_event(Event({
-								trigger = 'after',
-								delay = 0.1,
-								func = function()
-									copy_card(G.hand.cards[_ + 1], v)
-									play_sound('tarot2', percent, 0.6)
-									v:juice_up(0.3, 0.5)
-									return true
-								end
-							}))
+			for _, v in ipairs(G.hand.cards) do
+				local percent = 0.85 + (_ - 0.999) / (#G.hand.cards - 0.998) * 0.3
+				if _ < #G.hand.cards and SMODS.has_enhancement(v, card.ability.extra.enhancement) then
+					table.insert(cards_to_trigger, v)
+					G.E_MANAGER:add_event(Event({
+						trigger = 'after',
+						delay = 0.25,
+						func = function()
+							copy_card(G.hand.cards[_ + 1], v)
+							play_sound('tarot2', percent, 0.6)
+							v:juice_up(0.3, 0.5)
+							return true
 						end
-					end
-
-					delay(0.5)
-					return true
+					}))
 				end
-			}
+			end
+			delay(0.5)
+			if #cards_to_trigger > 0 then
+				return {
+					message = localize("k_upgrade_ex"),
+					colour = G.C.UI.TEXT_DARK,
+				}
+			end
 		end
 	end,
 	in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
@@ -3504,7 +3503,7 @@ SMODS.Joker {
 function lowest_level_poker_hand()
 	local lowest_hand, lowest_level, order = "High Card", -1, 100
 	for _, v in pairs(G.GAME.hands) do
-		print(_ .. tostring(v))
+		--print(_ .. tostring(v))
 		if G.GAME.hands[_].visible and (lowest_level < 0 or (v.level < lowest_level or v.level == lowest_level and order > v.order)) then
 			lowest_level = v.level
 			lowest_hand = _
@@ -3526,7 +3525,7 @@ SMODS.Joker {
 	eternal_compat = true,
 	rarity = 2,
 	cost = 8,
-	config = { extra = { ranks = { 6, 7, 8, 9, 10 }, odds = 10 } },
+	config = { extra = { ranks = { 6, 7, 8, 9, 10 }, odds = 10, saved_upgrades = {} } },
 	loc_vars = function(self, info_queue, card)
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
 			'j8mod_community_resource')
@@ -3554,7 +3553,7 @@ SMODS.Joker {
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.individual and context.cardarea == G.play and not context.end_of_round then
+		if context.individual and context.cardarea == G.play and not context.end_of_round and not context.blueprint then
 			local is_rank = false
 			for _, rank in ipairs(card.ability.extra.ranks) do
 				if context.other_card:get_id() == rank then
@@ -3563,10 +3562,28 @@ SMODS.Joker {
 				end
 			end
 			if is_rank and SMODS.pseudorandom_probability(card, 'j8mod_community_resource', 1, card.ability.extra.odds) then
+				local my_card = card
 				return {
-					level_up = true,
-					level_up_hand = lowest_level_poker_hand()
+					func = function()
+						table.insert(my_card.ability.extra.saved_upgrades, lowest_level_poker_hand())
+						return true
+					end
 				}
+			end
+		end
+		if context.after then
+			if #card.ability.extra.saved_upgrades > 0 then
+				while #card.ability.extra.saved_upgrades > 0 do
+					SMODS.calculate_effect({
+						trigger = "after",
+						message = localize("k_upgrade_ex"),
+						message_card = card,
+						level_up = true,
+						level_up_hand = lowest_level_poker_hand(),
+						message_card = card,
+					}, card)
+					table.remove(card.ability.extra.saved_upgrades, 1)
+				end
 			end
 		end
 	end

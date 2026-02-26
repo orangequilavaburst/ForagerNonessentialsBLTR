@@ -2285,6 +2285,9 @@ function Card.set_cost(self)
 	--if self.ability.brown_magic then
 	--#self.sell_cost = 0
 	if self.ability.yoshi then
+		if self.ability.couponed then
+			self.cost = 0
+		end
 		self.sell_cost = 1 + self.ability.extra_value
 	end
 end
