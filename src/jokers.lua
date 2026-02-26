@@ -553,7 +553,7 @@ SMODS.Joker {
 -- Bookmark
 SMODS.Joker {
 	key = "bookmark",
-	blueprint_compat = true,
+	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 1,
@@ -673,8 +673,9 @@ SMODS.Joker {
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					local hands_lost = G.GAME.current_round.hands_left - 1
-					G.GAME.blind.hands_sub = hands_lost
-					ease_hands_played(-G.GAME.current_round.hands_left + 1, nil, true)
+					if G.GAME.current_round.hands_left > 1 then
+						ease_hands_played(-G.GAME.current_round.hands_left + 1, nil, true)
+					end
 					SMODS.calculate_effect(
 						{
 							dollars = card.ability.extra.dollars * hands_lost
@@ -1258,16 +1259,26 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		-- level up
 		if context.before then
-			return {
-				level_up = true,
-				message = localize('k_level_up_ex')
-			}
+			local ranks_in_hand = {}
+			for _, scored_card in ipairs(context.scoring_hand) do
+				--print(tostring(scored_card.debuff) .. " " .. tostring(SMODS.has_no_rank(scored_card)))
+				if not (scored_card.debuff or SMODS.has_no_rank(scored_card)) then
+					table.insert(ranks_in_hand, scored_card.base.value)
+				end
+			end
+			if #ranks_in_hand > 0 then
+				return {
+					level_up = true,
+					message = localize('k_level_up_ex')
+				}
+			end
 		end
 		-- debuff
 		if context.final_scoring_step and not context.blueprint then
 			local ranks_in_hand = {}
 			for _, scored_card in ipairs(context.scoring_hand) do
-				if not scored_card.debuff then
+				--print(tostring(scored_card.debuff) .. " " .. tostring(SMODS.has_no_rank(scored_card)))
+				if not (scored_card.debuff or SMODS.has_no_rank(scored_card)) then
 					table.insert(ranks_in_hand, scored_card.base.value)
 				end
 			end
@@ -1282,7 +1293,7 @@ SMODS.Joker {
 							func = function()
 								for _, playing_card in ipairs(G.playing_cards) do
 									for i = 1, #ranks_in_hand do
-										if playing_card.base.value == ranks_in_hand[i] then
+										if playing_card.base.value == ranks_in_hand[i] and not SMODS.has_no_rank(playing_card) then
 											playing_card:juice_up()
 											SMODS.debuff_card(playing_card, true, 'j8mod_breakerbox')
 											break
@@ -2734,7 +2745,7 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		-- getting money
 		if context.joker_main then
-			card.ability.extra.dollars = card.ability.extra.dollars + G.GAME.hands[context.scoring_name].played
+			card.ability.extra.dollars = card.ability.extra.dollars + G.GAME.hands[context.scoring_name].level
 			return {
 				message = localize('k_upgrade_ex'),
 				colour = G.C.GOLD

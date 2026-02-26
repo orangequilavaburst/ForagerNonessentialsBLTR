@@ -308,7 +308,9 @@ return {
                     "Upgrades level of",
                     "played {C:attention}poker hand{}",
                     "{C:red}Debuffs{} all scoring ranks",
-                    "until end of round"
+                    "until end of round",
+                    "{C:inactive,s:0.8}(Only works if scoring hand contains at",
+                    "{C:inactive,s:0.8}least one ranked and non-debuffed card)"
                 },
             },
             j_j8mod_monster_card = {
