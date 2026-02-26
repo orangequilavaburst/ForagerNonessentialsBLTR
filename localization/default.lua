@@ -1080,6 +1080,7 @@ return {
             j8mod_swapped_ex = "Swapped!",
             j8mod_enhanced_ex = "Enhanced!",
             j8mod_chaos_ex = "CHAOS!",
+            j8mod_shuffled_ex = "Shuffled!",
             j8mod_muffet_laugh = "Ahuhuhu~",
             j8mod_reduced_ex = "Reduced!",
             j8mod_temmie_text = "ho1!",

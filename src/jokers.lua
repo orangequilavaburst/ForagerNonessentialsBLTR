@@ -277,7 +277,7 @@ SMODS.Joker {
 		return { vars = { card.ability.extra.chips, card.ability.extra.chip_mod } }
 	end,
 	calculate = function(self, card, context)
-		if ((context.joker_type_destroyed and not G.CONTROLLER.locks.selling_card) or context.selling_card) and not context.blueprint then
+		if ((context.joker_type_destroyed and not G.CONTROLLER.locks.selling_card) or context.selling_card) and context.card ~= card and not context.blueprint then
 			card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
 
 			return {
@@ -1056,15 +1056,17 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		if context.after and not context.blueprint then
 			local cards_to_trigger = {}
+			local cards_to_copy = {}
 			for _, v in ipairs(G.hand.cards) do
 				local percent = 0.85 + (_ - 0.999) / (#G.hand.cards - 0.998) * 0.3
 				if _ < #G.hand.cards and SMODS.has_enhancement(v, card.ability.extra.enhancement) then
+					local card_to_copy = G.hand.cards[_ + 1]
 					table.insert(cards_to_trigger, v)
 					G.E_MANAGER:add_event(Event({
 						trigger = 'after',
 						delay = 0.25,
 						func = function()
-							copy_card(G.hand.cards[_ + 1], v)
+							copy_card(card_to_copy, v)
 							play_sound('tarot2', percent, 0.6)
 							v:juice_up(0.3, 0.5)
 							return true
@@ -3096,7 +3098,8 @@ SMODS.Joker {
 			local do_chaos = G.GAME.chips + hand_chips * mult < G.GAME.blind.chips
 			if do_chaos then
 				return {
-					message = localize("j8mod_chaos_ex"),
+					message = J8MOD.config.no_deltarune_spoilers and localize("j8mod_shuffled_ex") or
+						localize("j8mod_chaos_ex"),
 					colour = G.C.PURPLE,
 					func = function()
 						G.FUNCS.draw_from_hand_to_deck()
