@@ -763,7 +763,7 @@ SMODS.Joker {
 		if context.before and not context.blueprint and #context.full_hand == 3 then
 			G.E_MANAGER:add_event(Event({
 				trigger = "after",
-			--	delay = 1.0,
+				--	delay = 1.0,
 				func = function()
 					context.full_hand[1]:juice_up()
 					card:juice_up()
@@ -771,10 +771,11 @@ SMODS.Joker {
 				end
 			}))
 			context.full_hand[1]:set_ability('m_gold', nil, true)
-			card_eval_status_text(context.full_hand[1], 'extra', nil, nil, nil, {message = localize("j8mod_ranked_ex"), colour = G.C.GREEN})
+			card_eval_status_text(context.full_hand[1], 'extra', nil, nil, nil,
+				{ message = localize("j8mod_ranked_ex"), colour = G.C.GREEN })
 			G.E_MANAGER:add_event(Event({
 				trigger = "after",
-			--	delay = 1.0,
+				--	delay = 1.0,
 				func = function()
 					context.full_hand[2]:juice_up()
 					card:juice_up()
@@ -782,10 +783,11 @@ SMODS.Joker {
 				end
 			}))
 			context.full_hand[2]:set_ability('m_steel', nil, true)
-			card_eval_status_text(context.full_hand[2], 'extra', nil, nil, nil, {message = localize("j8mod_ranked_ex"), colour = G.C.GREEN})
+			card_eval_status_text(context.full_hand[2], 'extra', nil, nil, nil,
+				{ message = localize("j8mod_ranked_ex"), colour = G.C.GREEN })
 			G.E_MANAGER:add_event(Event({
 				trigger = "after",
-			--	delay = 1.0,
+				--	delay = 1.0,
 				func = function()
 					context.full_hand[3]:juice_up()
 					card:juice_up()
@@ -793,7 +795,8 @@ SMODS.Joker {
 				end
 			}))
 			context.full_hand[3]:set_ability('m_bonus', nil, true)
-			card_eval_status_text(context.full_hand[3], 'extra', nil, nil, nil, {message = localize("j8mod_ranked_ex"), colour = G.C.GREEN})
+			card_eval_status_text(context.full_hand[3], 'extra', nil, nil, nil,
+				{ message = localize("j8mod_ranked_ex"), colour = G.C.GREEN })
 			return true
 		end
 	end
@@ -2784,7 +2787,7 @@ SMODS.Joker {
 	unlocked = true,
 	config = { extra = { odds = 2, dollars = 5 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_anubis_jr", set = "Other" }
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
 			'j8mod_strike_the_earth')
 		return { vars = { numerator, denominator, card.ability.extra.dollars } }

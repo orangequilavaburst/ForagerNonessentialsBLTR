@@ -182,7 +182,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         unlocked = true,
         dependencies = { "UTDR" },
         loc_vars = function(self, info_queue, card)
-            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "credits_submarine_screw", set = "Other" }
             info_queue[#info_queue + 1] = { key = "oc_credits_submarine_screw", set = "Other" }
             return {}
         end,
