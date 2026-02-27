@@ -164,6 +164,11 @@ SMODS.Joker {
 			SMODS.has_enhancement(context.other_card, 'm_stone') and
 			SMODS.pseudorandom_probability(card, 'j8mod_metamorphic', 1, card.ability.extra.odds) then
 			local current_card = context.other_card
+			local current_enh = current_card.config.center
+			local current_vis = current_card:should_hide_front()
+			current_card:set_ability('m_glass', nil, false)
+			current_card:set_sprites(current_enh, current_card.config.card)
+			current_card.front_hidden = current_vis
 			return {
 				message = localize('k_upgrade_ex'),
 				colour = G.C.SECONDARY_SET.Enhanced,
@@ -179,7 +184,8 @@ SMODS.Joker {
 						trigger = 'after',
 						delay = 0.2,
 						func = function()
-							current_card:set_ability('m_glass')
+							current_card:set_sprites(G.P_CENTERS.m_glass, current_card.config.card)
+							current_card.front_hidden = current_card:should_hide_front()
 							return true
 						end
 					}))
@@ -755,60 +761,39 @@ SMODS.Joker {
 	end,
 	calculate = function(self, card, context)
 		if context.before and not context.blueprint and #context.full_hand == 3 then
-			SMODS.calculate_effect({
-					trigger = "after",
-					delay = 1.0,
-					message = localize("j8mod_ranked_ex"),
-					colour = G.C.GREEN,
-					func = function()
-						G.E_MANAGER:add_event(Event({
-							trigger = "immediate",
-							func = function()
-								context.full_hand[1]:set_ability('m_gold')
-								context.full_hand[1]:juice_up()
-								return true
-							end
-						}))
-						return true
-					end
-				},
-				context.full_hand[1])
-			SMODS.calculate_effect({
-					trigger = "after",
-					delay = 1.0,
-					message = localize("j8mod_ranked_ex"),
-					colour = G.C.GREEN,
-					func = function()
-						G.E_MANAGER:add_event(Event({
-							trigger = "immediate",
-							func = function()
-								context.full_hand[2]:set_ability('m_steel')
-								context.full_hand[2]:juice_up()
-								return true
-							end
-						}))
-						return true
-					end
-				},
-				context.full_hand[2])
-			SMODS.calculate_effect({
-					trigger = "after",
-					delay = 1.0,
-					message = localize("j8mod_ranked_ex"),
-					colour = G.C.GREEN,
-					func = function()
-						G.E_MANAGER:add_event(Event({
-							trigger = "immediate",
-							func = function()
-								context.full_hand[3]:set_ability('m_bonus')
-								context.full_hand[3]:juice_up()
-								return true
-							end
-						}))
-						return true
-					end
-				},
-				context.full_hand[3])
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+			--	delay = 1.0,
+				func = function()
+					context.full_hand[1]:juice_up()
+					card:juice_up()
+					return true
+				end
+			}))
+			context.full_hand[1]:set_ability('m_gold', nil, true)
+			card_eval_status_text(context.full_hand[1], 'extra', nil, nil, nil, {message = localize("j8mod_ranked_ex"), colour = G.C.GREEN})
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+			--	delay = 1.0,
+				func = function()
+					context.full_hand[2]:juice_up()
+					card:juice_up()
+					return true
+				end
+			}))
+			context.full_hand[2]:set_ability('m_steel', nil, true)
+			card_eval_status_text(context.full_hand[2], 'extra', nil, nil, nil, {message = localize("j8mod_ranked_ex"), colour = G.C.GREEN})
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+			--	delay = 1.0,
+				func = function()
+					context.full_hand[3]:juice_up()
+					card:juice_up()
+					return true
+				end
+			}))
+			context.full_hand[3]:set_ability('m_bonus', nil, true)
+			card_eval_status_text(context.full_hand[3], 'extra', nil, nil, nil, {message = localize("j8mod_ranked_ex"), colour = G.C.GREEN})
 			return true
 		end
 	end
@@ -2264,6 +2249,9 @@ SMODS.Joker {
 		if context.individual and context.cardarea == G.play and not (context.other_card.edition and context.other_card.edition.key == "e_polychrome") then
 			if SMODS.pseudorandom_probability(card, 'j8mod_color_cafe', 1, card.ability.extra.odds) then
 				local juice_card = context.other_card
+				context.other_card.edition = G.P_CENTERS.e_polychrome
+				context.other_card.edition.x_mult = G.P_CENTERS.e_polychrome.config.extra
+				context.other_card.edition.type = 'polychrome'
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
 					delay = 1.0,
@@ -2351,7 +2339,7 @@ SMODS.Joker {
 		end
 		-- jokers
 		if context.retrigger_joker_check then
-			if context.other_card ~= card and context.other_card.edition and context.other_card.edition.polychrome then
+			if context.other_card ~= card and context.other_card.edition and context.other_card.edition.key == "e_polychrome" then
 				return {
 					repetitions = card.ability.extra.repetitions
 				}
