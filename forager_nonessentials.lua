@@ -2276,7 +2276,7 @@ function CardArea:align_cards()
 	if self then
 		if #self.cards > 0 and self == G.jokers then
 			for k, card in ipairs(self.cards) do
-				if card.config.center.key == "j_j8mod_weather_together" and card.config.center.config.extra then --condition to rotate
+				if card.config.center.key == "j_j8mod_weather_together" and card.ability.extra then --condition to rotate
 					card.children.center.role.r_bond = 'Weak'
 					card.children.center.role.role_type = 'Major'
 					local t = card.T
@@ -2284,7 +2284,7 @@ function CardArea:align_cards()
 						__index = function(_, k)
 							if k == "r" then
 								--return math.pi / 2.0
-								return card.config.center.config.extra.rot_extra --amount to rotate by (in radians)
+								return card.ability.extra.rot_extra --amount to rotate by (in radians)
 							end
 							return t[k]
 						end,

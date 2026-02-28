@@ -151,7 +151,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = false,
 	pos = { x = 2, y = 0 },
-	config = { extra = { odds = 2 } },
+	config = { extra = { odds = 2 , cards = {} } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
@@ -160,45 +160,65 @@ SMODS.Joker {
 		return { vars = { numerator, denominator, localize({ type = 'name_text', set = "Enhanced", key = 'm_stone' }) or 'Stone Card', localize({ type = 'name_text', set = "Enhanced", key = 'm_glass' }) or 'Glass Card' } }
 	end,
 	calculate = function(self, card, context)
-		if context.individual and context.cardarea == G.play and not context.other_card.debuff and
-			SMODS.has_enhancement(context.other_card, 'm_stone') and
-			SMODS.pseudorandom_probability(card, 'j8mod_metamorphic', 1, card.ability.extra.odds) then
-			local current_card = context.other_card
-			local current_enh = current_card.config.center
-			local current_vis = current_card:should_hide_front()
-			current_card:set_ability('m_glass', nil, false)
-			current_card:set_sprites(current_enh, current_card.config.card)
-			current_card.front_hidden = current_vis
-			return {
-				message = localize('k_upgrade_ex'),
-				colour = G.C.SECONDARY_SET.Enhanced,
-				func = function()
-					G.E_MANAGER:add_event(Event({
-						trigger = 'immediate',
-						func = function()
-							current_card:flip()
-							return true
-						end
-					}))
-					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
-						delay = 0.2,
-						func = function()
-							current_card:set_sprites(G.P_CENTERS.m_glass, current_card.config.card)
-							current_card.front_hidden = current_card:should_hide_front()
-							return true
-						end
-					}))
-					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
-						delay = 0.2,
-						func = function()
-							current_card:flip()
-							return true
-						end
-					}))
+		if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+			if SMODS.has_enhancement(context.other_card, 'm_stone') and	SMODS.pseudorandom_probability(card, 'j8mod_metamorphic', 1, card.ability.extra.odds) then
+				local current_card = context.other_card
+				local current_enh = current_card.config.center
+				local current_vis = current_card:should_hide_front()
+				current_card:set_ability('m_glass', nil, false)
+				current_card:set_sprites(current_enh, current_card.config.card)
+				current_card.front_hidden = current_vis
+				card.ability.extra.cards[#card.ability.extra.cards+1] = context.other_card.sort_id
+				sendDebugMessage("adding " .. context.other_card.sort_id, "is stone")
+				return {
+					message = localize('k_upgrade_ex'),
+					colour = G.C.SECONDARY_SET.Enhanced,
+					func = function()
+						G.E_MANAGER:add_event(Event({
+							trigger = 'immediate',
+							func = function()
+								current_card:flip()
+								return true
+							end
+						}))
+						G.E_MANAGER:add_event(Event({
+							trigger = 'after',
+							delay = 0.2,
+							func = function()
+								current_card:set_sprites(G.P_CENTERS.m_glass, current_card.config.card)
+								current_card.front_hidden = current_card:should_hide_front()
+								return true
+							end
+						}))
+						G.E_MANAGER:add_event(Event({
+							trigger = 'after',
+							delay = 0.2,
+							func = function()
+								current_card:flip()
+								return true
+							end
+						}))
+					end
+				}
+			else
+				for k, v in pairs(card.ability.extra.cards) do
+					if v == context.other_card.sort_id then
+						card.ability.extra.cards[k] = nil 
+					end
 				end
-			}
+			end
+		end
+		if context.mod_probability and not context.blueprint and context.identifier == "glass" then
+			for k, v in pairs(card.ability.extra.cards) do
+				if v == context.trigger_obj.sort_id then
+					return {
+						numerator = 0
+					}
+				end
+			end
+		end
+		if context.after then
+			card.ability.extra.cards = {}
 		end
 	end,
 	in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
@@ -2198,23 +2218,14 @@ SMODS.Joker {
 			local saved_mult = mult
 			mult = mod_mult(saved_chips)
 			hand_chips = mod_chips(saved_mult)
-			local number = 0
-			for k, v in pairs(SMODS.find_card(card.config.center.key)) do
-				if v == card then
-					sendDebugMessage(v==self and "self" or "card")
-					sendDebugMessage(k)
-					number = k
-					break
-				end
-			end
 			G.E_MANAGER:add_event(Event({
 				trigger = "ease",
 				ease = "elastic",
 				blocking = false,
 				delay = 0.75,
-				ref_table = card.config.center.config.extra,
+				ref_table = card.ability.extra,
 				ref_value = "rot_extra",
-				ease_to = card.config.center.config.extra.rot_extra + math.pi*number
+				ease_to = card.ability.extra.rot_extra + math.pi
 			}))
 			return {
 				message = localize("j8mod_swapped_ex"),
