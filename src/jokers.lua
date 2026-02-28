@@ -540,7 +540,7 @@ SMODS.Joker {
 				return {
 					message = localize("j8mod_tagged_ex"),
 					colour = G.C.BLUE,
-					message_card = card,
+					message_card = context.blueprint_card or card,
 					func = function()
 						G.E_MANAGER:add_event(Event({
 							func = function()
@@ -1523,7 +1523,7 @@ SMODS.Joker {
 					extra = {
 						message = localize('k_plus_spectral'),
 						colour = G.C.SECONDARY_SET.Spectral,
-						message_card = card,
+						message_card = context.blueprint_card or card,
 						func = function() -- This is for timing purposes, everything here runs after the message
 							G.E_MANAGER:add_event(Event({
 								func = (function()
@@ -2198,6 +2198,15 @@ SMODS.Joker {
 			local saved_mult = mult
 			mult = mod_mult(saved_chips)
 			hand_chips = mod_chips(saved_mult)
+			local number = 0
+			for k, v in pairs(SMODS.find_card(card.config.center.key)) do
+				if v == card then
+					sendDebugMessage(v==self and "self" or "card")
+					sendDebugMessage(k)
+					number = k
+					break
+				end
+			end
 			G.E_MANAGER:add_event(Event({
 				trigger = "ease",
 				ease = "elastic",
@@ -2205,7 +2214,7 @@ SMODS.Joker {
 				delay = 0.75,
 				ref_table = card.config.center.config.extra,
 				ref_value = "rot_extra",
-				ease_to = card.config.center.config.extra.rot_extra + math.pi
+				ease_to = card.config.center.config.extra.rot_extra + math.pi*number
 			}))
 			return {
 				message = localize("j8mod_swapped_ex"),
@@ -2268,7 +2277,7 @@ SMODS.Joker {
 				return {
 					message = localize("j8mod_enhanced_ex"),
 					colour = G.C.EDITION,
-					message_card = card
+					message_card = context.blueprint_card or card
 				}
 			end
 		end
