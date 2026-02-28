@@ -2261,16 +2261,16 @@ SMODS.Joker {
 		if context.individual and context.cardarea == G.play and not (context.other_card.edition and context.other_card.edition.key == "e_polychrome") then
 			if SMODS.pseudorandom_probability(card, 'j8mod_color_cafe', 1, card.ability.extra.odds) then
 				local juice_card = context.other_card
-				context.other_card.edition = G.P_CENTERS.e_polychrome
-				context.other_card.edition.x_mult = G.P_CENTERS.e_polychrome.config.extra
-				context.other_card.edition.type = 'polychrome'
+				juice_card:set_edition("e_polychrome", true, true)
+				juice_card.edition.polychrome = false
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
 					delay = 1.0,
 					blocking = false,
 					func = function()
-						juice_card:juice_up(0.5, 0.5)
-						juice_card:set_edition("e_polychrome", true)
+						juice_card:juice_up(1, 0.5)
+						play_sound('polychrome1', 1.2, 0.7)
+						juice_card.edition.polychrome = true
 						return true
 					end
 				}))
