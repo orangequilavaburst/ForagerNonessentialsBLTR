@@ -2608,7 +2608,8 @@ SMODS.Joker {
 		if J8MOD.config.no_deltarune_spoilers then
 			info_queue[#info_queue + 1] = { key = "credits_mario_santos", set = "Other" }
 		else
-			info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+			info_queue[#info_queue + 1] = { key = "credits_catachrome", set = "Other" }
+			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		end
 		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_iron_maiden" or "j_j8mod_mizzmanaged", vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult_extra, card.ability.extra.Xmult } }
 	end,
