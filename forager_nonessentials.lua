@@ -644,7 +644,7 @@ SMODS.current_mod.extra_tabs = function()
 															n = G.UIT.T,
 															config = {
 																align = 'cm',
-																text = "gimmick",
+																text = "Vibri",
 																colour = G.C.UI.TEXT_LIGHT,
 																scale = 0.25,
 																padding = 0.05
@@ -2212,6 +2212,14 @@ SMODS.Atlas {
 	path = "swatchlings.png",
 	px = 71, py = 95
 }
+
+SMODS.Atlas({
+	key = "modicon",
+	path = "modicon.png",
+	px = 34,
+	py = 34,
+	atlas_table = "ASSET_ATLAS"
+})
 
 -- ## POOLS ##
 

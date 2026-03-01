@@ -151,7 +151,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = false,
 	pos = { x = 2, y = 0 },
-	config = { extra = { odds = 2 , cards = {} } },
+	config = { extra = { odds = 2, cards = {} } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
@@ -161,14 +161,14 @@ SMODS.Joker {
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not context.other_card.debuff then
-			if SMODS.has_enhancement(context.other_card, 'm_stone') and	SMODS.pseudorandom_probability(card, 'j8mod_metamorphic', 1, card.ability.extra.odds) then
+			if SMODS.has_enhancement(context.other_card, 'm_stone') and SMODS.pseudorandom_probability(card, 'j8mod_metamorphic', 1, card.ability.extra.odds) then
 				local current_card = context.other_card
 				local current_enh = current_card.config.center
 				local current_vis = current_card:should_hide_front()
 				current_card:set_ability('m_glass', nil, false)
 				current_card:set_sprites(current_enh, current_card.config.card)
 				current_card.front_hidden = current_vis
-				card.ability.extra.cards[#card.ability.extra.cards+1] = context.other_card.sort_id
+				card.ability.extra.cards[#card.ability.extra.cards + 1] = context.other_card.sort_id
 				sendDebugMessage("adding " .. context.other_card.sort_id, "is stone")
 				return {
 					message = localize('k_upgrade_ex'),
@@ -203,7 +203,7 @@ SMODS.Joker {
 			else
 				for k, v in pairs(card.ability.extra.cards) do
 					if v == context.other_card.sort_id then
-						card.ability.extra.cards[k] = nil 
+						card.ability.extra.cards[k] = nil
 					end
 				end
 			end
@@ -3222,7 +3222,7 @@ SMODS.Joker {
 -- Dreambreaker
 SMODS.Joker {
 	key = "dreambreaker",
-	blueprint_compat = false,
+	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 3,
@@ -3232,7 +3232,7 @@ SMODS.Joker {
 	pos = { x = 2, y = 5 },
 	config = { extra = { blind_multiplier = 0.25 } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_gimmick", set = "Other" }
 		return { vars = { number_format((card.ability.extra.blind_multiplier) * 100) } }
 	end,
 	calculate = function(self, card, context)
@@ -3250,7 +3250,7 @@ SMODS.Joker {
 		end
 	end,
 	in_pool = function(self, args)
-		return G.GAME.round_resets.ante >= 4
+		return G.GAME.round_resets.ante >= 2
 	end
 }
 

@@ -863,7 +863,7 @@ return {
             credits_gimmick = {
                 name = "Artist",
                 text = {
-                    "gimmick",
+                    "Vibri",
                     "{s:0.75,C:inactive}gimmick.bsky.social{}"
                 }
             },

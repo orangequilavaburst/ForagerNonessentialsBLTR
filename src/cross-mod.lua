@@ -381,15 +381,23 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
             if context.card_added and not context.blueprint then
                 if context.card.ability.set == "Joker" and (context.card:is_rarity(3) or context.card:is_rarity(4)) then
                     card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_inc
-                    return {
-                        message = localize('k_upgrade_ex'),
-                        colour = G.C.MULT,
+                    SMODS.calculate_effect({
+                        trigger = "after",
+                        delay = 0.5,
+                        message = localize("k_upgrade_ex"),
                         message_card = card,
+                        colour = G.C.MULT,
                         func = function()
-                            play_sound('j8mod_mattman' .. tostring(math.random(1, 18)), 1.0)
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                func = function()
+                                    play_sound('j8mod_mattman' .. tostring(math.random(1, 18)), 1.0)
+                                    return true
+                                end
+                            }))
                             return true
                         end
-                    }
+                    }, card)
                 end
             end
             if context.joker_main then
@@ -578,7 +586,7 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         discovered = false,
         unlocked = true,
         dependencies = { "ortalab" },
-        config = { extra = { odds = 2 } },
+        config = { extra = { odds = 2, cards = {} } },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_ore
             info_queue[#info_queue + 1] = G.P_CENTERS.m_ortalab_sand
@@ -588,39 +596,56 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
             return { vars = { numerator, denominator, localize({ type = 'name_text', set = "Enhanced", key = 'm_ortalab_ore' }) or 'Ore Card', localize({ type = 'name_text', set = "Enhanced", key = 'm_ortalab_sand' }) or 'Sand Card' } }
         end,
         calculate = function(self, card, context)
-            if context.individual and context.cardarea == G.play and not context.other_card.debuff and
-                SMODS.has_enhancement(context.other_card, 'm_ortalab_ore') and
-                SMODS.pseudorandom_probability(card, 'j8mod_xortalab_surface', 1, card.ability.extra.odds) then
-                local current_card = context.other_card
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.SECONDARY_SET.Enhanced,
-                    func = function()
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'immediate',
-                            func = function()
-                                current_card:flip()
-                                return true
-                            end
-                        }))
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.2,
-                            func = function()
-                                current_card:set_ability('m_ortalab_sand')
-                                return true
-                            end
-                        }))
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.2,
-                            func = function()
-                                current_card:flip()
-                                return true
-                            end
-                        }))
+            if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+                if SMODS.has_enhancement(context.other_card, 'm_ortalab_ore') and SMODS.pseudorandom_probability(card, 'j8mod_xortalab_surface', 1, card.ability.extra.odds) then
+                    local current_card = context.other_card
+                    local current_enh = current_card.config.center
+                    local current_vis = current_card:should_hide_front()
+                    current_card:set_ability('m_ortalab_sand', nil, false)
+                    current_card:set_sprites(current_enh, current_card.config.card)
+                    current_card.front_hidden = current_vis
+                    card.ability.extra.cards[#card.ability.extra.cards + 1] = context.other_card.sort_id
+                    sendDebugMessage("adding " .. context.other_card.sort_id, "is stone")
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.SECONDARY_SET.Enhanced,
+                        func = function()
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'immediate',
+                                func = function()
+                                    current_card:flip()
+                                    return true
+                                end
+                            }))
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.2,
+                                func = function()
+                                    current_card:set_sprites(G.P_CENTERS.m_ortalab_sand, current_card.config.card)
+                                    current_card.front_hidden = current_card:should_hide_front()
+                                    return true
+                                end
+                            }))
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.2,
+                                func = function()
+                                    current_card:flip()
+                                    return true
+                                end
+                            }))
+                        end
+                    }
+                else
+                    for k, v in pairs(card.ability.extra.cards) do
+                        if v == context.other_card.sort_id then
+                            card.ability.extra.cards[k] = nil
+                        end
                     end
-                }
+                end
+            end
+            if context.after then
+                card.ability.extra.cards = {}
             end
         end,
         in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
@@ -644,7 +669,7 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         cost = 1,
         atlas = "j8jokers-dlc",
         pos = { x = 1, y = 2 },
-        pixel_size = { w = 37, h = 49 },
+        pixel_size = { w = 59, h = 82 },
         discovered = false,
         unlocked = true,
         dependencies = { "ortalab" },
@@ -652,7 +677,7 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         loc_vars = function(self, info_queue, card)
             --info_queue[#info_queue + 1] = G.P_CENTERS["c_ortalab_corpus"]
             --info_queue[#info_queue + 1] = G.P_CENTERS["c_ortalab_ophiuchus"]
-            info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+            info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             return { vars = { card.ability.extra.ante_count, card.ability.extra.ante_max, localize { type = 'name_text', key = "c_ortalab_corpus", set = 'ortalab_mythos' }, localize { type = 'name_text', key = "c_ortalab_ophiuchus", set = 'ortalab_mythos' } } }
         end,
         calculate = function(self, card, context)
