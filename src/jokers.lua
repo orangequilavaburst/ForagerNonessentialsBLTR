@@ -1322,6 +1322,12 @@ SMODS.Joker {
 				SMODS.debuff_card(playing_card, false, 'j8mod_breakerbox')
 			end
 		end
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		for _, playing_card in ipairs(G.playing_cards) do
+			SMODS.debuff_card(playing_card, false, 'j8mod_breakerbox')
+			SMODS.recalc_debuff(playing_card)
+		end
 	end
 }
 
