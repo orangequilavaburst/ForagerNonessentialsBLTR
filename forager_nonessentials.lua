@@ -2489,7 +2489,6 @@ SMODS.DrawStep {
 					SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, 'j8mod_j8jokers-hypno',
 						{ x = 1, y = 0 })
 				card.config.j8mod_decoration.role.draw_major = card
-				card.config.j8mod_decoration:set_sprite_pos({ x = 1, y = J8MOD.config.furry_mode and 1 or 0 })
 				card.config.j8mod_decoration:draw_shader('j8mod_spiral', nil, card.ARGS.send_to_shader, nil,
 					card.children.center)
 			elseif card.config.center == G.P_CENTERS["j_j8mod_werewire"] then
