@@ -387,9 +387,10 @@ return {
             j_j8mod_funnybones = {
                 name = "Funnybones",
                 text = {
-                    "{C:blue,s:1.1}+#1#{} Chips for each card in hand,",
+                    "{C:blue,s:1.1}+#1#{} Chip for each card in hand,",
                     "each {C:attention}Joker{}, and each {C:attention}consumable{} you have",
-                    "{V:1}#2#{V:2}#3#{V:1}#4#{V:3}#5#{V:1}#6#"
+                    "{C:inactive}(...?){}",
+                --  TO LOCALIZERS: see: misc.dictionary.j8mod_funnybones_extra
                 }
             },
             j_j8mod_rap_battle = {
@@ -1098,7 +1099,22 @@ return {
             j8mod_girlfriend = "That's how you do it!",
             j8mod_card_ex = "Card!",
             j8mod_discover_all = "Discover All Jokers",
-            j8mod_undiscover_all = "Undiscover All Jokers"
+            j8mod_undiscover_all = "Undiscover All Jokers",
+            j8mod_funnybones_extra = {
+                _rank = {
+                    _nosuit = "{V:1}(Top card of deck: {V:2}#2#{V:1} of {V:3}no suit{V:1}){}",
+                    _anysuit = "{V:1}(Top card of deck: {V:2}#2#{V:1} of {V:3}any suit{V:1}){}",
+                    _suit = "{V:1}(Top card of deck: {V:2}#2#{V:1} of {V:3}#3#{V:1}){}",
+                },
+                _norank = {
+                    _nosuit = "{V:1}(Top card of deck: {V:3}#4#{V:1}){}",
+                    _anysuit = "{V:1}(Top card of deck: {V:2}rankless{V:1} {V:3}wild card{V:1}){}",
+                    _suit = "{V:1}(Top card of deck: {V:2}rankless{V:1} {V:3}#3#{V:1}){}",
+                },
+                _norank_nosuit = {
+                    _failsafe = "{V:1}(Top card of deck: {V:2}rankless{V:1} and {V:3}suitless{V:1})"
+                },
+            },
         }
     },
 }

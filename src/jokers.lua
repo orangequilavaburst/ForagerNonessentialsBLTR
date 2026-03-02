@@ -168,8 +168,7 @@ SMODS.Joker {
 				current_card:set_ability('m_glass', nil, false)
 				current_card:set_sprites(current_enh, current_card.config.card)
 				current_card.front_hidden = current_vis
-				card.ability.extra.cards[#card.ability.extra.cards + 1] = context.other_card.sort_id
-				sendDebugMessage("adding " .. context.other_card.sort_id, "is stone")
+				card.ability.extra.cards[#card.ability.extra.cards+1] = context.other_card.sort_id
 				return {
 					message = localize('k_upgrade_ex'),
 					colour = G.C.SECONDARY_SET.Enhanced,
@@ -2060,6 +2059,26 @@ SMODS.Joker {
 	end
 }
 
+--	This function sets up new localization entries and keys for Funnybones' dynamic tooltips
+J8MOD.process_loc_text = function(self)
+	SMODS.handle_loc_file(J8MOD.path)
+	for k, v in pairs(G.localization.misc.dictionary.j8mod_funnybones_extra) do
+		for i, j in pairs(v) do
+			local rettext = {}
+			for m, n in pairs(G.localization.descriptions.Joker.j_j8mod_funnybones.text) do
+				if m ~= #G.localization.descriptions.Joker.j_j8mod_funnybones.text then
+					rettext[#rettext+1] = n
+				end
+			end
+			rettext[#rettext+1] = j
+			G.localization.descriptions.Joker["j_j8mod_funnybones" .. k .. i] = {
+				name = G.localization.descriptions.Joker.j_j8mod_funnybones.name,
+				text = rettext
+			}
+		end
+	end
+end
+
 -- Funnybones
 SMODS.Joker {
 	key = "funnybones",
@@ -2076,20 +2095,62 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		local has_self = next(SMODS.find_card(self.key))
-		local ret_vals = { card.ability.extra.t_chips, "(...?)", "", "", "", "", colours = { G.C.UI.TEXT_INACTIVE, G.C.FILTER, G.C.UI.TEXT_INACTIVE } }
+		local ret_vals = { card.ability.extra.t_chips, "rank", "suit", "other", colours = { G.C.UI.TEXT_INACTIVE, G.C.FILTER, G.C.UI.TEXT_INACTIVE } }
+		local loc_key = "j_j8mod_funnybones"
 		if has_self then
-			ret_vals[2] = "(Top card of deck is "
-			ret_vals[3] = localize((G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.value or "Ace"),
-				'ranks')
-			ret_vals[4] = " of "
-			ret_vals[5] = localize(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.suit or 'Diamonds',
-				'suits_plural')
-			ret_vals[6] = ")"
-			ret_vals.colours[3] = G.deck and G.deck.cards[1] and G.C.SUITS[ret_vals[5]] or G.C.UI.TEXT_INACTIVE
+			if G.deck and G.deck.cards and G.deck.cards[1] and G.deck.cards[#G.deck.cards] then
+
+				if SMODS.has_no_rank(G.deck.cards[#G.deck.cards]) then
+					loc_key = loc_key .. "_norank"
+					ret_vals.colours[2] = G.C.RED
+				else
+					loc_key = loc_key .. "_rank"
+					ret_vals[2] = localize(G.deck.cards[#G.deck.cards].base.value or "Ace", 'ranks')
+					ret_vals.colours[2] = G.C.FILTER
+				end
+
+				if SMODS.has_no_suit(G.deck.cards[#G.deck.cards]) then
+					loc_key = loc_key .. "_nosuit"
+					ret_vals.colours[3] = G.C.RED
+				elseif SMODS.has_any_suit(G.deck.cards[#G.deck.cards]) then
+					loc_key = loc_key .. "_anysuit"
+					ret_vals.colours[3] = G.C.DARK_EDITION
+				else
+					loc_key = loc_key .. "_suit"
+					ret_vals[3] = localize(G.deck.cards[#G.deck.cards].base.suit or "Diamonds", 'suits_plural')
+					ret_vals.colours[3] = G.C.SUITS[ret_vals[3]] or G.C.FILTER
+				end
+
+				if SMODS.has_no_rank(G.deck.cards[#G.deck.cards]) and SMODS.has_no_suit(G.deck.cards[#G.deck.cards]) then
+					local hastext = function(card)
+						local try1 = localize({type="name_text", set="Enhanced", key=card.config.center.key})
+						local try2 = localize({type="name_text", key=card.config.center.key})
+						local text =
+							(not (type(try1) == "string" and try1 == "ERROR") and try1)
+						or
+							(not (type(try2) == "string" and try2 == "ERROR") and try2)
+						or
+							false
+						if text then
+							return text
+						elseif card.config.center.name then
+							return card.config.center.name
+						else return false end
+					end
+					if hastext(G.deck.cards[#G.deck.cards]) then
+						ret_vals[4] = hastext(G.deck.cards[#G.deck.cards])
+						ret_vals.colours[3] = G.C.FILTER
+					else
+						loc_key = loc_key .. "_failsafe"
+						ret_vals.colours[2] = G.C.UI.TEXT_DARK
+						ret_vals.colours[3] = G.C.UI.TEXT_DARK
+					end
+				end
+			end
 		end
 		return {
-			vars =
-				ret_vals
+			vars = ret_vals,
+			key = loc_key
 		}
 	end,
 	calculate = function(self, card, context)
