@@ -363,7 +363,7 @@ return {
                 name = "Modeling Clay",
                 text = {
                     "Changes ability to a random {C:attention}Joker{}",
-                    "at start of round or on {C:red}discard{}",
+                    "at start of round",
                 }
             },
             j_j8mod_geode = {

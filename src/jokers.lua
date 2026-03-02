@@ -1823,7 +1823,7 @@ SMODS.Joker {
 	end,
 
 	calculate = function(self, card, context)
-		if (context.setting_blind or context.pre_discard) and not card.debuff and not context.blueprint and not context.retrigger_joker then
+		if (context.setting_blind) and not card.debuff and not context.blueprint and not context.retrigger_joker then
 			local center = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('j8_modeling_clay'))
 			card.config.center = G.P_CENTERS['j_j8mod_modeling_clay']
 			card:remove_from_deck()
