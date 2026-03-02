@@ -1,5 +1,7 @@
 # Balatro: Forager Nonessentials (v1.0)
 
+[![Balatro: Forager Nonessentials Thumbnail](http://img.youtube.com/vi/dY7gUqvkbbA/0.jpg)](http://www.youtube.com/watch?v=dY7gUqvkbbA "Balatro: Forager Nonessentials (v1.0) - Trailer")
+
 **Forager Nonessentials** is a vanilla-adjacent mod aiming to add a decent variety of fun, fresh, and occasionally self-indulgent additions to Balatro. The features added by this mod are meant to compliment the main game, opening up new opportunities and different approaches to runs without completely overhauling the gameplay experience or overwhelming players with new content.
 
 What to expect out of the mod:
