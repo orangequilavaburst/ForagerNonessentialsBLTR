@@ -900,29 +900,31 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         calculate = function(self, card, context)
             if context.after and not context.blueprint then
                 local cards_to_trigger = {}
-                return {
-                    message = localize("k_upgrade_ex"),
-                    colour = G.C.UI.TEXT_DARK,
-                    func = function()
-                        for _, v in ipairs(G.play.cards) do
-                            local percent = 0.85 + (_ - 0.999) / (#G.hand.cards - 0.998) * 0.3
-                            if _ > 1 and SMODS.has_enhancement(v, card.ability.extra.enhancement) then
-                                G.E_MANAGER:add_event(Event({
-                                    trigger = 'after',
-                                    delay = 0.1,
-                                    func = function()
-                                        copy_card(v, G.play.cards[_ - 1])
-                                        play_sound('tarot2', percent, 0.6)
-                                        G.play.cards[_ - 1]:juice_up(0.3, 0.5)
-                                        return true
-                                    end
-                                }))
+                for _, v in ipairs(G.play.cards) do
+                    local percent = 0.85 + (_ - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                    if _ > 1 and SMODS.has_enhancement(v, card.ability.extra.enhancement) then
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.1,
+                            func = function()
+                                copy_card(v, G.play.cards[_ - 1])
+                                table.insert(cards_to_trigger, v)
+                                play_sound('tarot2', percent, 0.6)
+                                G.play.cards[_ - 1]:juice_up(0.3, 0.5)
+                                return true
                             end
-                        end
-                        delay(0.5)
-                        return true
+                        }))
                     end
-                }
+                end
+                if #cards_to_trigger > 0 then
+                    return {
+                        message = localize("k_upgrade_ex"),
+                        colour = G.C.UI.TEXT_DARK,
+                        func = function()
+                            return true
+                        end
+                    }
+                end
             end
         end,
         in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`

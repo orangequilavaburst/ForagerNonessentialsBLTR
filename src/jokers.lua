@@ -1334,7 +1334,7 @@ SMODS.Joker {
 -- Monster Card
 SMODS.Joker {
 	key = "monster_card",
-	blueprint_compat = false,
+	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
 	rarity = 1,
@@ -1349,7 +1349,7 @@ SMODS.Joker {
 		return { vars = { card.ability.extra.money_min, card.ability.extra.money_max, card.ability.extra.con_count, card.ability.extra.joker_min, card.ability.extra.joker_max } }
 	end,
 	calculate = function(self, card, context)
-		if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+		if context.end_of_round and context.game_over == false and context.main_eval then
 			local blind_type = G.GAME.blind:get_type()
 			if blind_type == "Small" then
 				local money_count = pseudorandom('j8mod_monster_card', card.ability.extra.money_min,
@@ -3719,7 +3719,7 @@ SMODS.Joker {
 			}
 		end
 		-- playing cards
-		if context.repetition and (context.other_card.edition and context.other_card.edition.key == "e_negative") then
+		if context.repetition and context.other_card ~= card and (context.other_card.edition and context.other_card.edition.key == "e_negative") then
 			return {
 				repetitions = card.ability.extra.repetitions,
 				colour = G.C.EDITION,
