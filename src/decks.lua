@@ -121,7 +121,7 @@ SMODS.Back {
 						local percent = 1.0
 						G.E_MANAGER:add_event(Event({
 							trigger = "after",
-							delay = 0.2,
+							delay = 0.1,
 							func = function()
 								context.other_card:flip()
 								play_sound('card1', percent)
@@ -129,7 +129,7 @@ SMODS.Back {
 								return true
 							end
 						}))
-						delay(0.2)
+						delay(0.1)
 						G.E_MANAGER:add_event(Event({
 							trigger = "after",
 							delay = 0.1,
@@ -138,10 +138,10 @@ SMODS.Back {
 								return true
 							end
 						}))
-						delay(0.2)
+						delay(0.1)
 						G.E_MANAGER:add_event(Event({
 							trigger = "after",
-							delay = 0.2,
+							delay = 0.1,
 							func = function()
 								context.other_card:flip()
 								play_sound('tarot2', percent)
@@ -149,7 +149,7 @@ SMODS.Back {
 								return true
 							end
 						}))
-						delay(1.0)
+						delay(0.25)
 						return true -- This is for Joker retrigger purposes
 					end
 				}
