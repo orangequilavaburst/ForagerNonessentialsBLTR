@@ -168,7 +168,7 @@ SMODS.Joker {
 				current_card:set_ability('m_glass', nil, false)
 				current_card:set_sprites(current_enh, current_card.config.card)
 				current_card.front_hidden = current_vis
-				card.ability.extra.cards[#card.ability.extra.cards+1] = context.other_card.sort_id
+				card.ability.extra.cards[#card.ability.extra.cards + 1] = context.other_card.sort_id
 				return {
 					message = localize('k_upgrade_ex'),
 					colour = G.C.SECONDARY_SET.Enhanced,
@@ -2005,7 +2005,7 @@ SMODS.Joker {
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers-hypno",
-	pos = { x = 0, y = 1 },
+	pos = { x = 0, y = 0 },
 	--[[
 	soul_pos = {
 		x = 1, y = 1,
@@ -2019,7 +2019,7 @@ SMODS.Joker {
 	unlocked = true,
 	config = { extra = { chips = 1, mult = 1, adding_chips = true } },
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "credits_placeholder", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "credits_anubis_jr", set = "Other" }
 		return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.adding_chips and "Chips" or "Mult", colours = { card.ability.extra.adding_chips and G.C.CHIPS or G.C.MULT } } }
 	end,
 	calculate = function(self, card, context)
@@ -2038,25 +2038,17 @@ SMODS.Joker {
 			}
 		end
 	end,
+	--[[
 	update = function(self, card, dt)
 		if card.config.center.discovered or card.bypass_discovery_center then
 			if J8MOD.config.furry_mode then
 				card.children.center:set_sprite_pos({ x = 0, y = 1 })
-				--[[
-			if card.children.floating_sprite then
-				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 1 })
-			end
-			]]
 			else
 				card.children.center:set_sprite_pos({ x = 0, y = 0 })
-				--[[
-			if card.children.floating_sprite then
-				card.children.floating_sprite:set_sprite_pos({ x = 1, y = 0 })
-			end
-			]]
 			end
 		end
 	end
+	]]
 }
 
 --	This function sets up new localization entries and keys for Funnybones' dynamic tooltips
@@ -2067,10 +2059,10 @@ J8MOD.process_loc_text = function(self)
 			local rettext = {}
 			for m, n in pairs(G.localization.descriptions.Joker.j_j8mod_funnybones.text) do
 				if m ~= #G.localization.descriptions.Joker.j_j8mod_funnybones.text then
-					rettext[#rettext+1] = n
+					rettext[#rettext + 1] = n
 				end
 			end
-			rettext[#rettext+1] = j
+			rettext[#rettext + 1] = j
 			G.localization.descriptions.Joker["j_j8mod_funnybones" .. k .. i] = {
 				name = G.localization.descriptions.Joker.j_j8mod_funnybones.name,
 				text = rettext
@@ -2099,7 +2091,6 @@ SMODS.Joker {
 		local loc_key = "j_j8mod_funnybones"
 		if has_self then
 			if G.deck and G.deck.cards and G.deck.cards[1] and G.deck.cards[#G.deck.cards] then
-
 				if SMODS.has_no_rank(G.deck.cards[#G.deck.cards]) then
 					loc_key = loc_key .. "_norank"
 					ret_vals.colours[2] = G.C.RED
@@ -2123,19 +2114,21 @@ SMODS.Joker {
 
 				if SMODS.has_no_rank(G.deck.cards[#G.deck.cards]) and SMODS.has_no_suit(G.deck.cards[#G.deck.cards]) then
 					local hastext = function(card)
-						local try1 = localize({type="name_text", set="Enhanced", key=card.config.center.key})
-						local try2 = localize({type="name_text", key=card.config.center.key})
+						local try1 = localize({ type = "name_text", set = "Enhanced", key = card.config.center.key })
+						local try2 = localize({ type = "name_text", key = card.config.center.key })
 						local text =
 							(not (type(try1) == "string" and try1 == "ERROR") and try1)
-						or
+							or
 							(not (type(try2) == "string" and try2 == "ERROR") and try2)
-						or
+							or
 							false
 						if text then
 							return text
 						elseif card.config.center.name then
 							return card.config.center.name
-						else return false end
+						else
+							return false
+						end
 					end
 					if hastext(G.deck.cards[#G.deck.cards]) then
 						ret_vals[4] = hastext(G.deck.cards[#G.deck.cards])

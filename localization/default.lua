@@ -329,7 +329,7 @@ return {
                 text = {
                     "Sell this card to",
                     "enhance all cards in hand",
-                    "to a {C:attention}#1#{}, {C:attention}#2#{},",
+                    "into a {C:attention}#1#{}, {C:attention}#2#{},",
                     "or {C:attention}#3#{} at random"
                 },
             },
@@ -390,7 +390,7 @@ return {
                     "{C:blue,s:1.1}+#1#{} Chip for each card in hand,",
                     "each {C:attention}Joker{}, and each {C:attention}consumable{} you have",
                     "{C:inactive}(...?){}",
-                --  TO LOCALIZERS: see: misc.dictionary.j8mod_funnybones_extra
+                    --  TO LOCALIZERS: see: misc.dictionary.j8mod_funnybones_extra
                 }
             },
             j_j8mod_rap_battle = {
@@ -820,7 +820,7 @@ return {
                 text = {
                     "Sell this card to",
                     "enhance all cards in hand",
-                    "to a {C:attention}#1#{}, {C:attention}#2#{},",
+                    "into a {C:attention}#1#{}, {C:attention}#2#{},",
                     "or {C:attention}#3#{} at random"
                 },
             },
