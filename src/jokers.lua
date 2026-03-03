@@ -3440,9 +3440,6 @@ SMODS.Joker {
 			end
 		end
 	end,
-	in_pool = function(self, args)
-		return G.GAME.hands["Straight Flush"].played > 0
-	end,
 	set_ability = function(self, card, initial, delay_sprites)
 		if self.discovered or card.bypass_discovery_center then
 			card.T.w = G.CARD_W * (74 / 71)
