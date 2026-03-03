@@ -2417,6 +2417,17 @@ function CardArea:emplace(card, location, stay_flipped)
 	return ret
 end
 
+local create_card_hook = create_card
+function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+	local forced_key = forced_key or nil
+	if (G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic"
+	and G.GAME.round ~= 0 and area == G.consumeables) then
+		forced_key = replace_with_player_consumable(_type)
+	end
+	return create_card_hook(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+end
+		
+
 -- ## GRADIENTS ##
 
 SMODS.Gradient({

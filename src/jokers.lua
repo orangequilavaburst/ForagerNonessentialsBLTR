@@ -1868,7 +1868,6 @@ SMODS.Joker {
 			card = self:create_fake_card()
 		end
 
-		info_queue[#info_queue + 1] = { key = "credits_sharb", set = "Other" }
 		if card.ability and card.ability.j8mod_modeling_key then
 			local target = {
 				type = 'descriptions',
@@ -1924,7 +1923,14 @@ SMODS.Joker {
 			end
 
 			desc_nodes.background_colour = res.background_colour
+			for k, v in pairs(info_queue) do
+				if string.sub(v.key, 1, 8) == "credits_" then
+					info_queue[k] = nil
+				end
+			end
 			return
+		else
+			info_queue[#info_queue + 1] = { key = "credits_sharb", set = "Other" }
 		end
 
 		if card.config and card.config.center.discovered then
