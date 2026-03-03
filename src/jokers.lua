@@ -2096,7 +2096,11 @@ SMODS.Joker {
 		local ret_vals = { card.ability.extra.t_chips, "rank", "suit", "other", colours = { G.C.UI.TEXT_INACTIVE, G.C.FILTER, G.C.UI.TEXT_INACTIVE } }
 		local loc_key = "j_j8mod_funnybones"
 		if has_self then
-			if G.deck and G.deck.cards and G.deck.cards[1] and G.deck.cards[#G.deck.cards] then
+			if G.STATE == G.STATES.BLIND_SELECT then
+				loc_key = loc_key .. "_fallback_blind"
+				ret_vals.colours[2] = G.C.FILTER
+				ret_vals.colours[3] = G.C.FILTER
+			elseif G.deck and G.deck.cards and G.deck.cards[1] and G.deck.cards[#G.deck.cards] then
 				if SMODS.has_no_rank(G.deck.cards[#G.deck.cards]) then
 					loc_key = loc_key .. "_norank"
 					ret_vals.colours[2] = G.C.RED
@@ -2140,7 +2144,7 @@ SMODS.Joker {
 						ret_vals[4] = hastext(G.deck.cards[#G.deck.cards])
 						ret_vals.colours[3] = G.C.FILTER
 					else
-						loc_key = loc_key .. "_failsafe"
+						loc_key = "j_j8mod_funnybones_fallback_blank"
 						ret_vals.colours[2] = G.C.UI.TEXT_DARK
 						ret_vals.colours[3] = G.C.UI.TEXT_DARK
 					end

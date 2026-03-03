@@ -1102,17 +1102,18 @@ return {
             j8mod_undiscover_all = "Undiscover All Jokers",
             j8mod_funnybones_extra = {
                 _rank = {
-                    _nosuit = "{V:1}(Top card of deck: {V:2}#2#{V:1} of {V:3}no suit{V:1}){}",
-                    _anysuit = "{V:1}(Top card of deck: {V:2}#2#{V:1} of {V:3}any suit{V:1}){}",
-                    _suit = "{V:1}(Top card of deck: {V:2}#2#{V:1} of {V:3}#3#{V:1}){}",
+                    _nosuit = "{V:1}(Next card in deck: {V:2}#2#{V:1} of {V:3}no suit{V:1}){}",
+                    _anysuit = "{V:1}(Next card in deck: {V:2}#2#{V:1} of {V:3}any suit{V:1}){}",
+                    _suit = "{V:1}(Next card in deck: {V:2}#2#{V:1} of {V:3}#3#{V:1}){}",
                 },
                 _norank = {
-                    _nosuit = "{V:1}(Top card of deck: {V:3}#4#{V:1}){}",
-                    _anysuit = "{V:1}(Top card of deck: {V:2}rankless{V:1} {V:3}wild card{V:1}){}",
-                    _suit = "{V:1}(Top card of deck: {V:2}rankless{V:1} {V:3}#3#{V:1}){}",
+                    _nosuit = "{V:1}(Next card in deck: {V:3}#4#{V:1}){}",
+                    _anysuit = "{V:1}(Next card in deck: {V:2}rankless{V:1} {V:3}wild card{V:1}){}",
+                    _suit = "{V:1}(Next card in deck: {V:2}rankless{V:1} {V:3}#3#{V:1}){}",
                 },
-                _norank_nosuit = {
-                    _failsafe = "{V:1}(Top card of deck: {V:2}rankless{V:1} and {V:3}suitless{V:1})"
+                _fallback = {
+                    _blank = "{V:1}(Next card in deck: {V:2}rankless{V:1} and {V:3}suitless{V:1})",
+                    _blind = "{V:1}(Will display the {V:2}next card{V:1} in the {V:3}deck{V:1})"
                 },
             },
         }
