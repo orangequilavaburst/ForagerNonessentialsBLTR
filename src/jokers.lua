@@ -2513,6 +2513,11 @@ SMODS.Joker {
 				for index, shop_card in ipairs(G.shop_booster.cards) do
 					table.insert(cards_to_spindown, shop_card)
 				end
+			elseif G.STATE == G.STATES.SMODS_BOOSTER_OPENED then
+				-- get all cards in a booster pack
+				for index, card in ipairs(G.pack_cards.cards) do
+					table.insert(cards_to_spindown, card)
+				end
 			elseif G.STATE == G.STATES.SELECTING_HAND then
 				-- get all cards in hand
 				for index, card in ipairs(G.hand.cards) do
@@ -2614,6 +2619,11 @@ SMODS.Joker {
 				-- get all shop booster packs
 				for index, shop_card in ipairs(G.shop_booster.cards) do
 					table.insert(cards_to_spindown, shop_card)
+				end
+			elseif G.STATE == G.STATES.SMODS_BOOSTER_OPENED then
+				-- get all cards in a booster pack
+				for index, card in ipairs(G.pack_cards.cards) do
+					table.insert(cards_to_spindown, card)
 				end
 			elseif G.STATE == G.STATES.SELECTING_HAND then
 				-- get all cards in hand
