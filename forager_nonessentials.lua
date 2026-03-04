@@ -2663,7 +2663,7 @@ function get_rarity_index(rarity)
 	end
 end
 
-function spindown(card, amount)
+function spindown(card, amount, allcards)
 	local key = card.config.center.key
 	local set = card.ability.set
 
@@ -2732,7 +2732,21 @@ function spindown(card, amount)
 			end
 		end
 		index = 1 + (index + #G.P_CENTER_POOLS[set] + amount - 1) % #G.P_CENTER_POOLS[set]
-		card:set_ability(G.P_CENTER_POOLS[set][index].key)
+		new_key = G.P_CENTER_POOLS[set][index].key
+		-- In Hypnotic Deck, only randomizes the first spun-down consumable of its set; the rest copy
+		if G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
+		and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic" and card.ability.consumeable and allcards then
+			for k, v in pairs(allcards) do
+				if v.ability.set == set then
+					if (card.area ~= G.pack_cards) and (v ~= card) then
+						new_key = v.config.center.key
+					end
+					break
+				end
+			end
+		end
+
+		card:set_ability(new_key)
 	end
 end
 

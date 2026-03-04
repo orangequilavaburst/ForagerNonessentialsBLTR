@@ -2500,6 +2500,17 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		if context.selling_self then
 			local cards_to_spindown = {}
+			-- get all jokers
+			for index, joker in ipairs(G.jokers.cards) do
+				if joker ~= card then
+					table.insert(cards_to_spindown, joker)
+				end
+			end
+			-- get all consumables
+			for index, cn in ipairs(G.consumeables.cards) do
+				table.insert(cards_to_spindown, cn)
+			end
+
 			if G.STATE == G.STATES.SHOP then
 				-- get all shop cards
 				for index, shop_card in ipairs(G.shop_jokers.cards) do
@@ -2525,17 +2536,6 @@ SMODS.Joker {
 				end
 			end
 
-			-- get all jokers
-			for index, joker in ipairs(G.jokers.cards) do
-				if joker ~= card then
-					table.insert(cards_to_spindown, joker)
-				end
-			end
-			-- get all consumables
-			for index, cn in ipairs(G.consumeables.cards) do
-				table.insert(cards_to_spindown, cn)
-			end
-
 			-- spin them down!
 			for index, sd in ipairs(cards_to_spindown) do
 				local percent = 0.85 + (index - 0.999) / (#cards_to_spindown - 0.998) * 0.3
@@ -2554,7 +2554,7 @@ SMODS.Joker {
 					trigger = 'after',
 					delay = 0.1,
 					func = function()
-						spindown(sd, -1)
+						spindown(sd, -1, cards_to_spindown)
 						sd:flip()
 						play_sound('tarot2', percent, 0.6)
 						sd:juice_up(0.3, 0.3)
@@ -2607,6 +2607,17 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		if context.selling_self then
 			local cards_to_spindown = {}
+			-- get all jokers
+			for index, joker in ipairs(G.jokers.cards) do
+				if joker ~= card then
+					table.insert(cards_to_spindown, joker)
+				end
+			end
+			-- get all consumables
+			for index, cn in ipairs(G.consumeables.cards) do
+				table.insert(cards_to_spindown, cn)
+			end
+
 			if G.STATE == G.STATES.SHOP then
 				-- get all shop cards
 				for index, shop_card in ipairs(G.shop_jokers.cards) do
@@ -2632,17 +2643,6 @@ SMODS.Joker {
 				end
 			end
 
-			-- get all jokers
-			for index, joker in ipairs(G.jokers.cards) do
-				if joker ~= card then
-					table.insert(cards_to_spindown, joker)
-				end
-			end
-			-- get all consumables
-			for index, cn in ipairs(G.consumeables.cards) do
-				table.insert(cards_to_spindown, cn)
-			end
-
 			-- spin them down!
 			for index, sd in ipairs(cards_to_spindown) do
 				local percent = 0.85 + (index - 0.999) / (#cards_to_spindown - 0.998) * 0.3
@@ -2661,7 +2661,7 @@ SMODS.Joker {
 					trigger = 'after',
 					delay = 0.1,
 					func = function()
-						spindown(sd, pseudorandom("j8mod_d100", 1, #G.P_CENTER_POOLS[sd.ability.set]))
+						spindown(sd, pseudorandom("j8mod_d100", 1, #G.P_CENTER_POOLS[sd.ability.set]), cards_to_spindown)
 						sd:flip()
 						play_sound('tarot2', percent, 0.6)
 						sd:juice_up(0.3, 0.3)
