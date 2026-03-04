@@ -216,7 +216,7 @@ SMODS.Back {
 	key = "hypnotic",
 	pos = { x = 6, y = 0 },
 	atlas = "j8decks",
-	config = { consumables = { 'c_death', 'c_trance' }, ante_scaling = 1.2 },
+	config = { spectral_rate = 2, consumables = { 'c_death', 'c_trance' }, ante_scaling = 1.2 },
 	loc_vars = function(self, info_queue, back)
 		return {
 			vars = {
