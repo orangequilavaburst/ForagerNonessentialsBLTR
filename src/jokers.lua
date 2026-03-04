@@ -1924,7 +1924,7 @@ SMODS.Joker {
 
 			desc_nodes.background_colour = res.background_colour
 			for k, v in pairs(info_queue) do
-				if string.sub(v.key, 1, 8) == "credits_" then
+				if v.key and type(v.key) == "string" and (string.find(v.key, "credits_") or string.find(v.key, "oc_")) then
 					info_queue[k] = nil
 				end
 			end
