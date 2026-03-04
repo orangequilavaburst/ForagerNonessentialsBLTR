@@ -480,8 +480,8 @@ return {
             j_j8mod_mizzmanaged = {
                 name = "Mizzmanaged",
                 text = {
-                    "This Joker gains {X:mult,C:white} X#1# {} Mult",
-                    "per scoring card with {C:attention}any Seal{} played,",
+                    "This Joker gains {X:mult,C:white} X#1# {} Mult each",
+                    "time a card with {C:attention}any Seal{} scores,",
                     "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}Queen",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 },
@@ -489,8 +489,8 @@ return {
             j_j8mod_iron_maiden = {
                 name = "Iron Maiden",
                 text = {
-                    "This Joker gains {X:mult,C:white} X#1# {} Mult",
-                    "per scoring card with {C:attention}any Seal{} played,",
+                    "This Joker gains {X:mult,C:white} X#1# {} Mult each",
+                    "time a card with {C:attention}any Seal{} scores,",
                     "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}Queen",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 }
