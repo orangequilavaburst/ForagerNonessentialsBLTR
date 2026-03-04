@@ -2553,12 +2553,28 @@ SMODS.Joker {
 						sd:flip()
 						play_sound('tarot2', percent, 0.6)
 						sd:juice_up(0.3, 0.3)
-						save_run()
 						return true
 					end
 				}))
 			end
-
+			local countchange = -1
+			-- i wanted to set the value in an event just in case
+			G.E_MANAGER:add_event(Event({
+				trigger = 'immediate',
+				func = function()
+					countchange = #G.jokers.cards
+					return true
+				end,
+			}))
+			G.E_MANAGER:add_event(Event({
+				trigger = 'immediate',
+				func = function()
+					if #G.jokers.cards == countchange then return false end
+					save_run()
+					return true
+				end,
+				blocking = false,
+			}))
 
 			return nil, true -- This is for Joker retrigger purposes
 		end
@@ -2639,11 +2655,28 @@ SMODS.Joker {
 						sd:flip()
 						play_sound('tarot2', percent, 0.6)
 						sd:juice_up(0.3, 0.3)
-						save_run()
 						return true
 					end
 				}))
 			end
+			local countchange = -1
+			-- i wanted to set the value in an event just in case
+			G.E_MANAGER:add_event(Event({
+				trigger = 'immediate',
+				func = function()
+					countchange = #G.jokers.cards
+					return true
+				end,
+			}))
+			G.E_MANAGER:add_event(Event({
+				trigger = 'immediate',
+				func = function()
+					if #G.jokers.cards == countchange then return false end
+					save_run()
+					return true
+				end,
+				blocking = false,
+			}))
 
 			return nil, true -- This is for Joker retrigger purposes
 		end

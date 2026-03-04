@@ -2668,7 +2668,7 @@ function spindown(card, amount)
 	local set = card.ability.set
 
 	local index = 0
-	if set == "Default" then -- playing card
+	if set == "Default" or set == "Enhanced" then -- playing card
 		SMODS.modify_rank(card, amount)
 		--[[
 	elseif set == "Joker" then
