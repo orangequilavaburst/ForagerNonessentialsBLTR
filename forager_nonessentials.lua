@@ -2397,6 +2397,8 @@ local cardarea_emplace_hook = CardArea.emplace
 function CardArea:emplace(card, location, stay_flipped)
 	local ret = cardarea_emplace_hook(self, card, location, stay_flipped)
 
+	if self == G.play then return ret end
+
 	if (G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic") then
 		--print("on hypnotic deck")
 		if self ~= G.jokers then
