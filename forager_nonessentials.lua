@@ -2504,6 +2504,21 @@ SMODS.Shader({ key = 'wiggly', path = 'wiggly.fs' })
 
 -- ## DRAW STEPS ##
 
+SMODS.DrawStep({
+	key = "waterproof_shader",
+	order = 5,
+	func = function(card, layer)
+		if (
+			card.back == "selected_back" and G.GAME.selected_back.effect.center.key == "b_j8mod_waterproof"
+		) or (
+			card.back == "viewed_back" and G.GAME.viewed_back.effect.center.key == "b_j8mod_waterproof"
+		) then
+			card.children.back:draw_shader('booster', nil, card.ARGS.send_to_shader, true, card.children.back, scale_mod, rotate_mod)
+		end
+	end,
+	conditions = { vortex = false, facing = "back" }
+})
+
 SMODS.DrawStep {
 	key = "decoration",
 	order = 30,

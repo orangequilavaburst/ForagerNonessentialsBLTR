@@ -163,12 +163,21 @@ SMODS.Joker {
 		if context.individual and context.cardarea == G.play and not context.other_card.debuff then
 			if SMODS.has_enhancement(context.other_card, 'm_stone') and SMODS.pseudorandom_probability(card, 'j8mod_metamorphic', 1, card.ability.extra.odds) then
 				local current_card = context.other_card
-				local current_enh = current_card.config.center
-				local current_vis = current_card:should_hide_front()
+				local old = {
+					enh = current_card.config.center,
+					vis = current_card:should_hide_front(),
+				}
 				current_card:set_ability('m_glass', nil, false)
-				current_card:set_sprites(current_enh, current_card.config.card)
-				current_card.front_hidden = current_vis
-				card.ability.extra.cards[#card.ability.extra.cards + 1] = context.other_card.sort_id
+				local new = {
+					cen = current_card.config.center,
+					vis = current_card:should_hide_front(),
+				}
+				current_card:set_sprites(old.enh, nil)
+				current_card.front_hidden = old.vis
+				card.ability.extra.cards[#card.ability.extra.cards + 1] = {
+					card = context.other_card,
+					glass = SMODS.has_enhancement(current_card, "m_glass"),
+				}
 				return {
 					message = localize('k_upgrade_ex'),
 					colour = G.C.SECONDARY_SET.Enhanced,
@@ -184,8 +193,8 @@ SMODS.Joker {
 							trigger = 'after',
 							delay = 0.2,
 							func = function()
-								current_card:set_sprites(G.P_CENTERS.m_glass, current_card.config.card)
-								current_card.front_hidden = current_card:should_hide_front()
+								current_card:set_sprites(new.cen, nil)
+								current_card.front_hidden = new.vis
 								return true
 							end
 						}))
@@ -201,23 +210,21 @@ SMODS.Joker {
 				}
 			else
 				for k, v in pairs(card.ability.extra.cards) do
-					if v == context.other_card.sort_id then
+					if v.card.sort_id == context.other_card.sort_id then
 						card.ability.extra.cards[k] = nil
+						break
 					end
 				end
 			end
 		end
 		if context.mod_probability and not context.blueprint and context.identifier == "glass" then
 			for k, v in pairs(card.ability.extra.cards) do
-				if v == context.trigger_obj.sort_id then
+				if v.card.sort_id == context.trigger_obj.sort_id and not v.glass then
 					return {
 						numerator = 0
 					}
 				end
 			end
-		end
-		if context.after then
-			card.ability.extra.cards = {}
 		end
 	end,
 	in_pool = function(self, args) --equivalent to `enhancement_gate = 'm_stone'`
@@ -3001,8 +3008,7 @@ SMODS.Joker {
 									local eligible_card = pseudorandom_element(editionless_jokers,
 										'j8mod_expansion_plans')
 									if eligible_card ~= nil then
-										eligible_card:set_edition({ negative = true })
-
+										eligible_card:set_edition({ negative = true }, true)
 										card:juice_up(0.3, 0.5)
 									end
 									return true
@@ -3042,7 +3048,7 @@ SMODS.Joker {
 	discovered = false,
 	unlocked = true,
 	pos = { x = 6, y = 4 },
-	config = { extra = { enhancement = "m_wild" } },
+	config = { extra = { enhancement = "m_wild", old = {} } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement_type]
 		info_queue[#info_queue + 1] = { key = "credits_neognw", set = "Other" }
@@ -3063,6 +3069,29 @@ SMODS.Joker {
 					func = function()
 						for i, scored_card in ipairs(debuffed_cards) do
 							local percent = 0.85 + (i - 0.999) / (#G.play.cards - 0.998) * 0.3
+							local idx = 0
+							for k, v in pairs(context.full_hand) do
+								if v == scored_card then
+									idx = k
+									if not card.ability.extra.old[k] then
+										card.ability.extra.old[k] = {
+											cen = scored_card.config.center,
+											vis = scored_card:should_hide_front(),
+										}
+									end
+									break
+								end
+							end
+							scored_card:set_ability(card.ability.extra.enhancement, nil, false)
+							local new = {
+								cen = scored_card.config.center,
+								vis = scored_card:should_hide_front(),
+							}							
+							if idx ~= 0 then
+								local old = card.ability.extra.old[idx]
+								scored_card:set_sprites(old.cen, nil)
+								scored_card.front_hidden = old.vis
+							end
 							G.E_MANAGER:add_event(Event({
 								trigger = 'immediate',
 								func = function()
@@ -3075,7 +3104,9 @@ SMODS.Joker {
 								trigger = 'after',
 								delay = 0.2,
 								func = function()
-									scored_card:set_ability(card.ability.extra.enhancement)
+									scored_card:set_sprites(new.cen, nil)
+									scored_card.front_hidden = new.vis
+									card.ability.extra.old[idx] = nil
 									return true
 								end
 							}))
@@ -3379,7 +3410,7 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = false,
 	pos = { x = 3, y = 5 },
-	config = { extra = { rank_inc = 1 } },
+	config = { extra = { rank_inc = 1, old = {} } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
 		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
@@ -3388,7 +3419,25 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not context.other_card.debuff and
 			SMODS.has_enhancement(context.other_card, 'm_wild') then
+			local idx = 0
 			local current_card = context.other_card
+			for k, v in pairs(context.scoring_hand) do
+				if v == current_card then
+					idx = k
+					if not card.ability.extra.old[k] then
+						card.ability.extra.old[k] = {
+							front = current_card.config.card
+						}
+					end
+					break
+				end
+			end
+			SMODS.modify_rank(current_card, card.ability.extra.rank_inc)
+			local new_front = current_card.config.card
+			if idx ~= 0 then
+				current_card:set_sprites(nil, card.ability.extra.old[idx].front)
+				SMODS.recalc_debuff(context.other_card)
+			end
 			return {
 				message = localize('k_upgrade_ex'),
 				colour = G.C.SECONDARY_SET.Enhanced,
@@ -3404,7 +3453,8 @@ SMODS.Joker {
 						trigger = 'after',
 						delay = 0.2,
 						func = function()
-							SMODS.modify_rank(current_card, card.ability.extra.rank_inc)
+							current_card:set_sprites(nil, new_front)
+							card.ability.extra.old[idx] = nil
 							return true
 						end
 					}))
