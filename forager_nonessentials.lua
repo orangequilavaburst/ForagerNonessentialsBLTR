@@ -2513,7 +2513,7 @@ SMODS.DrawStep({
 		) or (
 			card.back == "viewed_back" and G.GAME.viewed_back.effect.center.key == "b_j8mod_waterproof"
 		) then
-			card.children.back:draw_shader('booster', nil, card.ARGS.send_to_shader, true, card.children.back, scale_mod, rotate_mod)
+			card.children.back:draw_shader('booster', nil, card.ARGS.send_to_shader, true)
 		end
 	end,
 	conditions = { vortex = false, facing = "back" }
