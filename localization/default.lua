@@ -199,7 +199,7 @@ return {
                     "per {C:attention}reroll{} in the shop",
                     "{C:green}#3# in #4#{} chance this card",
                     "is destroyed on {C:attention}reroll{}",
-                    "{C:inactive}(Currently {C:chips}#1#{C:inactive} Chips)",
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
                 },
             },
             j_j8mod_gourmand = {
@@ -509,7 +509,7 @@ return {
                     "This Joker gains {C:money}money{}",
                     "equal to the {C:attention}level{} of",
                     "each played poker hand,",
-                    "resets before blind begins",
+                    "resets when {C:attention}Blind{} is selected",
                     "{C:inactive}(Currently {C:money}+$#1#{C:inactive})",
                 },
             },
@@ -628,7 +628,7 @@ return {
                 text = {
                     "{C:attention}+#2#{} hand size if played",
                     "hand contains a {C:attention}#1#{},",
-                    "reset when {C:attention}Blind{} is selected",
+                    "resets when {C:attention}Blind{} is selected",
                     "{C:inactive}(Currently {C:attention}+#3#{C:inactive} hand size)",
                 },
             },
@@ -662,7 +662,8 @@ return {
                 name = "J8-Bit",
                 text = {
                     "Scored {C:attention}Jacks{} and {C:attention}8s{} become {C:dark_edition}Negative",
-                    "Retrigger all {C:attention}Negative{} cards and Jokers"
+                    "Retrigger all {C:attention}Negative{} cards and Jokers",
+                    "{s:0.8}#2# excluded"
                 },
             },
             j_j8mod_niri = {
@@ -698,7 +699,7 @@ return {
                 text = {
                     "Scored {C:attention}#1#s{} also",
                     "score all {C:attention}#1#s{}",
-                    "still in hand"
+                    "held in hand"
                 },
             },
             j_j8mod_maestro = {

@@ -25,7 +25,7 @@ SMODS.Joker {
 		end
 	},
 	]]
-	config = { extra = { prophecy_rounds = 0, total_rounds = 3, spectral_count = 2 } },
+	config = { extra = { prophecy_rounds = 0, total_rounds = 2, spectral_count = 2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_spell_tag" or "j_j8mod_prophecy", vars = { card.ability.extra.total_rounds, card.ability.extra.prophecy_rounds, card.ability.extra.spectral_count, [[localize { type = 'name_text', set = 'Tag', key = 'tag_ethereal' }]] } }
@@ -3086,7 +3086,7 @@ SMODS.Joker {
 							local new = {
 								cen = scored_card.config.center,
 								vis = scored_card:should_hide_front(),
-							}							
+							}
 							if idx ~= 0 then
 								local old = card.ability.extra.old[idx]
 								scored_card:set_sprites(old.cen, nil)
@@ -3796,7 +3796,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
-		return { vars = { card.ability.extra.repetitions } }
+		return { vars = { card.ability.extra.repetitions, localize({ type = 'name_text', set = "Joker", key = "j_j8mod_j8bit" }) or 'J8-Bit' } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and (context.other_card:get_id() == 11 or context.other_card:get_id() == 8) and
@@ -3826,7 +3826,7 @@ SMODS.Joker {
 			}
 		end
 		-- jokers
-		if context.retrigger_joker_check and (context.other_card.edition and context.other_card.edition.key == "e_negative") then
+		if context.retrigger_joker_check and (context.other_card.edition and context.other_card.edition.key == "e_negative" and context.other_card ~= card) then
 			return { repetitions = 1 }
 		end
 	end
