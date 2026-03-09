@@ -2569,29 +2569,12 @@ SMODS.Joker {
 					end
 				}))
 			end
-			local countchange = -1
-			-- i wanted to set the value in an event just in case
-			G.E_MANAGER:add_event(Event({
-				trigger = 'immediate',
-				func = function()
-					countchange = #G.jokers.cards
-					return true
-				end,
-			}))
-			G.E_MANAGER:add_event(Event({
-				trigger = 'immediate',
-				func = function()
-					if #G.jokers.cards == countchange then return false end
-					save_run()
-					return true
-				end,
-				blocking = false,
-			}))
-
 			return nil, true -- This is for Joker retrigger purposes
 		end
-	end
-
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		save_run()
+	end,
 }
 
 -- D100
@@ -2676,29 +2659,12 @@ SMODS.Joker {
 					end
 				}))
 			end
-			local countchange = -1
-			-- i wanted to set the value in an event just in case
-			G.E_MANAGER:add_event(Event({
-				trigger = 'immediate',
-				func = function()
-					countchange = #G.jokers.cards
-					return true
-				end,
-			}))
-			G.E_MANAGER:add_event(Event({
-				trigger = 'immediate',
-				func = function()
-					if #G.jokers.cards == countchange then return false end
-					save_run()
-					return true
-				end,
-				blocking = false,
-			}))
-
 			return nil, true -- This is for Joker retrigger purposes
 		end
-	end
-
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		save_run()
+	end,
 }
 
 -- Mizzmanaged
@@ -3008,7 +2974,7 @@ SMODS.Joker {
 									local eligible_card = pseudorandom_element(editionless_jokers,
 										'j8mod_expansion_plans')
 									if eligible_card ~= nil then
-										eligible_card:set_edition({ negative = true }, true)
+										eligible_card:set_edition({ negative = true })
 										card:juice_up(0.3, 0.5)
 									end
 									return true
