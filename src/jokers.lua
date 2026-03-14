@@ -2961,22 +2961,30 @@ SMODS.Joker {
 			if card.ability.extra.money_current >= card.ability.extra.money_max then
 				SMODS.calculate_effect({
 						trigger = "after",
-						delay = 0.5,
+						delay = 1.0,
 						message = localize('k_upgrade_ex'),
 						colour = G.C.MONEY,
 						func = function()
-							SMODS.destroy_cards(card)
-							local editionless_jokers = SMODS.Edition:get_edition_cards(G.jokers, true)
+							local possible_cards = {}
+							if #G.jokers.cards > 1 then
+								for i, joker in ipairs(G.jokers.cards) do
+									if joker ~= card and not joker.edition then
+										table.insert(possible_cards, joker)
+									end
+								end
+							end
 							G.E_MANAGER:add_event(Event({
 								trigger = 'after',
-								delay = 0.4,
+								delay = 0.5,
 								func = function()
-									local eligible_card = pseudorandom_element(editionless_jokers,
-										'j8mod_expansion_plans')
-									if eligible_card ~= nil then
-										eligible_card:set_edition({ negative = true })
-										card:juice_up(0.3, 0.5)
+									if #possible_cards > 0 then
+										local eligible_card = pseudorandom_element(possible_cards,
+											'j8mod_expansion_plans')
+										if eligible_card ~= nil then
+											eligible_card:set_edition({ negative = true })
+										end
 									end
+									SMODS.destroy_cards(card)
 									return true
 								end
 							}))
