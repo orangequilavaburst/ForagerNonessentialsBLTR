@@ -23,17 +23,17 @@ return {
                 text = {
                     "Start run with",
                     "two copies of each",
-                    "{C:attention}even rank{} card",
-                    "and two {C:attention}Queens{} per suit"
+                    "{C:attention}evenly ranked{} card",
+                    "and two {C:attention}#1#{} per suit"
                 }
             },
             b_j8mod_doodle = {
                 name = "Doodle Deck",
                 text = {
-                    "All {C:attention{}face cards{} start as {C:attention}#1#{}",
+                    "All {C:attention{}face cards{} start as {C:attention}#1#s{}",
                     "{C:red}Discarding{} an unenhanced card",
-                    "turns it into a {C:attention}#2#{} card,",
-                    "{C:red}Discarding{} a {C:attention}#2#{} card destroys it",
+                    "turns it into a {C:attention}#1#{},",
+                    "{C:red}Discarding{} a {C:attention}#1#{} destroys it",
                 }
             },
             b_j8mod_graph = {
@@ -56,7 +56,7 @@ return {
             b_j8mod_hypnotic = {
                 name = "Hypnotic Deck",
                 text = {
-                    "{C:spectral}#3#{} cards may",
+                    "{C:spectral}#4#{} cards may",
                     "appear in the shop,",
                     "Start with {C:tarot,T:c_death}#1#{} and {C:spectral,T:c_trance}#2#{},",
                     "Only {C:attention}consumables you own{}",

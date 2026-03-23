@@ -74,6 +74,9 @@ SMODS.Back {
 	key = "pinstripes",
 	pos = { x = 2, y = 0 },
 	atlas = "j8decks",
+	loc_vars = function(self, info_queue, back)
+		return { vars = { localize("Queen", "ranks") } }
+	end,
 	apply = function(self, back)
 		G.E_MANAGER:add_event(Event({
 			func = function()
@@ -97,6 +100,9 @@ SMODS.Back {
 	key = "doodle",
 	pos = { x = 3, y = 0 },
 	atlas = "j8decks",
+	loc_vars = function(self, info_queue, back)
+		return { vars = { localize({ type = 'name_text', set = "Enhanced", key = "m_wild" }) or 'Wild Card' } }
+	end,
 	apply = function(self, back)
 		G.E_MANAGER:add_event(Event({
 			func = function()
@@ -167,7 +173,8 @@ SMODS.Back {
 	config = { consumables = { 'c_fool' } },
 	loc_vars = function(self, info_queue, back)
 		return {
-			vars = { localize { type = 'name_text', key = self.config.consumables[1], set = 'Tarot' }
+			vars = { localize { type = 'name_text', key = self.config.consumables[1], set = 'Tarot' },
+				localize("k_tarot"), localize("k_planet")
 			}
 		}
 	end,
@@ -222,7 +229,8 @@ SMODS.Back {
 			vars = {
 				localize { type = 'name_text', key = self.config.consumables[1], set = 'Tarot' },
 				localize { type = 'name_text', key = self.config.consumables[2], set = 'Spectral' },
-				self.config.ante_scaling
+				self.config.ante_scaling,
+				localize("k_spectral"),
 			}
 		}
 	end,
