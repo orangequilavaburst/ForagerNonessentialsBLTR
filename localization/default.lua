@@ -30,17 +30,17 @@ return {
             b_j8mod_doodle = {
                 name = "Doodle Deck",
                 text = {
-                    "All face cards start as {C:attention}Wild{} cards",
+                    "All {C:attention{}face cards{} start as {C:attention}#1#{}",
                     "{C:red}Discarding{} an unenhanced card",
-                    "turns it into a {C:attention}Wild{} card,",
-                    "{C:red}Discarding{} a {C:attention}Wild{} card destroys it",
+                    "turns it into a {C:attention}#2#{} card,",
+                    "{C:red}Discarding{} a {C:attention}#2#{} card destroys it",
                 }
             },
             b_j8mod_graph = {
                 name = "Graph Deck",
                 text = {
                     "Start run with {C:tarot,T:c_fool}#1#",
-                    "All future {C:tarot}Tarot{} and {C:planet}Planet",
+                    "All future {C:tarot}#2#{} and {C:planet}#3#",
                     "cards in shop become {C:tarot,T:c_fool}#1#"
                 }
             },
@@ -56,7 +56,7 @@ return {
             b_j8mod_hypnotic = {
                 name = "Hypnotic Deck",
                 text = {
-                    "{C:spectral}Spectral{} cards may",
+                    "{C:spectral}#3#{} cards may",
                     "appear in the shop,",
                     "Start with {C:tarot,T:c_death}#1#{} and {C:spectral,T:c_trance}#2#{},",
                     "Only {C:attention}consumables you own{}",
@@ -80,7 +80,7 @@ return {
                 text = {
                     "After {C:attention}#1#{} rounds,",
                     "sell this card to create",
-                    "{C:attention}#3#{} random {C:spectral}Spectral{} cards",
+                    "{C:attention}#3#{} random {C:spectral}#4#{} cards",
                     "{C:inactive}(Must have room)",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive}/#1#)",
                 },
@@ -90,7 +90,7 @@ return {
                 text = {
                     "After {C:attention}#1#{} rounds,",
                     "sell this card to create",
-                    "{C:attention}#3#{} random {C:spectral}Spectral{} cards",
+                    "{C:attention}#3#{} random {C:spectral}#4#{} cards",
                     "{C:inactive}(Must have room)",
                     "{C:inactive}(Currently {C:attention}#2#{C:inactive}/#1#)",
                 },
@@ -163,8 +163,8 @@ return {
                     "After {C:attention}#2# Antes{},",
                     "sell this card to create a",
                     "{C:spectral}#3#{} card and {C:spectral}#4#{} card",
-                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)",
                     "{C:inactive}(Must have room)",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)",
                 },
             },
             j_j8mod_meal_ticket = {
@@ -222,7 +222,7 @@ return {
             j_j8mod_bathroom_pass = {
                 name = "Bathroom Pass",
                 text = {
-                    "Playing a {C:attention}Flush{}",
+                    "Playing a {C:attention}#3#{}",
                     "{C:green}rerolls{} the {C:attention}Boss Blind{}",
                     "up to {C:attention}#2#{} times per Ante",
                     "{C:inactive}({C:attention}#1#{C:inactive} left)"
@@ -234,8 +234,8 @@ return {
                     "When playing a hand with",
                     "exactly {C:attention}3{} cards",
                     "turn them into a ",
-                    "{C:attention}Gold Card{}, {C:attention}Steel Card{},",
-                    "and {C:attention}Bonus Card{} respectively"
+                    "{C:attention}#1#{}, {C:attention}#2#{},",
+                    "and {C:attention}#3#{} respectively"
                 },
             },
             j_j8mod_kaleidoscope = {
@@ -290,8 +290,8 @@ return {
                 name = "Search History",
                 text = {
                     "This Joker gains {X:mult,C:white} X#1# {} Mult on hands",
-                    "with a scoring {C:attention}3{} and {C:attention}4{}",
-                    "{C:red}Resets{} on hands with a scoring {C:attention}Ace{}",
+                    "with a scoring {C:attention}#3#{} and {C:attention}#4#{}",
+                    "{C:red}Resets{} on hands with a scoring {C:attention}#5#{}",
                     "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive}{C:inactive} Mult)",
                 },
             },
@@ -299,7 +299,7 @@ return {
                 name = "Fursona",
                 text = {
                     "Creates a random {C:attention}Tag{} on hands",
-                    "with a scoring {C:attention}6{}, {C:attention}2{}, and {C:attention}Ace{}"
+                    "with a scoring {C:attention}#1#{}, {C:attention}#2#{}, and {C:attention}#3#{}"
                 },
             },
             j_j8mod_breaker_box = {
@@ -318,7 +318,7 @@ return {
                 text = {
                     "At end of the round,",
                     "reward {C:money}$#1#{}-{C:money}#2#{} on {C:attention}Small Blinds{},",
-                    "a random {C:tarot}Tarot{} or {C:planet}Planet{} card on {C:attention}Big Blinds{},",
+                    "a random {C:tarot}#6#{} or {C:planet}#7#{} card on {C:attention}Big Blinds{},",
                     "or {C:attention}#4#{}-{C:attention}#5#{} random Jokers on {C:attention}Boss Blinds{}",
                     "{C:inactive}(Must have room)",
 
@@ -337,9 +337,9 @@ return {
                 name = "Kitsune Mask",
                 text = {
                     "{C:green}#1# in #2#{} chance for each",
-                    "played {C:attention}7{} to create a",
-                    "{C:spectral}Spectral{} card when scored",
-                    "Chance {C:green}doubled{} on a {C:attention}Lucky 7{}",
+                    "played {C:attention}#3#{} to create a",
+                    "{C:spectral}#4#{} card when scored",
+                    "Chance {C:green}doubled{} on {C:attention}#5#s{}",
                     "{C:inactive}(Must have room)",
                 },
             },
@@ -362,14 +362,14 @@ return {
             j_j8mod_modeling_clay = {
                 name = "Modeling Clay",
                 text = {
-                    "Changes ability to a random {C:attention}Joker{}",
-                    "at start of round",
+                    "Changes ability to a random",
+                    "{C:attention}Joker{} at start of round",
                 }
             },
             j_j8mod_geode = {
                 name = "Geode",
                 text = {
-                    "{C:attention}Stone Cards{} act as",
+                    "{C:attention}#2#s{} act as",
                     "a random {C:attention}Enhancement{},",
                     "changes at the start of round",
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive})",
@@ -378,8 +378,8 @@ return {
             j_j8mod_hypnotic_joker = {
                 name = "Hypnotic Joker",
                 text = {
-                    "Every played {C:attention}card{}",
-                    "swaps between permanently gaining",
+                    "Every played {C:attention}card{} swaps",
+                    "between permanently gaining",
                     "{C:chips}+#1#{} Chips or {C:mult}+#2#{} Mult when scored",
                     "{C:inactive}(Currently {V:1}#3#{C:inactive})",
                 }
@@ -387,8 +387,9 @@ return {
             j_j8mod_funnybones = {
                 name = "Funnybones",
                 text = {
-                    "{C:blue,s:1.1}+#1#{} Chip for each card in hand,",
-                    "each {C:attention}Joker{}, and each {C:attention}consumable{} you have",
+                    "{C:blue,s:1.1}+#1#{} Chips for each card in hand,",
+                    "each {C:attention}Joker{}, and each",
+                    "{C:attention}consumable{} you have",
                     "{C:inactive}(...?){}",
                     --  TO LOCALIZERS: see: misc.dictionary.j8mod_funnybones_extra
                 }
@@ -432,7 +433,7 @@ return {
                 text = {
                     "Playing cards have a",
                     "{C:green}#1# in #2#{} chance to",
-                    "become {C:attention}Polychrome{} when scored"
+                    "become {C:attention}#3#{} when scored"
                 },
             },
             j_j8mod_makeup_palette = {
@@ -440,20 +441,20 @@ return {
                 text = {
                     "Playing cards have a",
                     "{C:green}#1# in #2#{} chance to",
-                    "become {C:attention}Polychrome{} when scored"
+                    "become {C:attention}#3#{} when scored"
                 },
             },
             j_j8mod_werewire = {
                 name = "Werewire",
                 text = {
-                    "Retrigger all {C:attention}Polychrome{}",
+                    "Retrigger all {C:attention}#2#{}",
                     "cards and Jokers"
                 },
             },
             j_j8mod_pinwheel = {
                 name = "Pinwheel",
                 text = {
-                    "Retrigger all {C:attention}Polychrome{}",
+                    "Retrigger all {C:attention}#2#{}",
                     "cards and Jokers"
                 }
             },
@@ -461,28 +462,30 @@ return {
                 name = "Spindown Dice",
                 text = {
                     "{C:inactive,s:0.8}\"-1\"{s:1.0}",
-                    "Selling this {C:green}rerolls{} the {C:edition}ID{} of all visible {C:attention}Jokers{},",
-                    "{C:tarot}Tarot{} cards, {C:planet}Planet{} cards, {C:spectral}Spectral{} cards,",
-                    "{C:voucher}Vouchers{}, and {C:attention}Booster Packs{} by {C:attention}-1{},",
-                    "Decreases {C:attention}rank{} of visible playing cards by {C:attention}1{}"
+                    "Selling this {C:green}rerolls{} the {C:dark_edition}ID{} of all",
+                    "visible {C:attention}Jokers{}, {C:attention}consumables{},",
+                    "{C:attention}Vouchers{}, and {C:attention}Booster Packs{} by {C:attention}-1{}",
+                    "and decreases {C:attention}rank{} of visible",
+                    "playing cards by {C:attention}1{}"
                 },
             },
             j_j8mod_d100 = {
                 name = "D100",
                 text = {
                     "{C:inactive,s:0.8}\"REEROLLLLL!\"{s:1.0}",
-                    "Selling this {C:green}rerolls{} the {C:edition}ID{} of all visible {C:attention}Jokers{},",
-                    "{C:tarot}Tarot{} cards, {C:planet}Planet{} cards, {C:spectral}Spectral{} cards,",
-                    "{C:voucher}Vouchers{}, and {C:attention}Booster Packs{} {C:edition}randomly{},",
-                    "Changes {C:attention}rank{} of visible playing cards to a {C:edition}random rank{}"
+                    "Selling this {C:green}rerolls{} the {C:dark_edition}ID{} of all",
+                    "visible {C:attention}Jokers{}, {C:attention}consumables{},",
+                    "{C:attention}Vouchers{}, and {C:attention}Booster Packs{} {C:dark_edition}randomly{}",
+                    "and changes {C:attention}rank{} of visible",
+                    "playing cards to a {C:dark_edition}random rank{}"
                 },
             },
             j_j8mod_mizzmanaged = {
                 name = "Mizzmanaged",
                 text = {
                     "This Joker gains {X:mult,C:white} X#1# {} Mult each",
-                    "time a card with {C:attention}any Seal{} scores,",
-                    "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}Queen",
+                    "time a card with a {C:attention}Seal{} scores,",
+                    "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}#4#",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 },
             },
@@ -490,8 +493,8 @@ return {
                 name = "Iron Maiden",
                 text = {
                     "This Joker gains {X:mult,C:white} X#1# {} Mult each",
-                    "time a card with {C:attention}any Seal{} scores,",
-                    "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}Queen",
+                    "time a card with a {C:attention}Seal{} scores,",
+                    "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}#4#",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 }
             },
@@ -499,7 +502,7 @@ return {
                 name = "Planetary Domination",
                 text = {
                     "This Joker gains {C:mult}+#2#{} Mult",
-                    "for each {C:planet}Planet{} card sold",
+                    "for each {C:planet}#3#{} card sold",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
                 },
             },
@@ -516,7 +519,7 @@ return {
             j_j8mod_strike_the_earth = {
                 name = "Strike the Earth!",
                 text = {
-                    "Played {C:attention}Stone{} cards have",
+                    "Played {C:attention}#4#s{} have",
                     "a {C:green}#1# in #2#{} chance to",
                     "give {C:money}$#3#{} when scored",
                 },
@@ -525,8 +528,9 @@ return {
                 name = "Expansion Plans",
                 text = {
                     "After spending {C:money}$#2#{} in the shop,",
-                    "{C:red}destroy this card{} and add {C:dark_edition}Negative{}",
+                    "{C:red}destroy this card{} and add {C:dark_edition}#3#{}",
                     "to a random {C:attention}Joker{} you own",
+                    "{s:0.8}Rerolls not included",
                     "{C:inactive}(Currently {C:attention}$#1#{C:inactive}/$#2#)"
                 },
             },
@@ -579,9 +583,10 @@ return {
                 name = "Spider Bake Sale",
                 text = {
                     "{C:inactive,s:0.8,E:2}\"Ahuhuhuhu~\"{s:1.0}",
-                    "Add a {C:purple}Purple Seal{} to",
-                    "a random {C:attention}playing card{} in deck",
-                    "every {C:money}$#3#{} spent",
+                    "Add a {C:purple}#1# Seal{} to",
+                    "a random {C:attention}playing card{}",
+                    "in deck every {C:money}$#3#{} spent",
+                    "{s:0.8}Rerolls not included",
                     "{C:inactive}(Currently {C:attention}$#2#{C:inactive}/$#3#)"
                 },
             },
@@ -596,7 +601,7 @@ return {
                 name = "Marx SOUL",
                 text = {
                     "Increases rank of",
-                    "scored {C:attention}Wild{} cards by {C:attention}#1#{}"
+                    "scored {C:attention}#2#s{} by {C:attention}#1#{}"
                 },
             },
             j_j8mod_temmie_joker = {
@@ -661,8 +666,8 @@ return {
             j_j8mod_j8bit = {
                 name = "J8-Bit",
                 text = {
-                    "Scored {C:attention}Jacks{} and {C:attention}8s{} become {C:dark_edition}Negative",
-                    "Retrigger all {C:attention}Negative{} cards and Jokers",
+                    "Scored {C:attention}#3#s{} and {C:attention}#4#s{} become {C:dark_edition}#5#",
+                    "Retrigger all {C:dark_edition}#5#{} cards and Jokers",
                     "{s:0.8}#2# excluded"
                 },
             },
@@ -728,7 +733,10 @@ return {
                 },
             },
             j_j8mod_xUTDR_mr_sunshine_and_abberant = {
-                name = "Mr. Sunshine and Abberant",
+                name = {
+                    "Mr. Sunshine",
+                    "and Abberant"
+                },
                 text = {
                     "{C:tarot}#1#{} always appears",
                     "in {C:tarot}#2#s{}"
@@ -738,7 +746,7 @@ return {
                 name = "Goner Kid",
                 text = {
                     "{C:attention}Booster Packs{} additionally",
-                    "contain a {C:spectral}Prophecy{} card"
+                    "contain a {C:spectral}#1#{} card"
                 },
             },
             j_j8mod_xUTDR_tactical_dreemurr = {
@@ -769,7 +777,7 @@ return {
                 text = {
                     "{C:inactive,s:0.8}\"Pft\"{s:1.0}",
                     "This Joker gains {X:mult,C:white} X#1# {} Mult",
-                    "when a {C:rare}Rare{} or {C:legendary}Legendary{}",
+                    "when a {C:rare}#3#{} or {C:legendary}#4#{}",
                     "Joker is obtained",
                     "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive}{C:inactive} Mult)",
                 },
@@ -813,7 +821,7 @@ return {
                 name = "Self-Insert",
                 text = {
                     "Creates a random {C:attention}Tag{} on hands",
-                    "containing only {C:attention}Jacks{} and {C:attention}8s{}"
+                    "containing only {C:attention}#1#s{} and {C:attention}#2#s{}"
                 },
             },
             j_j8mod_xortalab_receipt_printer = {

@@ -28,7 +28,10 @@ SMODS.Joker {
 	config = { extra = { prophecy_rounds = 0, total_rounds = 2, spectral_count = 2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_spell_tag" or "j_j8mod_prophecy", vars = { card.ability.extra.total_rounds, card.ability.extra.prophecy_rounds, card.ability.extra.spectral_count, [[localize { type = 'name_text', set = 'Tag', key = 'tag_ethereal' }]] } }
+		return {
+			key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_spell_tag" or "j_j8mod_prophecy",
+			vars = { card.ability.extra.total_rounds, card.ability.extra.prophecy_rounds, card.ability.extra.spectral_count, localize("k_spectral") or "Spectral" }
+		}
 	end,
 	calculate = function(self, card, context)
 		if context.selling_self and (card.ability.extra.prophecy_rounds >= card.ability.extra.total_rounds) and not context.blueprint then
@@ -737,7 +740,7 @@ SMODS.Joker {
 	config = { extra = { rerolls = 2, rerolls_max = 2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = { card.ability.extra.rerolls, card.ability.extra.rerolls_max } }
+		return { vars = { card.ability.extra.rerolls, card.ability.extra.rerolls_max, G.localization.misc.poker_hands['Flush'] } }
 	end,
 	calculate = function(self, card, context)
 		local end_of_ante = context.end_of_round and context.game_over == false and context.main_eval and
@@ -783,7 +786,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
 		info_queue[#info_queue + 1] = { key = "credits_mario_santos", set = "Other" }
-		return {}
+		return { vars = { localize({ type = 'name_text', set = "Enhanced", key = "m_gold" }), localize({ type = 'name_text', set = "Enhanced", key = "m_steel" }), localize({ type = 'name_text', set = "Enhanced", key = "m_bonus" }) } }
 	end,
 	calculate = function(self, card, context)
 		if context.before and not context.blueprint and #context.full_hand == 3 then
@@ -1066,7 +1069,7 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { key = J8MOD.config.furry_mode and "j_j8mod_assimilation_joker" or "j_j8mod_copied_homework", vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Wild' } }
+		return { key = J8MOD.config.furry_mode and "j_j8mod_assimilation_joker" or "j_j8mod_copied_homework", vars = { card.ability.extra.enhancement and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }) or 'Wild Card' } }
 	end,
 	calculate = function(self, card, context)
 		if context.after and not context.blueprint then
@@ -1131,7 +1134,7 @@ SMODS.Joker {
 	config = { extra = { Xmult_gain = 0.34, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
-		return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult } }
+		return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult, localize(("3"), 'ranks'), localize(("4"), 'ranks'), localize(("Ace"), 'ranks') } }
 	end,
 	calculate = function(self, card, context)
 		if context.before and not context.blueprint then
@@ -1187,7 +1190,7 @@ SMODS.Joker {
 	pos = { x = 1, y = 2 },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
-		return {}
+		return { vars = { localize(("6"), 'ranks'), localize(("2"), 'ranks'), localize(("Ace"), 'ranks') } }
 	end,
 	calculate = function(self, card, context)
 		if context.before then
@@ -1353,7 +1356,7 @@ SMODS.Joker {
 	config = { extra = { money_min = 1, money_max = 5, con_count = 1, joker_min = 1, joker_max = 2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = { card.ability.extra.money_min, card.ability.extra.money_max, card.ability.extra.con_count, card.ability.extra.joker_min, card.ability.extra.joker_max } }
+		return { vars = { card.ability.extra.money_min, card.ability.extra.money_max, card.ability.extra.con_count, card.ability.extra.joker_min, card.ability.extra.joker_max, localize("k_tarot"), localize("k_planet") } }
 	end,
 	calculate = function(self, card, context)
 		if context.end_of_round and context.game_over == false and context.main_eval then
@@ -1544,7 +1547,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_kitsune_mask')
-		return { vars = { numerator, denominator } }
+		return { vars = { numerator, denominator, localize(("7"), 'ranks'), localize("k_spectral"), localize({ type = 'name_text', set = "Enhanced", key = "m_lucky" }) } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and
@@ -1973,7 +1976,7 @@ SMODS.Joker {
 			info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement_type]
 		end
 		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
-		return { vars = { card.ability.extra.enhancement_type and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement_type }) or 'Nothing' } }
+		return { vars = { card.ability.extra.enhancement_type and localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement_type }) or 'Nothing', localize({ type = 'name_text', set = "Enhanced", key = "m_stone" }) or "Stone Card" } }
 	end,
 	calculate = function(self, card, context)
 		-- thanks, somethingcom515 !
@@ -2343,7 +2346,7 @@ SMODS.Joker {
 			info_queue[#info_queue + 1] = { key = "credits_glasus", set = "Other" }
 		end
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j8mod_color_cafe')
-		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_makeup_palette" or "j_j8mod_color_cafe", vars = { numerator, denominator } }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_makeup_palette" or "j_j8mod_color_cafe", vars = { numerator, denominator, localize({ type = 'name_text', key = "e_polychrome", set = "Edition" }) } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not (context.other_card.edition and context.other_card.edition.key == "e_polychrome") then
@@ -2427,7 +2430,7 @@ SMODS.Joker {
 		else
 			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		end
-		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_pinwheel" or "j_j8mod_werewire", vars = { card.ability.extra.repetitions } }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_pinwheel" or "j_j8mod_werewire", vars = { card.ability.extra.repetitions, localize({ type = 'name_text', key = "e_polychrome", set = "Edition" }) } }
 	end,
 	calculate = function(self, card, context)
 		-- playing cards
@@ -2697,7 +2700,7 @@ SMODS.Joker {
 			info_queue[#info_queue + 1] = { key = "credits_catachrome", set = "Other" }
 			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		end
-		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_iron_maiden" or "j_j8mod_mizzmanaged", vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult_extra, card.ability.extra.Xmult } }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_iron_maiden" or "j_j8mod_mizzmanaged", vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult_extra, card.ability.extra.Xmult, localize("Queen", "ranks") } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not context.blueprint then
@@ -2777,7 +2780,7 @@ SMODS.Joker {
 			info_queue[#info_queue + 1] = { key = "oc_credits_sift", set = "Other" }
 			info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
 		end
-		return { vars = { card.ability.extra.mult, card.ability.extra.mult_inc } }
+		return { vars = { card.ability.extra.mult, card.ability.extra.mult_inc, localize("k_planet") } }
 	end,
 	calculate = function(self, card, context)
 		-- selling
@@ -2897,7 +2900,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = { key = "credits_anubis_jr", set = "Other" }
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds,
 			'j8mod_strike_the_earth')
-		return { vars = { numerator, denominator, card.ability.extra.dollars } }
+		return { vars = { numerator, denominator, card.ability.extra.dollars, localize({ type = 'name_text', key = "m_stone", set = "Enhanced" }) } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and
@@ -2943,7 +2946,7 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = 'e_negative', set = 'Edition', config = { extra = 1 } }
 		info_queue[#info_queue + 1] = { key = "credits_submarine_screw", set = "Other" }
-		return { vars = { card.ability.extra.money_current, card.ability.extra.money_max } }
+		return { vars = { card.ability.extra.money_current, card.ability.extra.money_max, localize({ type = "name_text", key = 'e_negative', set = 'Edition', config = { extra = 1 } }) } }
 	end,
 	calculate = function(self, card, context)
 		if (context.buying_card or context.buying_voucher or context.open_booster) and not context.buying_self and context.card ~= card and not context.blueprint then
@@ -3388,7 +3391,7 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
 		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
-		return { vars = { card.ability.extra.rank_inc } }
+		return { vars = { card.ability.extra.rank_inc, localize({ type = 'name_text', set = "Enhanced", key = "m_wild" }) or 'Wild Card' } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not context.other_card.debuff and
@@ -3770,7 +3773,7 @@ SMODS.Joker {
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
-		return { vars = { card.ability.extra.repetitions, localize({ type = 'name_text', set = "Joker", key = "j_j8mod_j8bit" }) or 'J8-Bit' } }
+		return { vars = { card.ability.extra.repetitions, localize({ type = 'name_text', set = "Joker", key = "j_j8mod_j8bit" }) or 'J8-Bit', localize("Jack", "ranks"), localize("8", "ranks"), localize({ type = "name_text", key = 'e_negative', set = 'Edition', config = { extra = 1 } }) } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and (context.other_card:get_id() == 11 or context.other_card:get_id() == 8) and

@@ -136,7 +136,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         dependencies = { "UTDR" },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-            return {}
+            return { vars = { localize("k_spectral") } }
         end,
         calculate = function(self, card, context)
             if context.open_booster and not context.blueprint then
@@ -375,7 +375,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             info_queue[#info_queue + 1] = { key = "credits_mattman", set = "Other" }
-            return { vars = { card.ability.extra.xmult_inc, card.ability.extra.xmult } }
+            return { vars = { card.ability.extra.xmult_inc, card.ability.extra.xmult, localize("k_rare"), localize("k_legendary") } }
         end,
         calculate = function(self, card, context)
             if context.card_added and not context.blueprint then
@@ -740,7 +740,7 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         dependencies = { "ortalab" },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-            return {}
+            return { vars = { localize("Jack", "ranks"), localize("8", "ranks"), } }
         end,
         calculate = function(self, card, context)
             if context.before then
