@@ -23,7 +23,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
             info_queue[#info_queue + 1] = { key = "requested_by_viomarks", set = "Other" }
-            return { vars = { math.abs(card.ability.extra.chips), card.ability.extra.xmult } }
+            return { vars = { card.ability.extra.chips, card.ability.extra.xmult } }
         end,
         calculate = function(self, card, context)
             if context.individual and context.cardarea == G.play then

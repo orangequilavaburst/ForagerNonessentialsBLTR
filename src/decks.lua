@@ -74,8 +74,9 @@ SMODS.Back {
 	key = "pinstripes",
 	pos = { x = 2, y = 0 },
 	atlas = "j8decks",
+	config = { copies=2, face="Queen" },
 	loc_vars = function(self, info_queue, back)
-		return { vars = { localize("Queen", "ranks") } }
+		return { vars = { localize(self.config.face, "ranks"), self.config.copies } }
 	end,
 	apply = function(self, back)
 		G.E_MANAGER:add_event(Event({
