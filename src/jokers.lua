@@ -1135,7 +1135,7 @@ SMODS.Joker {
 	config = { extra = { Xmult_gain = 0.34, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
-		if J8MOD.config.furry_mode then
+		if not J8MOD.config.furry_mode then
 			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		end
 		return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult, localize(("3"), 'ranks'), localize(("4"), 'ranks'), localize(("Ace"), 'ranks') } }
