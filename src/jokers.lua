@@ -1135,6 +1135,9 @@ SMODS.Joker {
 	config = { extra = { Xmult_gain = 0.34, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_fizlok", set = "Other" }
+		if J8MOD.config.furry_mode then
+			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
+		end
 		return { vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult, localize(("3"), 'ranks'), localize(("4"), 'ranks'), localize(("Ace"), 'ranks') } }
 	end,
 	calculate = function(self, card, context)
@@ -1176,6 +1179,15 @@ SMODS.Joker {
 			}
 		end
 	end,
+	update = function(self, card, dt)
+		if card.config.center.discovered or card.bypass_discovery_center then
+			if J8MOD.config.furry_mode then
+				card.children.center:set_sprite_pos({ x = 9, y = 1 })
+			else
+				card.children.center:set_sprite_pos({ x = 8, y = 5 })
+			end
+		end
+	end
 }
 
 -- Fursona
