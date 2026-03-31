@@ -485,7 +485,7 @@ return {
                 name = "Mizzmanaged",
                 text = {
                     "This Joker gains {X:mult,C:white} X#1# {} Mult each",
-                    "time a card with a {C:attention}#4#{} scores,",
+                    "time a card with a {C:attention}#5#{} scores,",
                     "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}#4#",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 },
