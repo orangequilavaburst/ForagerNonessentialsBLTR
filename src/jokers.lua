@@ -385,7 +385,7 @@ SMODS.Joker {
 	config = { extra = { c_min = 3, s_count = 5, s_mod = 1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = { card.ability.extra.c_min, card.ability.extra.s_count, card.ability.extra.s_mod } }
+		return { vars = { card.ability.extra.c_min, card.ability.extra.s_count, card.ability.extra.s_mod, localize("k_seal") } }
 	end,
 	calculate = function(self, card, context)
 		if context.final_scoring_step and not context.blueprint and #context.scoring_hand >= card.ability.extra.c_min then
@@ -2714,7 +2714,7 @@ SMODS.Joker {
 			info_queue[#info_queue + 1] = { key = "credits_catachrome", set = "Other" }
 			info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		end
-		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_iron_maiden" or "j_j8mod_mizzmanaged", vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult_extra, card.ability.extra.Xmult, localize("Queen", "ranks") } }
+		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_iron_maiden" or "j_j8mod_mizzmanaged", vars = { card.ability.extra.Xmult_gain, card.ability.extra.Xmult_extra, card.ability.extra.Xmult, localize("Queen", "ranks"), localize("k_seal") } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not context.blueprint then

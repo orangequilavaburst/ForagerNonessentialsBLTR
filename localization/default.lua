@@ -143,7 +143,7 @@ return {
                 text = {
                     "If scoring hand contains",
                     "{C:attention}#1#{} or greater cards,",
-                    "add a random {C:attention}Seal{}",
+                    "add a random {C:attention}#4#{}",
                     "to the {C:attention}first scoring card{}",
                     "{C:inactive}({C:attention}#2#{C:inactive} left)",
                 },
@@ -485,7 +485,7 @@ return {
                 name = "Mizzmanaged",
                 text = {
                     "This Joker gains {X:mult,C:white} X#1# {} Mult each",
-                    "time a card with a {C:attention}Seal{} scores,",
+                    "time a card with a {C:attention}#4#{} scores,",
                     "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}#4#",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 },
@@ -494,7 +494,7 @@ return {
                 name = "Iron Maiden",
                 text = {
                     "This Joker gains {X:mult,C:white} X#1# {} Mult each",
-                    "time a card with a {C:attention}Seal{} scores,",
+                    "time a card with a {C:attention}#4#{} scores,",
                     "{X:mult,C:white} X#2# {} Mult if the card is also a {C:attention}#4#",
                     "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)",
                 }
@@ -1053,6 +1053,7 @@ return {
     },
     misc = {
         dictionary = {
+            k_seal = "Seal",
             j8mod_no_deltarune_spoilers = "No Deltarune Spoilers",
             j8mod_no_deltarune_spoilers_desc = {
                 "Replaces references to Deltarune Chapters 3-4",
