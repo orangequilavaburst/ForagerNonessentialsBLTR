@@ -63,7 +63,7 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.extra.enhancement]
             info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
             info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-            return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }), card.ability.extra.seal } }
+            return { vars = { localize({ type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement }), localize { type = 'name_text', set = "Other", key = string.lower(card.ability.extra.seal) .. '_seal' } } }
         end,
         calculate = function(self, card, context)
             if context.after and not context.blueprint then

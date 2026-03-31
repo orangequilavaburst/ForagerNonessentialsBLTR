@@ -1284,7 +1284,7 @@ SMODS.Joker {
 	unlocked = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = {localize("k_poker_hand")} }
+		return { vars = { localize("k_poker_hand") } }
 	end,
 	calculate = function(self, card, context)
 		-- level up
@@ -2519,7 +2519,7 @@ SMODS.Joker {
 	config = { extra = { change = -1 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = {card.ability.extra.change, -card.ability.extra.change} }
+		return { vars = { card.ability.extra.change, -card.ability.extra.change } }
 	end,
 	calculate = function(self, card, context)
 		if context.selling_self then
@@ -3304,7 +3304,7 @@ SMODS.Joker {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.seal]
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
-		return { vars = { card.ability.extra.seal, card.ability.extra.money_current, card.ability.extra.money_max, localize("j8mod_muffet_laugh") } }
+		return { vars = { localize { type = 'name_text', set = "Other", key = string.lower(card.ability.extra.seal) .. '_seal' }, card.ability.extra.money_current, card.ability.extra.money_max, localize("j8mod_muffet_laugh") } }
 	end,
 	calculate = function(self, card, context)
 		if (context.buying_card or context.buying_voucher or context.open_booster) and not context.buying_self and context.card ~= card and not context.blueprint then

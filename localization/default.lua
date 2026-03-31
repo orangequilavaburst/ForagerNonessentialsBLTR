@@ -143,7 +143,7 @@ return {
                 text = {
                     "If scoring hand contains",
                     "{C:attention}#1#{} or greater cards,",
-                    "add a random {C:attention}seal{}",
+                    "add a random {C:attention}Seal{}",
                     "to the {C:attention}first scoring card{}",
                     "{C:inactive}({C:attention}#2#{C:inactive} left)",
                 },
@@ -584,7 +584,7 @@ return {
                 name = "Spider Bake Sale",
                 text = {
                     "{C:inactive,s:0.8,E:2}\"#4#\"{s:1.0}",
-                    "Add a {C:purple}#1# Seal{} to",
+                    "Add a {C:purple}#1#{} to",
                     "a random {C:attention}playing card{}",
                     "in deck every {C:money}$#3#{} spent",
                     "{s:0.8}Rerolls not included",
@@ -729,7 +729,7 @@ return {
                 text = {
                     "Each scoring {C:attention}#1#{}",
                     "loses its Enhancement",
-                    "but gains a {C:money}#2# Seal{}",
+                    "but gains a {C:money}#2#{}",
                     "after hand is played",
                 },
             },
