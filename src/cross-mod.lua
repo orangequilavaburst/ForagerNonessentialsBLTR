@@ -12,6 +12,11 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = true,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "perma_bonus",
+            "xmult",
+            "chips"
+        },
         rarity = 3,
         cost = 1,
         atlas = "j8jokers-dlc",
@@ -50,6 +55,11 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = false,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "enhancements",
+            "seals",
+            "modify_card"
+        },
         rarity = 1,
         cost = 6,
         atlas = "j8jokers-dlc",
@@ -107,6 +117,11 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = false,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "tarot",
+            "passive",
+            "generation"
+        },
         rarity = 1,
         cost = 5,
         atlas = "j8jokers-dlc",
@@ -127,6 +142,11 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = false,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "spectral",
+            "passive",
+            "generation"
+        },
         rarity = 3,
         cost = 9,
         atlas = "j8jokers-dlc",
@@ -174,6 +194,11 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = true,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "boss_blind",
+            "tag",
+            "generation"
+        },
         rarity = 3,
         cost = 10,
         atlas = "j8jokers-dlc",
@@ -273,6 +298,9 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = false,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "retrigger",
+        },
         rarity = 3,
         cost = 8,
         atlas = "j8jokers-dlc",
@@ -312,6 +340,9 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = true,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "passive",
+        },
         rarity = 1,
         cost = 6,
         atlas = "j8jokers-dlc",
@@ -364,6 +395,11 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = true,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "xmult",
+            "scaling",
+            "joker"
+        },
         rarity = 3,
         cost = 10,
         atlas = "j8jokers-dlc",
@@ -415,6 +451,10 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = true,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "enhancements",
+            "modify_card",
+        },
         rarity = 2,
         cost = 7,
         atlas = "j8jokers-dlc",
@@ -503,6 +543,10 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = true,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "enhancements",
+            "generation",
+        },
         rarity = 1,
         cost = 4,
         atlas = "j8jokers-dlc",
@@ -579,6 +623,11 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = true,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "enhancements",
+            "chance",
+            "modify_card"
+        },
         rarity = 2,
         cost = 5,
         atlas = "j8jokers-dlc",
@@ -665,6 +714,11 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = false,
         eternal_compat = false,
         perishable_compat = false,
+        attributes = {
+            "ortalab_mythos",
+            "generation",
+            "on_sell"
+        },
         rarity = 3,
         cost = 1,
         atlas = "j8jokers-dlc",
@@ -731,6 +785,13 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = true,
         perishable_compat = true,
         eternal_compat = true,
+        attributes = {
+            "jack",
+            "eight",
+            "tag",
+            "generation",
+            "rank"
+        },
         rarity = 1,
         cost = 5,
         atlas = "j8jokers-dlc",
@@ -805,6 +866,11 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = false,
         perishable_compat = false,
         eternal_compat = false,
+        attributes = {
+            "on_sell",
+            "modify_card",
+            "enhancements"
+        },
         rarity = 2,
         cost = 6,
         atlas = "j8jokers-dlc",
@@ -883,6 +949,10 @@ if ortalab_mod_exists and J8MOD.config.enable_crossmod_jokers then
         blueprint_compat = false,
         perishable_compat = false,
         eternal_compat = false,
+        attributes = {
+            "modify_card",
+            "enhancements"
+        },
         rarity = 3,
         cost = 10,
         atlas = "j8jokers-dlc",

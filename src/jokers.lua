@@ -8,6 +8,11 @@ SMODS.Joker {
 	blueprint_compat = false,
 	eternal_compat = false,
 	perishable_compat = false,
+	attributes = {
+		"generation",
+		"spectral",
+		"on_sell",
+	},
 	rarity = 2,
 	cost = 6,
 	atlas = "j8jokers-prophecy",
@@ -104,6 +109,13 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"mod_chance",
+		"passive",
+		"chance",
+		"scaling",
+		"reset",
+	},
 	rarity = 2,
 	cost = 6,
 	atlas = "j8jokers",
@@ -149,6 +161,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"enhancements",
+		"chance",
+		"modify_card"
+	},
 	rarity = 2,
 	cost = 5,
 	atlas = "j8jokers",
@@ -247,6 +264,12 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = true,
+	attributes = {
+		"chips",
+		"joker",
+		"scaling",
+		"reset",
+	},
 	rarity = 1,
 	cost = 5,
 	atlas = "j8jokers-clownfish",
@@ -298,6 +321,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = true,
+	attributes = {
+		"chips",
+		"scaling",
+		"on_sell",
+	},
 	rarity = 1,
 	cost = 6,
 	atlas = "j8jokers",
@@ -344,6 +372,9 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"passive"
+	},
 	rarity = 3,
 	cost = 8,
 	atlas = "j8jokers",
@@ -376,6 +407,12 @@ SMODS.Joker {
 	blueprint_compat = false,
 	eternal_compat = false,
 	perishable_compat = true,
+	attributes = {
+		"seal",
+		"modify_card",
+		"food",
+		"scaling"
+	},
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
@@ -429,6 +466,12 @@ SMODS.Joker {
 	blueprint_compat = true,
 	eternal_compat = false,
 	perishable_compat = true,
+	attributes = {
+		"modify_card",
+		"food",
+		"scaling",
+		"perma_bonus"
+	},
 	rarity = 3,
 	cost = 9,
 	atlas = "j8jokers",
@@ -479,6 +522,11 @@ SMODS.Joker {
 	blueprint_compat = false,
 	eternal_compat = false,
 	perishable_compat = false,
+	attributes = {
+		"spectral",
+		"generation",
+		"on_sell"
+	},
 	rarity = 3,
 	cost = 1,
 	atlas = "j8jokers",
@@ -543,6 +591,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"tag",
+		"chance",
+		"skip"
+	},
 	rarity = 1,
 	cost = 6,
 	atlas = "j8jokers",
@@ -591,6 +644,12 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"rank",
+		"boss_blind",
+		"passive",
+		"modify_card"
+	},
 	rarity = 1,
 	cost = 4,
 	atlas = "j8jokers",
@@ -647,6 +706,13 @@ SMODS.Joker {
 	blueprint_compat = true,
 	eternal_compat = false,
 	perishable_compat = true,
+	attributes = {
+		"food",
+		"chance",
+		"scaling",
+		"chips",
+		"reroll"
+	},
 	rarity = 2,
 	cost = 6,
 	atlas = "j8jokers",
@@ -692,6 +758,10 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = false,
+	attributes = {
+		"hands",
+		"economy",
+	},
 	rarity = 2,
 	cost = 4,
 	atlas = "j8jokers",
@@ -730,6 +800,10 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"hand_type",
+		"boss_blind",
+	},
 	rarity = 3,
 	cost = 7,
 	atlas = "j8jokers",
@@ -775,6 +849,10 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"modify_card",
+		"enhancements"
+	},
 	rarity = 3,
 	cost = 9,
 	atlas = "j8jokers",
@@ -838,6 +916,10 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"passive",
+		"hand_type"
+	},
 	rarity = 1,
 	cost = 4,
 	atlas = "j8jokers",
@@ -867,6 +949,10 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"passive",
+		"generation"
+	},
 	rarity = 3,
 	cost = 10,
 	atlas = "j8jokers",
@@ -1060,6 +1146,10 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"modify_card",
+		"enhancements"
+	},
 	rarity = 3,
 	cost = 10,
 	atlas = "j8jokers",
@@ -1127,6 +1217,14 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = true,
+	attributes = {
+		"three",
+		"four",
+		"ace",
+		"scaling",
+		"xmult",
+		"rank"
+	},
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers",
@@ -1196,6 +1294,14 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"ace",
+		"two",
+		"six",
+		"tag",
+		"generation",
+		"rank"
+	},
 	rarity = 1,
 	cost = 5,
 	atlas = "j8jokers",
@@ -1276,6 +1382,10 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"rank",
+		"modify_card"
+	},
 	rarity = 3,
 	cost = 10,
 	atlas = "j8jokers",
@@ -1360,6 +1470,13 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"generation",
+		"economy",
+		"tarot",
+		"planet",
+		"joker",
+	},
 	rarity = 1,
 	cost = 6,
 	atlas = "j8jokers",
@@ -1473,6 +1590,11 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"on_sell",
+		"modify_card",
+		"enhancements"
+	},
 	rarity = 2,
 	cost = 6,
 	atlas = "j8jokers",
@@ -1549,6 +1671,14 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"seven",
+		"rank",
+		"enhancements",
+		"chance",
+		"generation",
+		"spectral"
+	},
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
@@ -1597,6 +1727,12 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"chance",
+		"reroll",
+		"tag",
+		"generation",
+	},
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
@@ -1658,6 +1794,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	eternal_compat = false,
 	perishable_compat = true,
+	attributes = {
+		"chance",
+		"food",
+		"copying",
+	},
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
@@ -1796,6 +1937,10 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"copying",
+		"joker"
+	},
 	rarity = 2,
 	cost = 5,
 	atlas = "j8jokers-clay",
@@ -1976,6 +2121,9 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"enhancements",
+	},
 	rarity = 1,
 	cost = 5,
 	atlas = "j8jokers",
@@ -2037,6 +2185,12 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"perma_bonus",
+		"chips",
+		"mult",
+		"modify_card"
+	},
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers-hypno",
@@ -2112,6 +2266,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = false,
+	attributes = {
+		"chips",
+		"joker_slot",
+		"passive",
+	},
 	rarity = 1,
 	cost = 1,
 	atlas = "j8jokers",
@@ -2200,6 +2359,10 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"hand_type",
+		"retrigger",
+	},
 	rarity = 1,
 	cost = 5,
 	atlas = "j8jokers",
@@ -2247,6 +2410,10 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"hand_type",
+		"destroy_card",
+	},
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
@@ -2290,6 +2457,9 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"swap",
+	},
 	rarity = 2,
 	cost = 6,
 	atlas = "j8jokers",
@@ -2344,6 +2514,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"modify_card",
+		"chance",
+		"edition"
+	},
 	rarity = 3,
 	cost = 9,
 	atlas = "j8jokers-swatch",
@@ -2411,6 +2586,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"retrigger",
+		"copying",
+		"edition"
+	},
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers-werewire",
@@ -2511,6 +2691,9 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"on_sell",
+	},
 	rarity = 3,
 	cost = 15,
 	atlas = "j8jokers",
@@ -2602,6 +2785,9 @@ SMODS.Joker {
 	blueprint_compat = false,
 	eternal_compat = false,
 	perishable_compat = false,
+	attributes = {
+		"on_sell",
+	},
 	rarity = 3,
 	cost = 15,
 	atlas = "j8jokers",
@@ -2690,6 +2876,13 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = true,
+	attributes = {
+		"seal",
+		"scaling",
+		"rank",
+		"queen",
+		"xmult"
+	},
 	rarity = 3,
 	cost = 9,
 	discovered = false,
@@ -2779,6 +2972,13 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = true,
+	attributes = {
+		"space",
+		"on_sell",
+		"planet",
+		"scaling",
+		"mult"
+	},
 	rarity = 1,
 	cost = 6,
 	atlas = "j8jokers",
@@ -2840,6 +3040,13 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"space",
+		"hand_type",
+		"economy",
+		"scaling",
+		"reset"
+	},
 	rarity = 2,
 	cost = 8,
 	atlas = "j8jokers",
@@ -2903,6 +3110,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"chance",
+		"enhancements",
+		"economy",
+	},
 	rarity = 1,
 	cost = 6,
 	atlas = "j8jokers",
@@ -2950,6 +3162,11 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"scaling",
+		"edition",
+		"economy"
+	},
 	rarity = 2,
 	cost = 5,
 	atlas = "j8jokers",
@@ -3033,6 +3250,11 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"enhancement",
+		"modify_card",
+		"boss_blind"
+	},
 	rarity = 1,
 	cost = 3,
 	atlas = "j8jokers",
@@ -3125,6 +3347,9 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"passive",
+	},
 	rarity = 3,
 	cost = 8,
 	atlas = "j8jokers",
@@ -3150,6 +3375,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = true,
+	attributes = {
+		"scaling",
+		"xmult",
+		"boss_blind"
+	},
 	rarity = 2,
 	cost = 9,
 	atlas = "j8jokers",
@@ -3180,6 +3410,12 @@ SMODS.Joker {
 SMODS.Joker {
 	key = "puzzle_swap",
 	blueprint_compat = false,
+	attributes = {
+		"passive",
+		"tarot",
+		"planet",
+		"spectral"
+	},
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
@@ -3239,6 +3475,10 @@ SMODS.Joker {
 SMODS.Joker {
 	key = "the_world_revolving",
 	blueprint_compat = true,
+	attributes = {
+		"xmult",
+		"full_deck",
+	},
 	rarity = 3,
 	cost = 10,
 	atlas = "j8jokers-jevil",
@@ -3294,6 +3534,13 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = true,
+	attributes = {
+		"scaling",
+		"seal",
+		"economy",
+		"reset",
+		"full_deck"
+	},
 	rarity = 2,
 	cost = 12,
 	atlas = "j8jokers",
@@ -3361,6 +3608,9 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"xblindsize",
+	},
 	rarity = 3,
 	cost = 9,
 	atlas = "j8jokers",
@@ -3396,6 +3646,10 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"enhancements",
+		"modify_card",
+	},
 	rarity = 2,
 	cost = 7,
 	atlas = "j8jokers",
@@ -3484,6 +3738,11 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"hand_type",
+		"rank",
+		"passive"
+	},
 	rarity = 2,
 	cost = 7,
 	config = { extra = { poker_hand = "Straight Flush" } },
@@ -3550,6 +3809,12 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = true,
 	eternal_compat = false,
+	attributes = {
+		"hand_type",
+		"scaling",
+		"reset",
+		"hand_size"
+	},
 	rarity = 2,
 	cost = 7,
 	config = { extra = { poker_hand = "Full House", scale_amount = 1, hand_size = 0 } },
@@ -3601,6 +3866,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"hand_type",
+		"scaling",
+		"xmult",
+	},
 	rarity = 3,
 	cost = 9,
 	config = { extra = { poker_hand = "Three of a Kind", scale_amount = 0.3 } },
@@ -3630,6 +3900,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"food",
+		"spectral",
+		"generation",
+	},
 	rarity = 1,
 	cost = 4,
 	config = { extra = { booster_type = "p_spectral_jumbo" } },
@@ -3700,6 +3975,15 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = true,
 	eternal_compat = true,
+	attributes = {
+		"rank",
+		"six",
+		"seven",
+		"eight",
+		"nine",
+		"ten",
+		"chance"
+	},
 	rarity = 2,
 	cost = 8,
 	config = { extra = { ranks = { 6, 7, 8, 9, 10 }, odds = 10, saved_upgrades = {} } },
@@ -3779,6 +4063,14 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"rank",
+		"jack",
+		"eight",
+		"edition",
+		"retrigger",
+		"copying"
+	},
 	rarity = 4,
 	cost = 20,
 	config = { extra = { repetitions = 1 } },
@@ -3836,6 +4128,10 @@ SMODS.Joker {
 	blueprint_compat = false,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"passive",
+		"generation",
+	},
 	rarity = 4,
 	cost = 20,
 	config = { extra = { extra_boosters = 2, extra_vouchers = 1 } },
@@ -3898,6 +4194,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"passive",
+		"generation",
+		"reroll"
+	},
 	rarity = 4,
 	cost = 20,
 	--config = { extra = { inc = 1, hand_req = 2, total = 0, total_current = 0, Xmult = 1.5 } },
@@ -3970,6 +4271,10 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"ace",
+		"rank",
+	},
 	rarity = 4,
 	cost = 20,
 	config = { extra = { rank = "Ace" } },
@@ -4032,6 +4337,11 @@ SMODS.Joker {
 	blueprint_compat = true,
 	perishable_compat = false,
 	eternal_compat = false,
+	attributes = {
+		"xmult",
+		"perma_bonus",
+		"hands"
+	},
 	rarity = 4,
 	cost = 20,
 	config = { extra = { Xmult = 0.2 } },
