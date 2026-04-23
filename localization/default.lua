@@ -838,8 +838,9 @@ return {
                 name = "Boogie Joker",
                 text = {
                     "Each played {C:attention}#1#{}",
-                    "converts to the card",
-                    "on its {C:attention}left{} after scoring"
+                    "converts the card on",
+                    "its {C:attention}left{} into itself",
+                    "after scoring"
                 },
             },
         },
