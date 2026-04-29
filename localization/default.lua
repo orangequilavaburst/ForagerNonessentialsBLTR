@@ -845,6 +845,166 @@ return {
             },
         },
         Other = {
+            r_j_j8mod_prophecy = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Deltarune" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_monty_hall = {
+                name = "Reference",
+                text = { "Let's Make a Deal!" }
+            },
+            r_j_j8mod_promo_card = {
+                name = "Reference",
+                text = { "Pokémon Trading", "Card Game" }
+            },
+            r_j_j8mod_assimilation_joker = {
+                name = "Reference",
+                text = { "Changed" }
+            },
+            r_j_j8mod_search_history = {
+                name = "Reference",
+                text = { "Rule 34" }
+            },
+            r_j_j8mod_monster_card = {
+                name = "Reference",
+                text = { "The Binding of", "Isaac: Four Souls" }
+            },
+            r_j_j8mod_crayon_box = {
+                name = "Reference",
+                text = { "Crayola" }
+            },
+            r_j_j8mod_thrift_shop = {
+                name = "Reference",
+                text = { "Macklemore and", "Ryan Lewis" }
+            },
+            r_j_j8mod_hypnotic_joker = {
+                name = "Reference",
+                text = { "Disney's The", "Jungle Book" }
+            },
+            r_j_j8mod_funnybones = {
+                name = "Reference",
+                text = { "Undertale" }
+            },
+            r_j_j8mod_rap_battle = {
+                name = "Reference",
+                text = { "Friday Night", "Funkin'" }
+            },
+            r_j_j8mod_hating_simulator = {
+                name = "Reference",
+                text = { "Friday Night", "Funkin'" }
+            },
+            r_j_j8mod_weather_together = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Deltarune" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_color_cafe = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Deltarune" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_werewire = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Deltarune" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_spindown_dice = {
+                name = "Reference",
+                text = { "The Binding", "of Isaac" }
+            },
+            r_j_j8mod_d100 = {
+                name = "Reference",
+                text = { "The Binding", "of Isaac" }
+            },
+            r_j_j8mod_mizzmanaged = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Deltarune" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_strike_the_earth = {
+                name = "Reference",        -- This is the same across all reference tooltips
+                text = { "Shovel Knight" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_expansion_plans = {
+                name = "Reference",          -- This is the same across all reference tooltips
+                text = { "Animal Crossing" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_thunder_carnival = {
+                name = "Reference",     -- This is the same across all reference tooltips
+                text = { "Mega Man 8" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_magic_card = {
+                name = "Reference",          -- This is the same across all reference tooltips
+                text = { "Mega Man & Bass" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_super_fighting_robot = {
+                name = "Reference",   -- This is the same across all reference tooltips
+                text = { "Mega Man" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_puzzle_swap = {
+                name = "Reference",                  -- This is the same across all reference tooltips
+                text = { "StreetPass", "Mii Plaza" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_spider_bake_sale = {
+                name = "Reference",
+                text = { "Undertale" }
+            },
+            r_j_j8mod_dreambreaker = {
+                name = "Reference",
+                text = { "Pseudoregalia" }
+            },
+            r_j_j8mod_marx_soul = {
+                name = "Reference",
+                text = { "Kirby Super", "Star Ultra" }
+            },
+            r_j_j8mod_program_advance = {
+                name = "Reference",
+                text = { "Mega Man", "Battle Network" }
+            },
+            r_j_j8mod_colony_tile = {
+                name = "Reference",
+                text = { "Magic Maze", "on Mars" }
+            },
+            r_j_j8mod_community_resource = {
+                name = "Reference",
+                text = { "SMODS Wiki" }
+            },
+            r_j_j8mod_xUTDR_playerfriend = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Deltarune" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_xUTDR_gold_widow = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Deltarune" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_xUTDR_mr_sunshine_and_abberant = {
+                name = "Reference",                               -- This is the same across all reference tooltips
+                text = { "Undertale 10th", "Anniversary Stream" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_xUTDR_goner_kid = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Undertale" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_xUTDR_tactical_dreemurr = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Undertale" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_xellejokers_fizz_fizzle = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Deltarune" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
+            r_j_j8mod_xellejokers_girlfriend = {
+                name = "Reference",
+                text = { "Friday Night", "Funkin'" }
+            },
+            r_j_j8mod_xellejokers_lazy_worm = {
+                name = "Reference",
+                text = { { "The Binding", "of Isaac" }, { "Lazy Mattman" } }
+            },
+            r_j_j8mod_xellejokers_audience_participation = {
+                name = "Reference",
+                text = { "Paper Mario: The", "Thousand Year Door" }
+            },
+            r_j_j8mod_xortalab_boogie_joker = {
+                name = "Reference",
+                text = { "The Boogies" }
+            },
             credits_j8 = {
                 name = "Artist",
                 text = {

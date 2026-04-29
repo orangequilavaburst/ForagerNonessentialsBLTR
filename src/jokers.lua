@@ -12,6 +12,7 @@ SMODS.Joker {
 		"generation",
 		"spectral",
 		"on_sell",
+		"reference"
 	},
 	rarity = 2,
 	cost = 6,
@@ -115,6 +116,7 @@ SMODS.Joker {
 		"chance",
 		"scaling",
 		"reset",
+		"reference"
 	},
 	rarity = 2,
 	cost = 6,
@@ -373,7 +375,8 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	attributes = {
-		"passive"
+		"passive",
+		"reference"
 	},
 	rarity = 3,
 	cost = 8,
@@ -1148,7 +1151,8 @@ SMODS.Joker {
 	eternal_compat = false,
 	attributes = {
 		"modify_card",
-		"enhancements"
+		"enhancements",
+		"reference"
 	},
 	rarity = 3,
 	cost = 10,
@@ -1223,7 +1227,8 @@ SMODS.Joker {
 		"ace",
 		"scaling",
 		"xmult",
-		"rank"
+		"rank",
+		"reference"
 	},
 	rarity = 2,
 	cost = 8,
@@ -1476,6 +1481,7 @@ SMODS.Joker {
 		"tarot",
 		"planet",
 		"joker",
+		"reference"
 	},
 	rarity = 1,
 	cost = 6,
@@ -1593,7 +1599,8 @@ SMODS.Joker {
 	attributes = {
 		"on_sell",
 		"modify_card",
-		"enhancements"
+		"enhancements",
+		"reference"
 	},
 	rarity = 2,
 	cost = 6,
@@ -1732,6 +1739,7 @@ SMODS.Joker {
 		"reroll",
 		"tag",
 		"generation",
+		"reference"
 	},
 	rarity = 2,
 	cost = 7,
@@ -2189,7 +2197,8 @@ SMODS.Joker {
 		"perma_bonus",
 		"chips",
 		"mult",
-		"modify_card"
+		"modify_card",
+		"reference"
 	},
 	rarity = 2,
 	cost = 8,
@@ -2270,6 +2279,7 @@ SMODS.Joker {
 		"chips",
 		"joker_slot",
 		"passive",
+		"reference"
 	},
 	rarity = 1,
 	cost = 1,
@@ -2362,6 +2372,7 @@ SMODS.Joker {
 	attributes = {
 		"hand_type",
 		"retrigger",
+		"reference"
 	},
 	rarity = 1,
 	cost = 5,
@@ -2413,6 +2424,7 @@ SMODS.Joker {
 	attributes = {
 		"hand_type",
 		"destroy_card",
+		"reference"
 	},
 	rarity = 2,
 	cost = 7,
@@ -2459,6 +2471,7 @@ SMODS.Joker {
 	eternal_compat = true,
 	attributes = {
 		"swap",
+		"reference"
 	},
 	rarity = 2,
 	cost = 6,
@@ -2517,7 +2530,8 @@ SMODS.Joker {
 	attributes = {
 		"modify_card",
 		"chance",
-		"edition"
+		"edition",
+		"reference"
 	},
 	rarity = 3,
 	cost = 9,
@@ -2589,7 +2603,8 @@ SMODS.Joker {
 	attributes = {
 		"retrigger",
 		"copying",
-		"edition"
+		"edition",
+		"reference"
 	},
 	rarity = 2,
 	cost = 8,
@@ -2693,6 +2708,7 @@ SMODS.Joker {
 	eternal_compat = false,
 	attributes = {
 		"on_sell",
+		"reference"
 	},
 	rarity = 3,
 	cost = 15,
@@ -2787,6 +2803,7 @@ SMODS.Joker {
 	perishable_compat = false,
 	attributes = {
 		"on_sell",
+		"reference",
 	},
 	rarity = 3,
 	cost = 15,
@@ -2881,7 +2898,8 @@ SMODS.Joker {
 		"scaling",
 		"rank",
 		"queen",
-		"xmult"
+		"xmult",
+		"reference"
 	},
 	rarity = 3,
 	cost = 9,
@@ -3114,6 +3132,7 @@ SMODS.Joker {
 		"chance",
 		"enhancements",
 		"economy",
+		"reference"
 	},
 	rarity = 1,
 	cost = 6,
@@ -3165,7 +3184,8 @@ SMODS.Joker {
 	attributes = {
 		"scaling",
 		"edition",
-		"economy"
+		"economy",
+		"reference"
 	},
 	rarity = 2,
 	cost = 5,
@@ -3253,7 +3273,8 @@ SMODS.Joker {
 	attributes = {
 		"enhancement",
 		"modify_card",
-		"boss_blind"
+		"boss_blind",
+		"reference"
 	},
 	rarity = 1,
 	cost = 3,
@@ -3349,6 +3370,7 @@ SMODS.Joker {
 	eternal_compat = true,
 	attributes = {
 		"passive",
+		"reference"
 	},
 	rarity = 3,
 	cost = 8,
@@ -3378,7 +3400,8 @@ SMODS.Joker {
 	attributes = {
 		"scaling",
 		"xmult",
-		"boss_blind"
+		"boss_blind",
+		"reference"
 	},
 	rarity = 2,
 	cost = 9,
@@ -3414,7 +3437,8 @@ SMODS.Joker {
 		"passive",
 		"tarot",
 		"planet",
-		"spectral"
+		"spectral",
+		"reference"
 	},
 	rarity = 2,
 	cost = 7,
@@ -3539,7 +3563,8 @@ SMODS.Joker {
 		"seal",
 		"economy",
 		"reset",
-		"full_deck"
+		"full_deck",
+		"reference"
 	},
 	rarity = 2,
 	cost = 12,
@@ -3610,6 +3635,7 @@ SMODS.Joker {
 	eternal_compat = true,
 	attributes = {
 		"xblindsize",
+		"reference"
 	},
 	rarity = 3,
 	cost = 9,
@@ -3649,6 +3675,7 @@ SMODS.Joker {
 	attributes = {
 		"enhancements",
 		"modify_card",
+		"reference"
 	},
 	rarity = 2,
 	cost = 7,
@@ -3741,7 +3768,8 @@ SMODS.Joker {
 	attributes = {
 		"hand_type",
 		"rank",
-		"passive"
+		"passive",
+		"reference"
 	},
 	rarity = 2,
 	cost = 7,
@@ -3813,7 +3841,8 @@ SMODS.Joker {
 		"hand_type",
 		"scaling",
 		"reset",
-		"hand_size"
+		"hand_size",
+		"reference"
 	},
 	rarity = 2,
 	cost = 7,
@@ -3982,7 +4011,8 @@ SMODS.Joker {
 		"eight",
 		"nine",
 		"ten",
-		"chance"
+		"chance",
+		"reference"
 	},
 	rarity = 2,
 	cost = 8,

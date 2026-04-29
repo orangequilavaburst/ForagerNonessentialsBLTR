@@ -15,7 +15,8 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         attributes = {
             "perma_bonus",
             "xmult",
-            "chips"
+            "chips",
+            "reference"
         },
         rarity = 3,
         cost = 1,
@@ -58,7 +59,8 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         attributes = {
             "enhancements",
             "seals",
-            "modify_card"
+            "modify_card",
+            "reference"
         },
         rarity = 1,
         cost = 6,
@@ -120,7 +122,8 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         attributes = {
             "tarot",
             "passive",
-            "generation"
+            "generation",
+            "reference"
         },
         rarity = 1,
         cost = 5,
@@ -145,7 +148,8 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         attributes = {
             "spectral",
             "passive",
-            "generation"
+            "generation",
+            "reference"
         },
         rarity = 3,
         cost = 9,
@@ -197,7 +201,8 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         attributes = {
             "boss_blind",
             "tag",
-            "generation"
+            "generation",
+            "reference"
         },
         rarity = 3,
         cost = 10,
@@ -300,6 +305,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         eternal_compat = true,
         attributes = {
             "retrigger",
+            "reference"
         },
         rarity = 3,
         cost = 8,
@@ -342,6 +348,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         eternal_compat = true,
         attributes = {
             "passive",
+            "reference"
         },
         rarity = 1,
         cost = 6,
@@ -398,7 +405,8 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         attributes = {
             "xmult",
             "scaling",
-            "joker"
+            "joker",
+            "reference"
         },
         rarity = 3,
         cost = 10,
@@ -546,6 +554,7 @@ if elle_mod_exists and J8MOD.config.enable_crossmod_jokers then
         attributes = {
             "enhancements",
             "generation",
+            "reference"
         },
         rarity = 1,
         cost = 4,
