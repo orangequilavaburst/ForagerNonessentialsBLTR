@@ -1,4 +1,4 @@
-# Balatro: Forager Nonessentials (v1.0)
+# Balatro: Forager Nonessentials (v1.1.4)
 
 [![Balatro: Forager Nonessentials Thumbnail](http://img.youtube.com/vi/dY7gUqvkbbA/0.jpg)](http://www.youtube.com/watch?v=dY7gUqvkbbA "Balatro: Forager Nonessentials (v1.0) - Trailer")
 
@@ -35,7 +35,7 @@ As of v1.1.4 of **Forager Nonessentials**, four mods will have special interacti
 - [**Ortalab**](https://github.com/EremelMods/Ortalab) - Adds 5 new Jokers
 - [**WaffleMod**](https://github.com/DoctorWafflePhD/WaffleMod) - Reference Joker compatibility
 
-All three mods are not required to be installed at once in order for the content to be included; each respective mod's additions will show up individually. Cross-mod content can be enabled and disabled in the Config tab of the mod - `Mods > Forager Nonessentials > Config`.
+All four mods are not required to be installed at once in order for the content to be included; each respective mod's additions will show up individually. Cross-mod content that adds new content like Jokers can be enabled and disabled in the Config tab of the mod - `Mods > Forager Nonessentials > Config`.
 
 ## Credits
 
