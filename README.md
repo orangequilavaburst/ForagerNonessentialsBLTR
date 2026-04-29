@@ -29,10 +29,11 @@ Buttons to discover and un-discover all Jokers exist on the config menu if you p
 
 ### Mod Cross Compatibility
 
-As of v1.0 of **Forager Nonessentials**, three mods will have special interactions when installed:
+As of v1.1.4 of **Forager Nonessentials**, four mods will have special interactions when installed:
 - [**The Undertale/Deltarune mod**](https://drive.google.com/drive/folders/19Tz5EzexavngDiuRV6rVp3KkDizFKz9D) - Adds 5 new Jokers
 - [**ellejokers**](https://github.com/ellestuff/ellejokers) - Adds 5 new Jokers
 - [**Ortalab**](https://github.com/EremelMods/Ortalab) - Adds 5 new Jokers
+- [**WaffleMod**](https://github.com/DoctorWafflePhD/WaffleMod) - Reference Joker compatibility
 
 All three mods are not required to be installed at once in order for the content to be included; each respective mod's additions will show up individually. Cross-mod content can be enabled and disabled in the Config tab of the mod - `Mods > Forager Nonessentials > Config`.
 
