@@ -941,6 +941,10 @@ return {
                 name = "Reference",                  -- This is the same across all reference tooltips
                 text = { "StreetPass", "Mii Plaza" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
             },
+            r_j_j8mod_the_world_revolving = {
+                name = "Reference",    -- This is the same across all reference tooltips
+                text = { "Deltarune" } -- Sub out "Deltarune" for whatever media your Joker is a reference to
+            },
             r_j_j8mod_spider_bake_sale = {
                 name = "Reference",
                 text = { "Undertale" }
@@ -995,7 +999,7 @@ return {
             },
             r_j_j8mod_xellejokers_lazy_worm = {
                 name = "Reference",
-                text = { { "The Binding", "of Isaac" }, { "Lazy Mattman" } }
+                text = { "The Binding", "of Isaac", "(and LazyMattman)" }
             },
             r_j_j8mod_xellejokers_audience_participation = {
                 name = "Reference",
