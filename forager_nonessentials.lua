@@ -2213,6 +2213,7 @@ SMODS.Atlas {
 	px = 71, py = 95
 }
 
+--[[
 SMODS.Atlas({
 	key = "modicon",
 	path = "modicon.png",
@@ -2220,6 +2221,7 @@ SMODS.Atlas({
 	py = 34,
 	atlas_table = "ASSET_ATLAS"
 })
+]]
 
 -- ## POOLS ##
 
@@ -2424,7 +2426,7 @@ end
 local create_card_hook = create_card
 function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
 	if (G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic"
-	and G.GAME.round ~= 0 and area == G.consumeables) then
+			and G.GAME.round ~= 0 and area == G.consumeables) then
 		forced_key = replace_with_player_consumable(_type) or forced_key
 	end
 	return create_card_hook(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
@@ -2433,7 +2435,7 @@ end
 local add_joker_hook = add_joker
 function add_joker(joker, edition, silent, eternal)
 	if (G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic"
-	and G.GAME.round ~= 0 and G.P_CENTERS[joker].consumeable) then
+			and G.GAME.round ~= 0 and G.P_CENTERS[joker].consumeable) then
 		joker = replace_with_player_consumable(_type) or joker
 	end
 	return add_joker_hook(joker, edition, silent, eternal)
@@ -2442,7 +2444,7 @@ end
 local SMODS_create_card_hook = SMODS.create_card
 function SMODS.create_card(t)
 	if (G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic"
-	and G.GAME.round ~= 0 and t.area == G.consumeables) then
+			and G.GAME.round ~= 0 and t.area == G.consumeables) then
 		t.key = replace_with_player_consumable(_type) or t.key
 	end
 	return SMODS_create_card_hook(t)
@@ -2451,7 +2453,7 @@ end
 local SMODS_add_card_hook = SMODS.add_card
 function SMODS.add_card(t)
 	if (G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic"
-	and G.GAME.round ~= 0 and t.area == G.consumeables) then
+			and G.GAME.round ~= 0 and t.area == G.consumeables) then
 		t.key = replace_with_player_consumable(_type) or t.key
 	end
 	return SMODS_add_card_hook(t)
@@ -2509,10 +2511,10 @@ SMODS.DrawStep({
 	order = 5,
 	func = function(card, layer)
 		if (
-			card.back == "selected_back" and G.GAME.selected_back.effect.center.key == "b_j8mod_waterproof"
-		) or (
-			card.back == "viewed_back" and G.GAME.viewed_back.effect.center.key == "b_j8mod_waterproof"
-		) then
+				card.back == "selected_back" and G.GAME.selected_back.effect.center.key == "b_j8mod_waterproof"
+			) or (
+				card.back == "viewed_back" and G.GAME.viewed_back.effect.center.key == "b_j8mod_waterproof"
+			) then
 			card.children.back:draw_shader('booster', nil, card.ARGS.send_to_shader, true)
 		end
 	end,
@@ -2752,7 +2754,7 @@ function spindown(card, amount, allcards)
 		new_key = G.P_CENTER_POOLS[set][index].key
 		-- In Hypnotic Deck, only randomizes the first spun-down consumable of its set; the rest copy
 		if G.GAME.selected_back and G.GAME.selected_back.effect and G.GAME.selected_back.effect.center
-		and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic" and card.ability.consumeable and allcards then
+			and G.GAME.selected_back.effect.center.key == "b_j8mod_hypnotic" and card.ability.consumeable and allcards then
 			for k, v in pairs(allcards) do
 				if v.ability.set == set then
 					if (card.area ~= G.pack_cards) and (v ~= card) then
