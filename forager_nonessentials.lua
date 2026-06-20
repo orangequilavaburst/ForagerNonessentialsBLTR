@@ -2395,6 +2395,14 @@ end
 
 ]]
 
+
+-- This hook is for Cyber Niri's rewrite
+local rrs =  G.FUNCS.reroll_shop
+function G.FUNCS.reroll_shop(e)
+	SMODS.calculate_context({j8bit_pre_reroll = true})
+	return rrs(e)
+end
+
 local cardarea_emplace_hook = CardArea.emplace
 function CardArea:emplace(card, location, stay_flipped)
 	local ret = cardarea_emplace_hook(self, card, location, stay_flipped)
