@@ -4244,7 +4244,7 @@ SMODS.Joker {
 		if context.j8bit_pre_reroll and not context.blueprint then
 			local num_boosters = 2 + (G.GAME.modifiers.extra_boosters or 0)
 			local num_vouchers = 1 + (G.GAME.modifiers.extra_vouchers or 0)
-			
+
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					for index, voucher in ipairs(G.shop_vouchers.cards) do
@@ -4253,17 +4253,17 @@ SMODS.Joker {
 						voucher:juice_up(0.3, 0.3)
 						create_shop_card_ui(voucher, 'Voucher', G.shop_vouchers)
 					end
-					for i = 1, num_vouchers-#G.shop_vouchers.cards do 
+					for i = 1, num_vouchers - #G.shop_vouchers.cards do
 						SMODS.add_voucher_to_shop(nil, true)
 					end
 					for index, booster in ipairs(G.shop_booster.cards) do
-						local key = SMODS.poll_object({type = 'Booster'})
+						local key = SMODS.poll_object({ type = 'Booster' })
 						booster:set_ability(key)
 						booster:juice_up(0.3, 0.3)
 						create_shop_card_ui(booster, 'Booster', G.shop_booster)
-					--	G.shop_booster:emplace(booster)
+						--	G.shop_booster:emplace(booster)
 					end
-					for i = 1, num_boosters-#G.shop_booster.cards do
+					for i = 1, num_boosters - #G.shop_booster.cards do
 						SMODS.add_booster_to_shop()
 					end
 					SMODS.calculate_effect({
