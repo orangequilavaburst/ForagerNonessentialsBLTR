@@ -11,7 +11,7 @@ J8MOD.Fusion_Ingredients = {
 J8MOD.add_fusion = function(fusion_key, joker_ingredient_keys, joker_result_key, button_text_loc_key,
                             fusion_loc_key, button_colour, needs_deltarune)
     -- add listing for fusion
-    local true_fusion_key = SMODS.current_mod.prefix .. fusion_key
+    local true_fusion_key = SMODS.current_mod.prefix .. "_" .. fusion_key
     local button_func_key = J8MOD.prefix .. "_fusion_button_" .. fusion_key
     J8MOD.Fusions[true_fusion_key] = {
         joker_ingredient_keys = joker_ingredient_keys,
@@ -55,12 +55,12 @@ J8MOD.make_fusion_button_click_function = function(fusion_table)
         local card = e.config.ref_table -- access the card this button was on
 
         local ingredient_cards = {}
-        local edition = nil
+        local editions = {}
         for i, joker_key in ipairs(fusion_table.joker_ingredient_keys) do
             local ingredient_joker = SMODS.find_card(joker_key)[1]
             table.insert(ingredient_cards, ingredient_joker)
-            if ingredient_joker.edition and edition == nil then
-                edition = ingredient_joker.edition
+            if ingredient_joker.edition then
+                table.insert(editions, ingredient_joker.edition)
             end
         end
 
@@ -139,7 +139,7 @@ J8MOD.make_fusion_button_click_function = function(fusion_table)
             trigger = 'after',
             func = function()
                 play_sound('timpani')
-                fusion_card = SMODS.create_card { key = fusion_table.joker_result_key, edition = edition, no_edition = edition == nil }
+                fusion_card = SMODS.create_card { key = fusion_table.joker_result_key, edition = #editions > 0 and pseudorandom_element(editions, "j8mod_fusion_edition") or nil, no_edition = #editions <= 0 }
                 fusion_card.T.x = mid_x
                 fusion_card.T.y = mid_y
                 fusion_card.VT.x = mid_x
