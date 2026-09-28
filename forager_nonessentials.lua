@@ -8,6 +8,7 @@ local j8mod_name = J8MOD.name
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/decks.lua"))()
 assert(SMODS.load_file("src/cross-mod.lua"))()
+assert(SMODS.load_file("src/fusion.lua"))()
 assert(SMODS.load_file("config.lua"))()
 
 J8MOD.optional_features = {
@@ -2397,9 +2398,9 @@ end
 
 
 -- This hook is for Cyber Niri's rewrite
-local rrs =  G.FUNCS.reroll_shop
+local rrs = G.FUNCS.reroll_shop
 function G.FUNCS.reroll_shop(e)
-	SMODS.calculate_context({j8bit_pre_reroll = true})
+	SMODS.calculate_context({ j8bit_pre_reroll = true })
 	return rrs(e)
 end
 
@@ -2491,6 +2492,13 @@ SMODS.Gradient({
 	cycle = 5,
 	interpolation = 'trig'
 })
+
+-- ## FUSIONS
+
+SMODS.current_mod.add_fusion("mizzmanaged", { "j_UTDR_tasque_manager", "j_UTDR_missmizzle" }, "j_j8mod_mizzmanaged",
+	'j8mod_activate_yuri', 'j8mod_yuri', SMODS.Gradients["j8mod_lesbian"], true)
+SMODS.current_mod.add_fusion("playerfriend", { "j_UTDR_FRIEND", "j_UTDR_vessel" }, "j_j8mod_xUTDR_playerfriend",
+	'j8mod_activate_friend', 'j8mod_friend', SMODS.Gradients["j8mod_friend"], false)
 
 -- ## SHADERS ##
 
