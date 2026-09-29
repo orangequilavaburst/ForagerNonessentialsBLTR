@@ -583,6 +583,7 @@ J8MOD.credits_list = {
 		"TheOneGoofAli",
 		"Viomarks",
 		"ellestuff.",
+		"scruby",
 		"Submarine Screw",
 		"Dr. Spectred",
 		"Roffle",
@@ -625,7 +626,7 @@ SMODS.current_mod.extra_tabs = function()
 						text = header,
 						colour = G.C.UI.TEXT_LIGHT,
 						scale = 0.325,
-						padding = 0.25
+						padding = 0.325
 					}
 				},
 			}
@@ -634,17 +635,17 @@ SMODS.current_mod.extra_tabs = function()
 			table.insert(credits_subnodes, {
 				n = G.UIT.R,
 				config = {
-					align = "cm"
+					align = "cl"
 				},
 				nodes = {
 					{
 						n = G.UIT.T,
 						config = {
-							align = 'cm',
+							align = 'cl',
 							text = name,
 							colour = G.C.UI.TEXT_LIGHT,
 							scale = 0.25,
-							padding = 0.05
+							padding = 0.01
 						}
 					},
 				}
@@ -657,7 +658,7 @@ SMODS.current_mod.extra_tabs = function()
 				r = 0.1,
 				colour = G.C.TEXT_DARK,
 				outline = 1,
-				outline_colour = G.C.TEXT_LIGHT,
+				outline_colour = G.C.L_BLACK,
 				emboss = 0.1,
 				padding = 0.05,
 				minw = 2,
@@ -676,7 +677,7 @@ SMODS.current_mod.extra_tabs = function()
 					config = {
 						r = 0.1,
 						align = "tm",
-						padding = 0.2,
+						padding = 0.1,
 						colour = G.C.BLACK
 					},
 					nodes = {
@@ -1382,6 +1383,10 @@ function spindown(card, amount, allcards)
 		end
 
 		card:set_ability(new_key)
+		card:set_cost()
+		if card.area == G.shop_vouchers or card.area == G.shop_jokers or card.area == G.shop_booster then
+			create_shop_card_ui(card, set, card.area)
+		end
 	end
 end
 

@@ -779,9 +779,8 @@ return {
             j_j8mod_xUTDR_tactical_dreemurr = {
                 name = "Tactical Dreemurr",
                 text = {
-                    "Creates a random {C:attention}Tag{}",
-                    "if played hand triggers the",
-                    "{C:attention}Boss Blind{} ability",
+                    "If played hand is a single {C:attention}#1#,",
+                    "destroy it and create a random {C:attention}Tag{}",
                 },
             },
             j_j8mod_xellejokers_fizz_fizzle = {

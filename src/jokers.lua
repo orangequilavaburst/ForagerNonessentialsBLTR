@@ -1388,7 +1388,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	attributes = {
-		"rank",
+		"hand_level",
 	},
 	rarity = 3,
 	cost = 10,
@@ -2951,6 +2951,7 @@ SMODS.Joker {
 		"on_sell",
 		"planet",
 		"scaling",
+		"chips",
 		"mult"
 	},
 	rarity = 1,
@@ -3690,8 +3691,9 @@ SMODS.Joker {
 	eternal_compat = true,
 	attributes = {
 		"enhancements",
-		"modify_card",
-		"reference"
+		"reference",
+		"hand_level",
+		"space"
 	},
 	rarity = 2,
 	cost = 7,

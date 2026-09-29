@@ -199,27 +199,31 @@ if utdr_mod_exists and J8MOD.config.enable_crossmod_jokers then
         perishable_compat = true,
         eternal_compat = true,
         attributes = {
+            "rank",
+            "ace",
             "boss_blind",
             "tag",
             "generation",
             "reference"
         },
-        rarity = 3,
-        cost = 10,
+        rarity = 2,
+        cost = 7,
         atlas = "j8jokers-dlc",
         pos = { x = 4, y = 0 },
         discovered = false,
         unlocked = true,
         dependencies = { "UTDR" },
+        config = { extra = { rank = 'Ace' } },
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = { key = "credits_submarine_screw", set = "Other" }
             info_queue[#info_queue + 1] = { key = "oc_credits_submarine_screw", set = "Other" }
-            return {}
+            return { vars = { localize(card.ability.extra.rank, 'ranks') or 'Ace' } }
         end,
         calculate = function(self, card, context)
-            if context.debuffed_hand or context.joker_main then
-                if G.GAME.blind.triggered then
+            if context.destroy_card and not context.blueprint then
+                if #context.full_hand == 1 and context.destroy_card == context.full_hand[1] and context.full_hand[1]:get_id() == SMODS.Ranks[card.ability.extra.rank].id then
                     return {
+                        remove = true,
                         message = localize("j8mod_tagged_ex"),
                         colour = G.C.GREEN,
                         func = function()
