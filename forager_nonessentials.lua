@@ -52,7 +52,7 @@ SMODS.current_mod.custom_ui = function(mod_nodes)
 									colour = G.C.CLEAR
 								},
 								nodes = {
-									{ n = G.UIT.T, config = { text = "Forager Nonessentials v1.0", scale = .75, colour = G.C.WHITE } }
+									{ n = G.UIT.T, config = { text = "Forager Nonessentials v1.2", scale = .75, colour = G.C.WHITE } }
 								}
 							}
 						}
@@ -725,6 +725,15 @@ SMODS.current_mod.extra_tabs = function()
 end
 
 -- ## JOKER ATLASES ##
+
+SMODS.Atlas {
+
+	key = "j8jokers-temp",
+	path = "jokers-placeholder.png",
+	px = 71,
+	py = 95
+
+}
 
 SMODS.Atlas {
 

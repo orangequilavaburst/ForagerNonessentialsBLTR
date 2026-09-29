@@ -1389,7 +1389,6 @@ SMODS.Joker {
 	eternal_compat = true,
 	attributes = {
 		"rank",
-		"modify_card"
 	},
 	rarity = 3,
 	cost = 10,
@@ -1397,74 +1396,35 @@ SMODS.Joker {
 	pos = { x = 2, y = 2 },
 	discovered = false,
 	unlocked = true,
+	config = { extra = { hands = {} } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { vars = { localize("k_poker_hand") } }
 	end,
 	calculate = function(self, card, context)
-		-- level up
-		if context.before then
-			local ranks_in_hand = {}
-			for _, scored_card in ipairs(context.scoring_hand) do
-				--print(tostring(scored_card.debuff) .. " " .. tostring(SMODS.has_no_rank(scored_card)))
-				if not (scored_card.debuff or SMODS.has_no_rank(scored_card)) then
-					table.insert(ranks_in_hand, scored_card.base.value)
-				end
-			end
-			if #ranks_in_hand > 0 then
-				return {
-					level_up = true,
-					message = localize('k_level_up_ex')
-				}
+		-- start of blind
+		if context.setting_blind and not context.blueprint then
+			card.ability.extra.hands = {}
+			for _, poker_hand in ipairs(G.handlist) do
+				card.ability.extra.hands[poker_hand] = false
 			end
 		end
 		-- debuff
-		if context.final_scoring_step and not context.blueprint then
-			local ranks_in_hand = {}
-			for _, scored_card in ipairs(context.scoring_hand) do
-				--print(tostring(scored_card.debuff) .. " " .. tostring(SMODS.has_no_rank(scored_card)))
-				if not (scored_card.debuff or SMODS.has_no_rank(scored_card)) then
-					table.insert(ranks_in_hand, scored_card.base.value)
-				end
-			end
-			if #ranks_in_hand > 0 then
+		if context.debuff_hand then
+			if card.ability.extra.hands[context.scoring_name] and not context.blueprint then
 				return {
-					message = localize('k_debuffed'),
-					message_card = card,
-					colour = G.C.RED,
-					func = function()
-						G.E_MANAGER:add_event(Event({
-							trigger = "after",
-							func = function()
-								for _, playing_card in ipairs(G.playing_cards) do
-									for i = 1, #ranks_in_hand do
-										if playing_card.base.value == ranks_in_hand[i] and not SMODS.has_no_rank(playing_card) then
-											playing_card:juice_up()
-											SMODS.debuff_card(playing_card, true, 'j8mod_breakerbox')
-											break
-										end
-									end
-								end
-								return true
-							end
-						}))
-						delay(0.5)
-						return true
-					end
+					debuff = true
 				}
 			end
-		end
-		-- reset debuff at end of round
-		if context.end_of_round and not context.blueprint then
-			for _, playing_card in ipairs(G.playing_cards) do
-				SMODS.debuff_card(playing_card, false, 'j8mod_breakerbox')
+			if not context.check then
+				if not context.blueprint then
+					card.ability.extra.hands[context.scoring_name] = true
+				end
+				return {
+					level_up = 1,
+					message = localize('k_level_up_ex'),
+				}
 			end
-		end
-	end,
-	remove_from_deck = function(self, card, from_debuff)
-		for _, playing_card in ipairs(G.playing_cards) do
-			SMODS.debuff_card(playing_card, false, 'j8mod_breakerbox')
-			SMODS.recalc_debuff(playing_card)
 		end
 	end
 }
@@ -2149,7 +2109,7 @@ SMODS.Joker {
 	end,
 	calculate = function(self, card, context)
 		-- thanks, somethingcom515 !
-		if context.setting_blind and not context.blueprint then
+		if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
 			card.ability.extra.enhancement_type = pseudorandom_element(G.P_CENTER_POOLS.Enhanced, 'j8mod_geode').key
 			local it = 0
 			while (card.ability.extra.enhancement_type == "m_stone" or card.ability.extra.enhancement_type == "m_wild" or card.ability.extra.enhancement_type == "m_ortalab_sand" or card.ability.extra.enhancement_type == "m_ortalab_index" or card.ability.extra.enhancement_type == "m_ellejokers_copycat") do
@@ -2157,10 +2117,6 @@ SMODS.Joker {
 					'j8mod_geode_resample' .. it).key
 				it = it + 1
 			end
-			return {
-				message = localize { type = 'name_text', set = "Enhanced", key = card.ability.extra.enhancement_type } ..
-					"!"
-			}
 		end
 		if context.check_enhancement and context.other_card.config.center_key == "m_stone" then
 			return {
@@ -2917,7 +2873,7 @@ SMODS.Joker {
 		end
 	},
 	]]
-	config = { extra = { Xmult_gain = 0.125, Xmult_extra = 0.25, Xmult = 1 } },
+	config = { extra = { Xmult_gain = 0.1, Xmult_extra = 0.25, Xmult = 1 } },
 	loc_vars = function(self, info_queue, card)
 		if J8MOD.config.no_deltarune_spoilers then
 			info_queue[#info_queue + 1] = { key = "credits_mario_santos", set = "Other" }
@@ -3003,7 +2959,7 @@ SMODS.Joker {
 	pos = { x = 0, y = 4 },
 	discovered = false,
 	unlocked = true,
-	config = { extra = { mult = 0, mult_inc = 5 } },
+	config = { extra = { chips = 0, mult = 0 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_vjb", set = "Other" }
 		if not J8MOD.config.furry_mode then
@@ -3012,23 +2968,29 @@ SMODS.Joker {
 			info_queue[#info_queue + 1] = { key = "oc_credits_sift", set = "Other" }
 			info_queue[#info_queue + 1] = { key = "oc_pronouns_hehim", set = "Other" }
 		end
-		return { vars = { card.ability.extra.mult, card.ability.extra.mult_inc, localize("k_planet") } }
+		return { vars = { card.ability.extra.chips, card.ability.extra.mult, localize("k_planet"), colours = { G.C.SECONDARY_SET.Planet } } }
 	end,
 	calculate = function(self, card, context)
 		-- selling
 		if context.selling_card and not context.blueprint then
 			if context.card.ability.set == "Planet" then
 				-- See note about SMODS Scaling Manipulation on the wiki
-				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_inc
-				return {
-					message = localize('k_upgrade_ex'),
-					colour = G.C.SECONDARY_SET.Planet
-				}
+				if context.card.ability.hand_type then
+					card.ability.extra.chips = card.ability.extra.chips +
+						G.GAME.hands[context.card.ability.hand_type].l_chips / 2.0
+					card.ability.extra.mult = card.ability.extra.mult +
+						G.GAME.hands[context.card.ability.hand_type].l_mult / 2.0
+					return {
+						message = localize('k_upgrade_ex'),
+						colour = G.C.SECONDARY_SET.Planet
+					}
+				end
 			end
 		end
 		-- scoring
 		if context.joker_main then
 			return {
+				chips = card.ability.extra.chips,
 				mult = card.ability.extra.mult
 			}
 		end
@@ -3200,6 +3162,7 @@ SMODS.Joker {
 		return { vars = { card.ability.extra.money_current, card.ability.extra.money_max, localize({ type = "name_text", key = 'e_negative', set = 'Edition', config = { extra = 1 } }) } }
 	end,
 	calculate = function(self, card, context)
+		-- buying item
 		if (context.buying_card or context.buying_voucher or context.open_booster) and not context.buying_self and context.card ~= card and not context.blueprint then
 			if context.card and context.card.cost > 0 then
 				card.ability.extra.money_current = card.ability.extra.money_current + context.card.cost
@@ -3210,42 +3173,89 @@ SMODS.Joker {
 						colour = G.C.MONEY
 					},
 					card)
-			end
-
-			if card.ability.extra.money_current >= card.ability.extra.money_max then
-				SMODS.calculate_effect({
-						trigger = "after",
-						delay = 1.0,
-						message = localize('k_upgrade_ex'),
-						colour = G.C.MONEY,
-						func = function()
-							local possible_cards = {}
-							if #G.jokers.cards > 1 then
-								for i, joker in ipairs(G.jokers.cards) do
-									if joker ~= card and not joker.edition then
-										table.insert(possible_cards, joker)
-									end
-								end
-							end
-							G.E_MANAGER:add_event(Event({
-								trigger = 'after',
-								delay = 0.5,
-								func = function()
-									if #possible_cards > 0 then
-										local eligible_card = pseudorandom_element(possible_cards,
-											'j8mod_expansion_plans')
-										if eligible_card ~= nil then
-											eligible_card:set_edition({ negative = true })
+				if card.ability.extra.money_current >= card.ability.extra.money_max then
+					SMODS.calculate_effect({
+							trigger = "after",
+							delay = 1.0,
+							message = localize('k_upgrade_ex'),
+							colour = G.C.MONEY,
+							func = function()
+								local possible_cards = {}
+								if #G.jokers.cards > 1 then
+									for i, joker in ipairs(G.jokers.cards) do
+										if joker ~= card and not joker.edition then
+											table.insert(possible_cards, joker)
 										end
 									end
-									SMODS.destroy_cards(card)
-									return true
 								end
-							}))
-							return true
-						end
+								G.E_MANAGER:add_event(Event({
+									trigger = 'after',
+									delay = 0.5,
+									func = function()
+										if #possible_cards > 0 then
+											local eligible_card = pseudorandom_element(possible_cards,
+												'j8mod_expansion_plans')
+											if eligible_card ~= nil then
+												eligible_card:set_edition({ negative = true })
+											end
+										end
+										SMODS.destroy_cards(card)
+										return true
+									end
+								}))
+								return true
+							end
+						},
+						card)
+				end
+			end
+		end
+		-- reroll
+		if context.reroll_shop and not context.blueprint then
+			if context.cost > 0 then
+				card.ability.extra.money_current = card.ability.extra.money_current + context.cost
+				SMODS.calculate_effect({
+						trigger = "after",
+						delay = 0.5,
+						message = localize('k_upgrade_ex'),
+						colour = G.C.MONEY
 					},
 					card)
+				if card.ability.extra.money_current >= card.ability.extra.money_max then
+					SMODS.calculate_effect({
+							trigger = "after",
+							delay = 1.0,
+							message = localize('k_upgrade_ex'),
+							colour = G.C.MONEY,
+							func = function()
+								local possible_cards = {}
+								if #G.jokers.cards > 1 then
+									for i, joker in ipairs(G.jokers.cards) do
+										if joker ~= card and not joker.edition then
+											table.insert(possible_cards, joker)
+										end
+									end
+								end
+								G.E_MANAGER:add_event(Event({
+									trigger = 'after',
+									delay = 0.5,
+									func = function()
+										if #possible_cards > 0 then
+											local eligible_card = pseudorandom_element(possible_cards,
+												'j8mod_expansion_plans')
+											if eligible_card ~= nil then
+												eligible_card:set_edition({ negative = true })
+											end
+										end
+										SMODS.destroy_cards(card)
+										return true
+									end
+								}))
+								return true
+							end
+						},
+						card)
+				end
 			end
 		end
 	end,
@@ -3378,7 +3388,7 @@ SMODS.Joker {
 	discovered = false,
 	unlocked = true,
 	pos = { x = 7, y = 4 },
-	config = { extra = { booster_mod = 1 } },
+	config = { extra = { booster_mod = 2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_neognw", set = "Other" }
 		return { vars = { card.ability.extra.booster_mod } }
@@ -3510,7 +3520,7 @@ SMODS.Joker {
 	perishable_compat = true,
 	eternal_compat = true,
 	pos = { x = 0, y = 0 },
-	config = { extra = { Xmult = 3 } },
+	config = { extra = { Xmult = 2.5 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		return { key = J8MOD.config.no_deltarune_spoilers and "j_j8mod_sleight_of_hand" or "j_j8mod_the_world_revolving", vars = { card.ability.extra.Xmult } }
@@ -3642,23 +3652,29 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = false,
 	pos = { x = 2, y = 5 },
-	config = { extra = { blind_multiplier = 0.25 } },
+	config = { extra = { blind_multiplier = 1.0 / 3.0, rerolled = false } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_gimmick", set = "Other" }
 		return { vars = { number_format((card.ability.extra.blind_multiplier) * 100) } }
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind then
-			-- Reduce blind's requirement by 50%
-			G.GAME.blind.chips = math.floor(G.GAME.blind.chips -
-				G.GAME.blind.chips * (card.ability.extra.blind_multiplier or 1.0))
-			G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-			SMODS.juice_up_blind()
-			return {
-				message = localize("j8mod_reduced_ex"),
-				message_card = card,
-				colour = G.C.UI.TEXT_DARK
-			}
+			if not card.ability.extra.rerolled then
+				-- Reduce blind's requirement by 50%
+				G.GAME.blind.chips = math.floor(G.GAME.blind.chips -
+					G.GAME.blind.chips * (card.ability.extra.blind_multiplier or 1.0))
+				G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+				SMODS.juice_up_blind()
+				return {
+					message = localize("j8mod_reduced_ex"),
+					message_card = card,
+					colour = G.C.UI.TEXT_DARK
+				}
+			end
+			card.ability.extra.rerolled = false
+		end
+		if context.reroll_shop and not context.blueprint and not card.ability.extra.rerolled then
+			card.ability.extra.rerolled = true
 		end
 	end,
 	in_pool = function(self, args)
@@ -3682,62 +3698,36 @@ SMODS.Joker {
 	atlas = "j8jokers",
 	discovered = false,
 	pos = { x = 3, y = 5 },
-	config = { extra = { rank_inc = 1, old = {} } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
 		info_queue[#info_queue + 1] = { key = "credits_overgrownrobot", set = "Other" }
-		return { vars = { card.ability.extra.rank_inc, localize({ type = 'name_text', set = "Enhanced", key = "m_wild" }) or 'Wild Card' } }
+		return { vars = { localize({ type = 'name_text', set = "Enhanced", key = "m_wild" }) or 'Wild Card', localize("k_poker_hand") } }
 	end,
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and not context.other_card.debuff and
 			SMODS.has_enhancement(context.other_card, 'm_wild') then
-			local idx = 0
-			local current_card = context.other_card
-			for k, v in pairs(context.scoring_hand) do
-				if v == current_card then
-					idx = k
-					if not card.ability.extra.old[k] then
-						card.ability.extra.old[k] = {
-							front = current_card.config.card
-						}
-					end
-					break
-				end
-			end
-			SMODS.modify_rank(current_card, card.ability.extra.rank_inc)
-			local new_front = current_card.config.card
-			if idx ~= 0 then
-				current_card:set_sprites(nil, card.ability.extra.old[idx].front)
-				SMODS.recalc_debuff(context.other_card)
-			end
+			local my_card = context.other_card
 			return {
 				message = localize('k_upgrade_ex'),
 				colour = G.C.SECONDARY_SET.Enhanced,
 				func = function()
 					G.E_MANAGER:add_event(Event({
-						trigger = 'immediate',
 						func = function()
-							current_card:flip()
+							SMODS.upgrade_poker_hands({
+								hands = { context.scoring_name },
+								from = card,
+								func = function(base, hand, param, level_up)
+									local inc = 0
+									if param == "chips" then
+										inc = my_card.base.nominal
+									end
+									return base + inc
+								end
+							})
 							return true
 						end
 					}))
-					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
-						delay = 0.2,
-						func = function()
-							current_card:set_sprites(nil, new_front)
-							card.ability.extra.old[idx] = nil
-							return true
-						end
-					}))
-					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
-						delay = 0.2,
-						func = function()
-							current_card:flip()
-							return true
-						end
-					}))
+					return true
 				end
 			}
 		end
@@ -4164,13 +4154,28 @@ SMODS.Joker {
 	},
 	rarity = 4,
 	cost = 20,
-	config = { extra = { extra_boosters = 2, extra_vouchers = 1 } },
+	config = { extra = { extra_boosters = 1, extra_vouchers = 1, x_mult = 1, x_mult_inc = 0.2 } },
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "credits_suplex", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_credits_j8", set = "Other" }
 		info_queue[#info_queue + 1] = { key = "oc_pronouns_sheher", set = "Other" }
-		return { vars = { card.ability.extra.extra_boosters, card.ability.extra.extra_vouchers } }
+		return { vars = { card.ability.extra.extra_boosters, card.ability.extra.extra_vouchers, card.ability.extra.x_mult, card.ability.extra.x_mult_inc } }
+	end,
+	calculate = function(self, card, context)
+		if context.open_booster and not context.blueprint then
+			card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_inc
+			return {
+				message = localize('k_upgrade_ex'),
+				colour = G.C.MULT,
+				message_card = card
+			}
+		end
+		if context.joker_main then
+			return {
+				xmult = card.ability.extra.x_mult
+			}
+		end
 	end,
 	add_to_deck = function(self, card, from_debuff)
 		SMODS.change_booster_limit(card.ability.extra.extra_boosters)

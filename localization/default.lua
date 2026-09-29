@@ -308,10 +308,8 @@ return {
                 text = {
                     "Upgrades level of",
                     "played {C:attention}#1#{}",
-                    "{C:red}Debuffs{} all scoring ranks",
-                    "until end of round",
-                    "{C:inactive,s:0.8}(Only works if scoring hand contains at",
-                    "{C:inactive,s:0.8}least one ranked and non-debuffed card)"
+                    "Prevents repeat hand",
+                    "types from scoring",
                 },
             },
             j_j8mod_monster_card = {
@@ -371,8 +369,7 @@ return {
                 text = {
                     "Each {C:attention}#2#{} acts as",
                     "a random {C:attention}Enhancement{}",
-                    "Enhancement changes",
-                    "when {C:attention}Blind{} is selected",
+                    "{s:0.8}Enhancement changes each round",
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive})",
                 }
             },
@@ -502,9 +499,10 @@ return {
             j_j8mod_planetary_domination = {
                 name = "Planetary Domination",
                 text = {
-                    "This Joker gains {C:mult}+#2#{} Mult",
-                    "for each {C:planet}#3#{} card sold",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
+                    "This Joker gains {C:attention}half{}",
+                    "the Chips and Mult from",
+                    "a sold {V:1}#3#{} card",
+                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{C:inactive,s:0.8} Chips and {C:mult,s:0.8}+#2#{C:inactive,s:0.8} Mult)",
                 },
             },
             j_j8mod_citysweeper = {
@@ -531,7 +529,7 @@ return {
                     "After spending {C:money}$#2#{} in the shop,",
                     "{C:red}destroy this card{} and add {C:dark_edition}#3#{}",
                     "to a random {C:attention}Joker{} you own",
-                    "{s:0.8}Rerolls not included",
+                    "{s:0.8}Rerolls included",
                     "{C:inactive}(Currently {C:attention}$#1#{C:inactive}/$#2#)"
                 },
             },
@@ -560,7 +558,8 @@ return {
                 name = "Puzzle Swap",
                 text = {
                     "When {C:attention}Blind{} is selected,",
-                    "{C:green}reroll{} held {C:attention}consumables{}"
+                    "{C:green}reroll{} held {C:attention}consumables{}",
+                    "into another of the same type"
                 },
             },
             j_j8mod_the_world_revolving = {
@@ -595,14 +594,18 @@ return {
                 name = "Dreambreaker",
                 text = {
                     "Reduce Blind score",
-                    "requirements by {C:red}#1#%{}"
+                    "requirements by {C:red}#1#%{}",
+                    "if no rerolls were used",
+                    "in the previous shop"
                 },
             },
             j_j8mod_marx_soul = {
                 name = "Marx SOUL",
                 text = {
-                    "Increase rank of each",
-                    "scored {C:attention}#2#{} by {C:attention}#1#{}"
+                    "Adds the rank of scored",
+                    "{C:attention}#1#s{} to played",
+                    "{C:attention}#2#'s{} Chips permanently",
+                    "after scoring"
                 },
             },
             j_j8mod_temmie_joker = {
@@ -680,9 +683,15 @@ return {
                     "at the start of a Blind",
                     "{C:inactive}(Currently {C:attention}+#2#{C:inactive})",
                     "{C:inactive}(Next Blind: {C:attention}+#3#{C:inactive})"]]
-                    "{C:attention}+#1#{} initial Booster Packs",
-                    "and {C:attention}+#2#{} initial Vouchers",
-                    "appear in shop"
+                    {
+                        "{C:attention}+#1#{} Booster Packs in shop",
+                        "{C:attention}+#1#{} Vouchers in shop",
+                    },
+                    {
+                        "This Joker gains {X:mult,C:white} X#4# {} Mult",
+                        "for each Booster Pack opened",
+                        "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive}{C:inactive} Mult)",
+                    }
                 },
             },
             j_j8mod_cyber_niri = {
@@ -715,6 +724,23 @@ return {
                     "{C:attention}of a round{} gains a permanent",
                     "additional {X:mult,C:white} X#1# {} Mult"
                 },
+            },
+            j_j8mod_memory_flow = {
+                name = "Memory Overflow",
+                text = {
+                    "Played poker hands count as",
+                    "the poker hand {C:attention}#1#{}",
+                    "it in #2#,",
+                    "switches after hand scores"
+                }
+            },
+            j_j8mod_paparazzi = {
+                name = "Paparazzi",
+                text = {
+                    "Earn {C:money}$#1#{} when a",
+                    "{C:attention}#2# scores",
+                    "{s:0.8}Enhancement changes each round"
+                }
             },
             j_j8mod_xUTDR_playerfriend = {
                 name = "PlayerFRIEND",
